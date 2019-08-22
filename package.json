@@ -1,7 +1,6 @@
 {
   "name": "fullstack_app",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
@@ -11,5 +10,15 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^4.1.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efan8/IT_Project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/efan8/IT_Project/issues"
+  },
+  "homepage": "https://github.com/efan8/IT_Project#readme",
+  "description": ""
 }
