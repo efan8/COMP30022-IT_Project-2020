@@ -35,8 +35,8 @@
       "dateLastModified": Int
     }
   },
-  "artifacts-permissions": {
-    "<artifactID>": {
+  "collections-permissions": {
+    "<collectionID>": {
       "read": {
         "<userID>": Bool
       },
