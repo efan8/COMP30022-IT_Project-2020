@@ -1,0 +1,59 @@
+{
+  "artifacts": {
+    "<ID>": {
+      "name": String,
+      "ownerID": String,
+      "description": String,
+      "imageURL": String,
+      "dateAdded": Int,
+      "originDate": Int,
+      "originLocation": {
+        "lat": Double,
+        "long": Double
+      },
+      "knownLocation": {
+        "lat": Double,
+        "long": Double
+      },
+      "collectionID": String,
+      "tags": {
+        "<tag>": Bool
+      }
+    }
+  },
+  "collections-artifacts": {
+    "<collectionID>": {
+      "<artifactID>": Bool
+    }
+  },
+  "collections": {
+    "<collectionID>": {
+      "name": String,
+      "ownerID": String
+      "description": String,
+      "dateCreated": Int,
+      "dateLastModified": Int
+    }
+  },
+  "artifacts-access": {
+    "<artifactID>": {
+      "read": {
+        "<userID>": Bool
+      },
+      "write": {
+        "<userID>": Bool
+      }
+    }
+  },
+  "users": {
+    "<userID>": {
+      "name": String,
+      "email": String
+    }
+  },
+  "owners-collections": {
+    "<userID>": {
+      "<collectionID>": Bool
+    }
+  }
+}
