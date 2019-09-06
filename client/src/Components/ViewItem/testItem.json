@@ -1,0 +1,11 @@
+{
+    "id" : 1,
+    "ownerId": 1,
+    "name" : "The First Item",
+    "description": "This is the basic description",
+    "imageURL" : "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
+    "collectionID": "collection1",
+    "originDate": "6/9/2019",
+    "originLocation" : "Melbourne",
+    "tags" : {"Tag 1": true, "tag 2": true}
+}
