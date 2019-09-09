@@ -48,15 +48,15 @@ router.put('/artifacts', (req,res) => {
 
 
 
-// the get method
+// the get method - viewing item with specific id in database
 router.get('/artifacts', (req, res) => {
     res.send("Getting artifact");
     const {item_id} = req.body;
     if(!item_id) {
-        // May just return all artifacts here??
-        return res.json({
-            success: false,
-            error: 'INVALID INPUTS',
+        // Return all items
+        firebaseFile.viewAllItems((data, err) => {
+            if (err) return res.json({ success: false, error: err});
+            return res.json({success: true, data: data});
         });
     }
     // get "data" from firebase that matches "item_id"
@@ -111,7 +111,7 @@ app.use(function (err, req, res, next) {
 app.use(function (req, res, next) {
     res.status(404).send("Sorry can't find that!")
   });
-  
+
 app.use('/api', router);
 
 // launch our backend into a port
