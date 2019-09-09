@@ -1,33 +1,74 @@
-const mongoose = require('mongoose');
 const express = require('express');
-var cors = require('cors');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const Data = require('./data');
-
-const API_PORT = 3001;
 const app = express();
-app.use(cors());
 const router = express.Router();
 
-// MongoDB database
-const dbRoute = 
-'mongodb+srv://nmontorio98:testitproject@cluster0-hiyxa.mongodb.net/test?retryWrites=true&w=majority'
-// connexts our back end code with the database
-mongoose.connect(dbRoute, { useNewUrlParser: true});
+const bodyParser = require('body-parser');
 
-let db = mongoose.connection;
+const firebaseFile = require('./firebase.js')
 
-db.once('open', () => console.log('connected to the database'));
 
-//checks if connection with database is successful
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// Not sure if still needed?
+var cors = require('cors');
+app.use(cors());
 
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(logger('dev'));
+
+/*
+Create the endpoints for artifacts only -  GET/artifacts, GET/artifacts/<ID>, PUT/artifacts/<ID>
+
+*/
+
+//const bodyParser = require('body-parser');
+//const API_PORT = 3001;
+
+
+
+
+// put method - creating item in database
+router.put('/artifacts', (req,res) => {
+    // Input an artifact - using firebase.js
+    res.send("Putting artifact");
+    const {name, description} = req.body;
+    if(!name || !description) {
+        return res.json({
+            success: false,
+            error: 'INVALID INPUTS',
+        });
+    }
+    // Will this work asynchronously? 
+
+    // Currently passing argument including artifact info, id for newly created id to be stored in and err for errors
+    firabaseFile.addItem((req.body, id, err) => {
+        if (err) return res.json({ success: false, error: err});
+        return res.json({ success: true, item_id : id});
+    });
+});
+
+
+
+// the get method
+router.get('/artifacts', (req, res) => {
+    res.send("Getting artifact");
+    const {item_id} = req.body;
+    if(!item_id) {
+        // May just return all artifacts here??
+        return res.json({
+            success: false,
+            error: 'INVALID INPUTS',
+        });
+    }
+    // get "data" from firebase that matches "item_id"
+    firebaseFile.viewItem((item_id, data, err) => {
+        if (err) return res.json({ success: false, error: err});
+        return res.json({success: true, data: data});
+    });
+});
+
+
+/*
+
 
 // the get method
 router.get('/getData', (req, res) => {
@@ -57,7 +98,20 @@ router.post('/updateData', (req, res) => {
     });
 });
 
+
+  
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
+  })
+
+*/
 //append /api for our http requests
+
+app.use(function (req, res, next) {
+    res.status(404).send("Sorry can't find that!")
+  });
+  
 app.use('/api', router);
 
 // launch our backend into a port
