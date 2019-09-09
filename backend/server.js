@@ -44,11 +44,44 @@ router.put('/artifacts', (req,res) => {
         });
     });
 });
+/*
 
+For Testing
+var test_artifact_json = {
+    "name": "IMG5000.jpg",
+    "description": "Photo of Sydney Opera House",
+    "ownerID": "abc123",
+    "originDate": 1548823080,
+    "originLocation": {
+      "lat": -33.855659,
+      "long": 151.210553
+    },
+    "knownLocation": {
+      "lat": -82.468636,
+      "long": -87.998860
+    },
+    "collectionID": 2019,
+    "tags": {
+      "photo": true,
+      "Sydney": true,
+      "architecture": true
+    }
+  };
+  
+Firebase.add_new_artifact(test_artifact_json).then(updated_artifact_json => {
+    console.log(updated_artifact_json.id);
+  });
 
-//'/artifacts'
+router.get('/', (req,res) => {
+    console.log('Got a GET');
+    return res.json({
+        success: true,
+        data : "Hello"
+    })
+})*/
+
 // the get method - viewing item with specific id in database
-router.get('/', (req, res) => {
+router.get('/artifacts', (req, res) => {
     res.send("Getting artifact");
     const {item_id} = req.body;
     if(!item_id) {
@@ -73,8 +106,9 @@ router.get('/', (req, res) => {
 
 
 
+//append /api for our http requests
+app.use('/api', router);
 
-  
 app.use(function (err, req, res, next) {
     console.error(err.stack)
     res.status(500).send('Something broke!')
@@ -87,8 +121,6 @@ app.use(function (req, res, next) {
 
 
 
-//append /api for our http requests
-app.use('/api', router);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
