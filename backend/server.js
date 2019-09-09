@@ -4,7 +4,7 @@ const router = express.Router();
 
 const bodyParser = require('body-parser');
 
-const firebaseFile = require('./firebase.js')
+const Firebase = require('./firebase.js')
 
 
 // Not sure if still needed?
@@ -37,12 +37,10 @@ router.put('/artifacts', (req,res) => {
             error: 'INVALID INPUTS',
         });
     }
-    // Will this work asynchronously? 
 
     // Currently passing argument including artifact info, id for newly created id to be stored in and err for errors
-    firabaseFile.addItem((req.body, id, err) => {
-        if (err) return res.json({ success: false, error: err});
-        return res.json({ success: true, item_id : id});
+    Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
+        return res.json({ success: true, data: updated_artifact_json});
     });
 });
 
@@ -54,15 +52,12 @@ router.get('/artifacts', (req, res) => {
     const {item_id} = req.body;
     if(!item_id) {
         // Return all items
-        firebaseFile.viewAllItems((data, err) => {
-            if (err) return res.json({ success: false, error: err});
-            return res.json({success: true, data: data});
+        Firebase.fetch_all_artifacts().then(artifact_jsons => {
+            return res.json({success: true, data: artifact_jsons});
         });
     }
-    // get "data" from firebase that matches "item_id"
-    firebaseFile.viewItem((item_id, data, err) => {
-        if (err) return res.json({ success: false, error: err});
-        return res.json({success: true, data: data});
+    Firebase.fetch_artifact(item_id).then(artifact_json => {
+        return res.json({success: true, data: artifact_json});
     });
 });
 
@@ -105,13 +100,14 @@ app.use(function (err, req, res, next) {
     res.status(500).send('Something broke!')
   })
 
-*/
-//append /api for our http requests
 
 app.use(function (req, res, next) {
     res.status(404).send("Sorry can't find that!")
   });
+*/
 
+
+//append /api for our http requests
 app.use('/api', router);
 
 // launch our backend into a port
