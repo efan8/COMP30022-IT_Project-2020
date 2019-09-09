@@ -6,6 +6,7 @@
       "description": String,
       "imageURL": String,
       "dateAdded": Int,
+      
       "originDate": Int,
       "originLocation": {
         "lat": Double,
