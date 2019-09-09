@@ -63,3 +63,7 @@
 .thumbnailHeader {
     margin-left: 1000px
 }
+
+.mediumImage {
+    size: 60%;
+}
