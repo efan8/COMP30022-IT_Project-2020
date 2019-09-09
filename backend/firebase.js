@@ -48,7 +48,7 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 //
-// Base level functions
+// Base level helper functions
 //
 
 function create(path, data) {
@@ -85,7 +85,6 @@ function update(path, data) {
 function fetch(path) {
   return new Promise(function(resolve, reject) {
     database.ref(path).once('value').then(function(snapshot) {
-      console.log(snapshot.val());
       resolve(snapshot.val());
     });
   });
@@ -93,23 +92,25 @@ function fetch(path) {
 
 
 //
-// Helper functions
+// Public functions
 //
 
-function add_new_artifact(artifact) {
+function add_new_artifact(json) {
+  var artifact = Artifact.new(json);
   return new Promise(function(resolve, reject) {
       create(ARTIFACTS, artifact.to_firebase_JSON()).then(new_id => {
         artifact.update_id(new_id);
-        resolve(artifact);
+        resolve(artifact.to_JSON());
       });
   });
 }
 
-function update_artifact(artifact) {
+function update_artifact(json) {
+  var artifact = Artifact.updated(json);
   return new Promise(function(resolve, reject) {
       update(ARTIFACTS + "/" + artifact.id, artifact.to_firebase_JSON()).then(did_update => {
         if (did_update) {
-          resolve(artifact);
+          resolve(artifact.to_JSON());
         }
         else {
           reject("Failed to update");
@@ -118,26 +119,33 @@ function update_artifact(artifact) {
   });
 }
 
+function fetch_all_artifacts() {
+  return new Promise(function(resolve, reject) {
+      fetch(ARTIFACTS).then(artifacts_snapshot => {
+        var artifact_jsons = [];
+        for (var id in artifacts_snapshot) {
+          artifact_jsons.push(Artifact.from_firebase_json(artifacts_snapshot[id], id).to_JSON());
+        }
+        resolve(artifact_jsons);
+      });
+  });
+}
+
 function fetch_artifact(id) {
   return new Promise(function(resolve, reject) {
       fetch(ARTIFACTS + "/" + id).then(snapshot_val => {
-        resolve(Artifact.from_firebase_json(snapshot_val));
+        var artifact = Artifact.from_firebase_json(snapshot_val);
+        resolve(artifact.to_JSON());
       });
   });
 }
 
 
 //
-// Testing
+// Exports
 //
-
-/*add_new_artifact(Artifact.new(test_artifact)).then(updated_artifact => {
-  console.log(updated_artifact.id);
-});*/
-/*fetch_artifact("-Lo0sGejXINPwtItJydV").then(artifact => {
-  console.log(artifact.description);
-});*/
 
 module.exports.add_new_artifact = add_new_artifact;
 module.exports.update_artifact = update_artifact;
 module.exports.fetch_artifact = fetch_artifact;
+module.exports.fetch_all_artifacts = fetch_all_artifacts;
