@@ -44,26 +44,26 @@ class ViewItem extends React.Component {
         const tagComponents = keys.map(key => <button className="basicButton">{key}</button>)
 
         return(
-        <div>
-            <h1 className="title">{this.state.item.name}</h1>
-            <img src={this.state.item.imageURL} alt="no image" className="mediumImage"/>
+            <div>
+                <h1 className="title">{this.state.item.name}</h1>
+                <img src={this.state.item.imageURL} alt="no image" className="mediumImage"/>
 
-            <h3>Description:</h3>
-            <p>{this.state.item.description}</p>
+                <h3>Description:</h3>
+                <p>{this.state.item.description}</p>
 
-            <h3>Tags:</h3>
-            {tagComponents}
+                <h3>Tags:</h3>
+                {tagComponents}
 
-            <h3>Collection:</h3>
-            <p>{this.state.item.collectionID}</p>
+                <h3>Collection:</h3>
+                <p>{this.state.item.collectionID}</p>
 
-            <h3>Location:</h3>
-            <p>{this.state.item.originLocation}</p>
+                <h3>Location:</h3>
+                <p>{this.state.item.originLocation}</p>
 
-            <h3>Origin Date:</h3>
-            <p>{this.state.item.originDate}</p>
-            
-        </div>
+                <h3>Origin Date:</h3>
+                <p>{this.state.item.originDate}</p>
+                
+            </div>
         )
         
     }
