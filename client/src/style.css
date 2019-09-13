@@ -1,0 +1,73 @@
+.navbar{
+    background-color: #41354D;
+    height: 100px;
+    color: #FFD195;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    background-color: #41354D;
+    height: 70px;
+    color: #FFD195;
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textbox{
+    height: 30px;
+    text-align: left;
+    width: 20%;
+    display: block;
+    margin: 0 auto;
+    justify-content: center;
+    align-content: center;
+}
+
+.descriptionbox{
+    height: 80px;
+    text-align: top;
+    align-items: top;
+    width: 20%;
+    justify-content: top;
+    align-content: top;
+}
+
+.heading{
+    text-align: left;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.basicButton{
+    margin: 2px
+}
+
+.thumbnailImage{
+    float: left;
+    alt: "Can't Find image";
+    width: 200px;
+    height: 120px; 
+}
+
+.thumbnailHeader {
+    margin-left: 1000px
+}
+
+.mediumImage {
+    size: 60%;
+}
+
+.background{
+    background-color: blue
+}
