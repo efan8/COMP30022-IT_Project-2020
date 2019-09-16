@@ -135,7 +135,7 @@ function fetch_artifact(id) {
   return new Promise(function(resolve, reject) {
       fetch(ARTIFACTS + "/" + id).then(snapshot_val => {
         var artifact = Artifact.from_firebase_json(snapshot_val, id);
-            resolve(artifact.to_JSON());
+        resolve(artifact.to_JSON());
       });
   });
 }
