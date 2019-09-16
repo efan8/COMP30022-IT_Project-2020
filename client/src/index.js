@@ -5,6 +5,7 @@ import Welcome from './Components/Welcome';
 import Additem from './Components/AddItem';
 import ItemBlock from './Components/ItemBlock';
 import ViewItem from './Components/ViewItem';
+import SignUp from './Components/SignUp';
 
 function App() {
     // return(
@@ -17,7 +18,7 @@ function App() {
     // )
     return(
         <div>
-            <ViewItem/>
+            <ViewItem />
         </div>
     )
 }
