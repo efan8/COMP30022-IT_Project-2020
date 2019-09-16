@@ -32,6 +32,6 @@ var test_artifact_json = {
 Firebase.fetch_artifact("-LoJV2WbBCM2Gz8vDq_H").then(artifact_json => {
   console.log(artifact_json.description);
 });
-Firebase.fetch_all_artifacts().then(artifact_jsons => {
+/*Firebase.fetch_all_artifacts().then(artifact_jsons => {
   console.log(artifact_jsons);
-});
+});*/
