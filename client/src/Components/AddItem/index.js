@@ -8,18 +8,36 @@ class AddItem extends React.Component {
 
     constructor() {
         super();
-        let currentDate = new Date();
+        this.state = {
+            name: "",
+            imageURL: "",
+            description: "",
+            tags: [],
+            collectionID: "", // might be a number
+            originLocation: "",
+            orginDate: "",
+        }
+        this.handleChange = this.handleChange.bind(this);
     }
-    
+
+    handleChange(event){
+        const {name, type, value} = event.target;
+        this.setState(
+            {[name]: value}
+        );
+    }
+
     render() {
         return (
-            <div>
+            <form>
                 <h1 className="title">Add Item</h1>
                 <h3 className="heading">Item Name:</h3>
 
                 <input
-                    name="itemname"
-                    type="text"
+                    name="name"
+                    type="textbox"
+                    value={this.state.name}
+                    onChange={this.handleChange}
                     placeholder="Type item name here"
                     className="textbox"/>
                 
@@ -30,6 +48,9 @@ class AddItem extends React.Component {
                 <input 
                     placeholder="Simple Description of  object and stuff"
                     className="descriptionbox"
+                    name="description"
+                    value={this.state.description}
+                    onChange={this.handleChange}
                     />
 
                 <h3>Tags:</h3>
@@ -47,13 +68,11 @@ class AddItem extends React.Component {
                 <input placeholder="CurrentLocation" />
 
                 <h3>Origin Date:</h3>
-                <input placeholder={currentDate} /> <button>changeDate</button>
-            </div>
+                <input/> <button>changeDate</button>
+            </form>
+
         )
-        
-    }
-    
-    
+    };
 }
 
 export default AddItem;
