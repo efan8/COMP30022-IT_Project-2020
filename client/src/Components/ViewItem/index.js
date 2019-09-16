@@ -2,9 +2,8 @@
  * the backend */
 
 import React from 'react';
-import styles from '../../style.css';
-import defaultImage from '../../placeholder.png';
-import data from './testItem.json';
+import Styles from '../../style.css';
+import Data from './testItem.json';
 
 class ViewItem extends React.Component {
 
@@ -29,7 +28,7 @@ class ViewItem extends React.Component {
         // })
         this.setState({
             loading: false,
-            item: data
+            item: Data
         })
 
     }
