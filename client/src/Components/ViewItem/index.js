@@ -1,5 +1,5 @@
 /* A full display of the artifact detailing all information provided to 
- * the backend */
+   the backend */
 
 import React from 'react';
 import Styles from '../../style.css';
