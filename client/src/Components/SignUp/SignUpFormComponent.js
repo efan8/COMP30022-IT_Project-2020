@@ -1,3 +1,5 @@
+/* What is show to the user when they access the Sign Up screen */
+
 import React from 'react';
 
 function SignUpForm(props) {
@@ -43,10 +45,7 @@ function SignUpForm(props) {
                     value={props.data.passwordTwo} 
                     onChange={props.handleChange}
                 />
-
-                <p>Name: {props.data.firstName + " " + props.data.lastName} email: {props.data.email}</p>
             </form>
-
     );
 }
 
