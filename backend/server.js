@@ -1,64 +1,89 @@
-const mongoose = require('mongoose');
 const express = require('express');
-var cors = require('cors');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const Data = require('./data');
-
-const API_PORT = 3001;
 const app = express();
-app.use(cors());
 const router = express.Router();
 
-// MongoDB database
-const dbRoute = 
-'mongodb+srv://nmontorio98:testitproject@cluster0-hiyxa.mongodb.net/test?retryWrites=true&w=majority'
-// connexts our back end code with the database
-mongoose.connect(dbRoute, { useNewUrlParser: true});
+const body_parser = require('body-parser');
 
-let db = mongoose.connection;
+const Firebase = require('./firebase.js')
 
-db.once('open', () => console.log('connected to the database'));
+/*
+// Not sure if still needed?
+var cors = require('cors');
+app.use(cors());
+*/
 
-//checks if connection with database is successful
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+app.use(body_parser.urlencoded({ extended: false }));
+app.use(body_parser.json());
 
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(logger('dev'));
+const API_PORT = 3001;
 
-// the get method
-router.get('/getData', (req, res) => {
-    Data.find((err, data) => {
-        if (err) return res.json({ success: false, error: err});
-        return res.json({success: true, data: data});
+/*
+Create the endpoints for artifacts only -  GET/artifacts, GET/artifacts/<ID>, PUT/artifacts/<ID>
+
+*/
+
+
+// put method - creating item in database
+router.put('/artifacts', (req,res) => {
+    // Input an artifact - using firebase.js
+    const {name, description} = req.body;
+    //console.log(req.body);
+    if(!name || !description) {
+        console.log('invalid input received')
+        return res.json({
+            success: false,
+            data: req.body,
+            error: 'INVALID INPUTS'
+        });
+        
+    }
+    Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
+        return res.json({ 
+            success: true, 
+            data: updated_artifact_json
+        });
     });
 });
 
-// the update method
-router.post('/updateData', (req, res) => {
-    let data = new Data();
 
-    const {id, message} = req.body;
 
-    if ((!id && id !== 0) || !message){
-        return res.json({
-            success: false,
-            error: 'INVALID INPUTS',
+
+// the get method - viewing item with specific id in database
+router.get('/artifacts', (req, res) => {
+
+    const {item_id} = req.body;
+
+    if(!item_id) {
+        console.log("Getting everything")
+        // Return all items
+        Firebase.fetch_all_artifacts().then( artifacts_json => {
+                res.json({ 
+                success: true, 
+                data: artifacts_json
+            });
         });
     }
-    data.message = message;
-    data.yd = id;
-    data.save((err) => {
-        if (err) return res.json({ success: false, error: err});
-        return res.json({ success: true});
+    Firebase.fetch_artifact(item_id).then(artifact_json => {
+        console.log('Getting: ' + item_id);
+            res.json({
+            success: true, 
+            data: artifact_json
+        });
     });
 });
 
 //append /api for our http requests
 app.use('/api', router);
+
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
+
+
+app.use(function (req, res, next) {
+    res.status(404).send("Sorry can't find that!");
+  });
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
