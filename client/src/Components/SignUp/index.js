@@ -1,8 +1,8 @@
 /* A basic Signup page for users to input their username, email and password.
- * Still need to add backend updates. */
+   Still need to add backend updates. */
 
 import React from 'react';
-import Styles from '../../style.css';
+import '../../style.css';
 import SignUpFormComponent from './SignUpFormComponent';
 
 class SignUp extends React.Component {
@@ -17,15 +17,15 @@ class SignUp extends React.Component {
             passwordTwo: "",
         };
         this.handleChange = this.handleChange.bind(this);
-    }
+    };
 
     // Updates state as soon as anything is typed into the input boxes
     handleChange(event){
-        const{name, type, value} = event.target;
+        const{name, value} = event.target;
         this.setState(
             {[name]: value}
         );
-    }
+    };
 
     render() {
         return(
@@ -34,7 +34,7 @@ class SignUp extends React.Component {
                 handleChange={this.handleChange}
             />
         );
-    }
-}
+    };
+};
 
 export default SignUp;

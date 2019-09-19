@@ -45,8 +45,10 @@ function SignUpForm(props) {
                     value={props.data.passwordTwo} 
                     onChange={props.handleChange}
                 />
+                <br></br>
+                <button>Sign Up</button>
             </form>
     );
-}
+};
 
 export default SignUpForm;
