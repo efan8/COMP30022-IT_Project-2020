@@ -41,10 +41,17 @@ router.put('/artifacts', (req,res) => {
         data: req.body,
         error: 'INVALID INPUTS'});
     }
-    else {
+    if (!id) {
         Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
-            res.json({ 
-            success: true, 
+            res.json({
+            success: true,
+            data: updated_artifact_json});
+        });
+    }
+    else {
+        Firebase.update_artifact(req.body).then(updated_artifact_json => {
+            res.json({
+            success: true,
             data: updated_artifact_json});
         });
     }
@@ -59,11 +66,11 @@ router.get('/artifacts', (req, res) => {
     const item_id = req.query.item_id;
     //console.log(req);
     if(!item_id) {
-        console.log("Getting everything")
+        console.log("Getting everything");
         // GET all items
         Firebase.fetch_all_artifacts().then( artifacts_json => {
-            res.json({ 
-            success: true, 
+            res.json({
+            success: true,
             data: artifacts_json});
         });
     }
@@ -71,7 +78,7 @@ router.get('/artifacts', (req, res) => {
         Firebase.fetch_artifact(item_id).then(artifact_json => {
             console.log('Getting: ' + item_id);
             res.json({
-            success: true, 
+            success: true,
             data: artifact_json});
         });
     }
