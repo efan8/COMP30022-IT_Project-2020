@@ -1,3 +1,11 @@
+/*
+Server file for the backend that converts http messages into the required actions by
+the database.
+Currently using:
+    localhost:3001/api
+As the expected location for all http requests
+*/
+
 const express = require('express');
 const app = express();
 const router = express.Router();
@@ -6,11 +14,8 @@ const body_parser = require('body-parser');
 
 const Firebase = require('./firebase.js')
 
-/*
-// Not sure if still needed?
 var cors = require('cors');
 app.use(cors());
-*/
 
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
@@ -18,7 +23,7 @@ app.use(body_parser.json());
 const API_PORT = 3001;
 
 /*
-Create the endpoints for artifacts only -  GET/artifacts, GET/artifacts/<ID>, PUT/artifacts/<ID>
+The endpoints for artifacts requests -  GET/artifacts, PUT/artifacts
 
 */
 
@@ -55,7 +60,7 @@ router.get('/artifacts', (req, res) => {
 
     if(!item_id) {
         console.log("Getting everything")
-        // Return all items
+        // GET all items
         Firebase.fetch_all_artifacts().then( artifacts_json => {
             res.json({ 
             success: true, 
