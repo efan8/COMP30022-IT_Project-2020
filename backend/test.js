@@ -4,6 +4,7 @@ var Firebase = require('./firebase.js');
 var test_artifact_json = {
   "name": "IMG5000.jpg",
   "description": "Photo of Sydney Opera House",
+  "imageURL" : "www.aws.etc",
   "ownerID": "abc123",
   "originDate": 1548823080,
   "originLocation": {

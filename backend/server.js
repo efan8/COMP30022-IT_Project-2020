@@ -1,6 +1,6 @@
 /*
-Server file for the backend that converts http messages into the required actions by
-the database.
+Server file for the backend that converts http messages into the required 
+actions by the database.
 Currently using:
     localhost:3001/api
 As the expected location for all http requests
