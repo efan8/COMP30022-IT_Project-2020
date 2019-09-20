@@ -16,14 +16,7 @@ import Navigation from './Components/Navigation';
  
 
 class App extends React.Component {
-    // return(
-    //     <div>
-    //         <Welcome />
-    //         <Additem />
-    //         <br></br>
-    //         <ItemBlock />
-    //     </div>
-    // )
+  
     render() {
         return(
             <BrowserRouter>
