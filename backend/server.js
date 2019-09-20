@@ -12,7 +12,7 @@ const router = express.Router();
 
 const body_parser = require('body-parser');
 
-const Firebase = require('./firebase.js')
+const Firebase = require('./firebase.js');
 
 var cors = require('cors');
 app.use(cors());
@@ -56,8 +56,8 @@ router.put('/artifacts', (req,res) => {
 // the get method - viewing item with specific id in database
 router.get('/artifacts', (req, res) => {
 
-    const {item_id} = req.body;
-
+    const item_id = req.query.item_id;
+    //console.log(req);
     if(!item_id) {
         console.log("Getting everything")
         // GET all items
