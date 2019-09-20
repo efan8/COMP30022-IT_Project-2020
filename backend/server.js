@@ -59,7 +59,7 @@ router.get('/artifacts', (req, res) => {
     const item_id = req.query.item_id;
     //console.log(req);
     if(!item_id) {
-        console.log("Getting everything")
+        console.log("Getting everything");
         // GET all items
         Firebase.fetch_all_artifacts().then( artifacts_json => {
             res.json({ 
