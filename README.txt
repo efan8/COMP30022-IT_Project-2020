@@ -8,3 +8,7 @@ Installation Notes (Frontend):
 2. Navigate to IT_Project\client in cmd
 3. run npm install
 4. then run npm start
+
+Running Both Frontend and Backend:
+1. Navigate to IT_Project folder
+2. run npm start
