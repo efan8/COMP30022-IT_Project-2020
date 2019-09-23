@@ -5,6 +5,7 @@ import React from 'react';
 import '../../style.css';
 
 import AddItemComponent from './AddItemComponent';
+import axios from 'axios';
 
 
 class AddItem extends React.Component {
@@ -17,7 +18,7 @@ class AddItem extends React.Component {
             description: "",
             tags: [],
             collectionID: "",
-            originLocation: "",
+            originLocation: {lat: 0, long: 0},
             orginDate: "",
         };
         this.handleChange = this.handleChange.bind(this);
@@ -30,12 +31,19 @@ class AddItem extends React.Component {
         );
     };
 
+    putDataToDB = (message) => {``
+        axios.post('http://localhost:3001/api/artifacts', this.state);
+    };
+
     render() {
         return(
-            <AddItemComponent 
-                handleChange={this.handleChange} 
-                state={this.state}
-            />
+            <div>
+                <AddItemComponent 
+                    handleChange={this.handleChange} 
+                    state={this.state}
+                />
+                <button onClick={() => this.putDataToDB(this.state.message)}>SIGNUP</button>
+            </div> 
         );
         
     };

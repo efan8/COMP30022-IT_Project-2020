@@ -1,16 +1,21 @@
+/*
+Server file for the backend that converts http messages into the required 
+actions by the database.
+Currently using:
+    localhost:3001/api
+As the expected location for all http requests
+*/
+
 const express = require('express');
 const app = express();
 const router = express.Router();
 
 const body_parser = require('body-parser');
 
-const Firebase = require('./firebase.js')
+const Firebase = require('./firebase.js');
 
-/*
-// Not sure if still needed?
 var cors = require('cors');
 app.use(cors());
-*/
 
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
@@ -18,7 +23,7 @@ app.use(body_parser.json());
 const API_PORT = 3001;
 
 /*
-Create the endpoints for artifacts only -  GET/artifacts, GET/artifacts/<ID>, PUT/artifacts/<ID>
+The endpoints for artifacts requests -  GET/artifacts, PUT/artifacts
 
 */
 
@@ -27,22 +32,29 @@ Create the endpoints for artifacts only -  GET/artifacts, GET/artifacts/<ID>, PU
 router.put('/artifacts', (req,res) => {
     // Input an artifact - using firebase.js
     const {name, description} = req.body;
+    console.log("Received a PUT request");
     //console.log(req.body);
     if(!name || !description) {
-        console.log('invalid input received')
-        return res.json({
-            success: false,
-            data: req.body,
-            error: 'INVALID INPUTS'
-        });
-        
+        console.log('invalid input received');
+        res.json({
+        success: false,
+        data: req.body,
+        error: 'INVALID INPUTS'});
     }
-    Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
-        return res.json({ 
-            success: true, 
-            data: updated_artifact_json
+    if (!id) {
+        Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
+            res.json({
+            success: true,
+            data: updated_artifact_json});
         });
-    });
+    }
+    else {
+        Firebase.update_artifact(req.body).then(updated_artifact_json => {
+            res.json({
+            success: true,
+            data: updated_artifact_json});
+        });
+    }
 });
 
 
@@ -51,25 +63,25 @@ router.put('/artifacts', (req,res) => {
 // the get method - viewing item with specific id in database
 router.get('/artifacts', (req, res) => {
 
-    const {item_id} = req.body;
-
+    const item_id = req.query.item_id;
+    //console.log(req);
     if(!item_id) {
-        console.log("Getting everything")
-        // Return all items
+        console.log("Getting everything");
+        // GET all items
         Firebase.fetch_all_artifacts().then( artifacts_json => {
-                res.json({ 
-                success: true, 
-                data: artifacts_json
-            });
+            res.json({
+            success: true,
+            data: artifacts_json});
         });
     }
-    Firebase.fetch_artifact(item_id).then(artifact_json => {
-        console.log('Getting: ' + item_id);
+    else {
+        Firebase.fetch_artifact(item_id).then(artifact_json => {
+            console.log('Getting: ' + item_id);
             res.json({
-            success: true, 
-            data: artifact_json
+            success: true,
+            data: artifact_json});
         });
-    });
+    }
 });
 
 //append /api for our http requests
