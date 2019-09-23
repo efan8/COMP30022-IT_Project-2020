@@ -46,6 +46,9 @@ function AddItemComponent(props) {
 
             <h3>Origin Date:</h3>
             <input/> <button>changeDate</button>
+
+            <br></br>
+            <button>Submit</button>
         </form>
 
     );

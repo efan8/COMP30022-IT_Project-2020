@@ -10,6 +10,12 @@ function ViewItemComponent(props){
     let i = 0;
     const tagComponents = keys.map(key => <button className="basicButton" key={i++}>{key}</button>)
 
+
+    const {originLocation} = props.state.item
+    const {lat, long} = originLocation ? originLocation : "";
+
+    let dateObj = new Date(props.state.item.originDate * 1000);
+
     return(
         <div>
             <h1 className="title">{props.state.item.name}</h1>
@@ -18,17 +24,20 @@ function ViewItemComponent(props){
             <h3>Description:</h3>
             <p>{props.state.item.description}</p>
 
+            
             <h3>Tags:</h3>
             {tagComponents}
+           
 
             <h3>Collection:</h3>
             <p>{props.state.item.collectionID}</p>
 
             <h3>Location:</h3>
-            <p>{props.state.item.originLocation}</p>
+            <p>Lat: {lat} Long: {long}</p>
+            
 
             <h3>Origin Date:</h3>
-            <p>{props.state.item.originDate}</p>
+            <p>{dateObj.toString()}</p>
             
         </div>
     );
