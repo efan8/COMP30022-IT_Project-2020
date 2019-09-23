@@ -31,7 +31,7 @@ class AddItem extends React.Component {
         );
     };
 
-    putDataToDB = (message) => {
+    putDataToDB = (message) => {``
         axios.post('http://localhost:3001/api/artifacts', this.state);
     };
 
