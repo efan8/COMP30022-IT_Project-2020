@@ -18,11 +18,14 @@ class ViewItem extends React.Component {
         this.map = <MapMaker />
     };
 
+   
     // will put a fetch comand in to get data from api
     // Currently using a local json file.
     componentDidMount() {
-        this.setState({loading: true})
-        fetch("http://localhost:3001/api/artifacts?item_id=-LpBgBzsfMyY41fanxLn")
+        let itemId = this.props.location.aboutProps? 
+            this.props.location.aboutProps.id : "";
+        this.setState({loading: true});
+        fetch(`http://localhost:3001/api/artifacts?item_id=${itemId}`)
         .then(response => response.json())
         .then(data => {
             this.setState({

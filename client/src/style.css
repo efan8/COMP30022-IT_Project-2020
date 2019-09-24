@@ -76,3 +76,15 @@
 .background{
     background-color: blue
 }
+
+.smallImage{
+    width: auto;
+    height: 200px;
+}
+
+.para{
+    font-size : 20px;
+    padding : 0;
+    margin : 0;
+    line-height : 20px;
+}

@@ -1,5 +1,9 @@
+/* A welcome page for the user after logging in where all their items are
+   displayed */
+
 import React from 'react';
 import '../../style.css';
+import WelcomeComponent from './WelcomeComponent';
 
 class Welcome extends React.Component{
 
@@ -14,7 +18,7 @@ class Welcome extends React.Component{
 
     componentDidMount() {
         this.setState({loading: true})
-        fetch("http://localhost:3001/api/artifacts?item_id=-LpgLUdAUJgvwXEXNt-2")
+        fetch("http://localhost:3001/api/artifacts?")
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -26,12 +30,10 @@ class Welcome extends React.Component{
             console.log(this.state.item ? this.state.item.data : "no")
     }
 
+    
     render() {
-        const text = this.state.item.data ? this.state.item.data.name: "loading..."
         return (
-            <div>
-                <p>{text}</p>
-            </div>
+            <WelcomeComponent state={this.state} />
         )
     }
 }
