@@ -14,7 +14,7 @@ class LandingPage extends React.Component {
 
     //To change page using buttons
     logChange() {
-        window.location = "/SignUp";
+        window.location = "/Login";
     }
     signChange() {
         window.location = "/SignUp";

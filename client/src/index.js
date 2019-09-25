@@ -10,6 +10,7 @@ import AddItem from './Components/AddItem';
 import ItemBlock from './Components/ItemBlock';
 import ViewItem from './Components/ViewItem';
 import SignUp from './Components/SignUp';
+import Login from './Components/Login';
 import Error from './Components/Error';
 import Navigation from './Components/Navigation';
 
@@ -28,6 +29,7 @@ class App extends React.Component {
              <Route path="/AddItem" component={AddItem}/>
              <Route path="/ViewItem" component={ViewItem}/>
              <Route path="/SignUp" component={SignUp}/>
+             <Route path="/Login" component={Login}/>
              <Route path="/ItemBlockTest" component={ItemBlock}/>
             <Route component={Error}/>
            </Switch>

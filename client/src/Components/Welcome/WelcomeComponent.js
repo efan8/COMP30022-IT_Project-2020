@@ -36,14 +36,12 @@ function WelcomeComponent(props){
         <div>
             <h1 className = "title"> Here are your items:</h1>
             <form onSubmit={props.handleSubmit}>
-            <input
-                type="text" 
-                name="search" 
-                placeholder="Search"
-            />
-            <input
-                type="submit"
-            />
+                <input
+                    type="text" 
+                    name="search" 
+                    placeholder="Search"
+                />
+                <input type="submit"/>
             </form>
             <p>{items}</p>
         </div>
