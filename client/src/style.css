@@ -88,3 +88,9 @@
     margin : 0;
     line-height : 20px;
 }
+
+.sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}

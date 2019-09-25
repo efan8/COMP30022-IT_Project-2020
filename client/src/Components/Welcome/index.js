@@ -11,7 +11,8 @@ class Welcome extends React.Component{
         super();
         this.state = {
             loading: false,
-            item: {}
+            item: {},
+            search: ""
         }
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -28,12 +29,21 @@ class Welcome extends React.Component{
                 console.log(data) 
             })
             console.log(this.state.item ? this.state.item.data : "no")
+            
     }
 
+    handleSubmit = (event) => {
+        this.setState ({search: event.target.search.value.toLowerCase()});
+        event.preventDefault();
+        console.log(this.state.search);
+    }
     
+
     render() {
         return (
-            <WelcomeComponent state={this.state} />
+            <WelcomeComponent 
+                state={this.state} 
+                handleSubmit={this.handleSubmit}/>
         )
     }
 }
