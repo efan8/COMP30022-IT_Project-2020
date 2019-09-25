@@ -13,15 +13,28 @@ class AddItem extends React.Component {
     constructor() {
         super();
         this.state = {
-            name: "",
-            imageURL: "",
-            description: "",
-            tags: [],
-            collectionID: "",
-            originLocation: {lat: 0, long: 0},
-            orginDate: "",
-        };
+            id: 123,
+            name: "IMG5000.jpg",
+            description: "Photo of Sydney Opera House",
+            ownerID: "abc123",
+            originDate: 1548823080,
+            originLocation: {
+              lat: -33.855659,
+              long: 151.210553
+            },
+            knownLocation: {
+              lat: -82.468636,
+              long: -87.998860
+            },
+            collectionID: 2019,
+            tags: {
+              photo: true,
+              Sydney: true,
+              architecture: true
+            }
+          };
         this.handleChange = this.handleChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     };
 
     handleChange(event){
@@ -31,9 +44,16 @@ class AddItem extends React.Component {
         );
     };
 
-    putDataToDB = (message) => {``
-        axios.post('http://localhost:3001/api/artifacts', this.state);
-    };
+    onSubmit() {
+        console.log(JSON.stringify(this.state))
+
+        axios.put(`http://localhost:3001/api/artifacts`, 
+            JSON.stringify(this.state))
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
+    }
 
     render() {
         return(
@@ -41,9 +61,10 @@ class AddItem extends React.Component {
                 <AddItemComponent 
                     handleChange={this.handleChange} 
                     state={this.state}
+                    submit={this.onSubmit}
                 />
-                <button onClick={() => this.putDataToDB(this.state.message)}>SIGNUP</button>
             </div> 
+            
         );
         
     };

@@ -16,29 +16,21 @@ import Navigation from './Components/Navigation';
  
 
 class App extends React.Component {
-    // return(
-    //     <div>
-    //         <Welcome />
-    //         <Additem />
-    //         <br></br>
-    //         <ItemBlock />
-    //     </div>
-    // )
     render() {
         return(
             <BrowserRouter>
-        <div>
-          <Navigation />
-            <Switch>
-             <Route path="/" component={Welcome} exact/>
-             <Route path="/AddItem" component={AddItem}/>
-             <Route path="/ViewItem" component={ViewItem}/>
-             <Route path="/SignUp" component={SignUp}/>
-             <Route path="/ItemBlockTest" component={ItemBlock}/>
-            <Route component={Error}/>
-           </Switch>
-        </div> 
-      </BrowserRouter>
+                <div>
+                    <Navigation />
+                        <Switch>
+                        <Route path="/" component={Welcome} exact/>
+                        <Route path="/AddItem" component={AddItem}/>
+                        <Route path="/ViewItem" component={ViewItem}/>
+                        <Route path="/SignUp" component={SignUp}/>
+                        <Route path="/ItemBlockTest" component={ItemBlock}/>
+                        <Route component={Error}/>
+                    </Switch>
+                </div> 
+            </BrowserRouter>
         )
     }
 }
