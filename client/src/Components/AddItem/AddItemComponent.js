@@ -5,7 +5,6 @@ import '../../style.css';
 import defaultImage from '../../placeholder.png';
 
 function AddItemComponent(props) {
-    console.log(props);
     return (
         <form onSubmit={props.submit}>
             <h1 className="title">Add Item</h1>

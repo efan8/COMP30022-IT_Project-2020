@@ -13,24 +13,24 @@ class AddItem extends React.Component {
     constructor() {
         super();
         this.state = {
-            id: 123,
-            name: "IMG5000.jpg",
-            description: "Photo of Sydney Opera House",
-            ownerID: "abc123",
-            originDate: 1548823080,
-            originLocation: {
-              lat: -33.855659,
-              long: 151.210553
+            "id": 123,
+            "name": "IMG5000.jpg",
+            "description": "Photo of Sydney Opera House",
+            "ownerID": "abc123",
+            "originDate": 1548823080,
+            "originLocation": {
+              "lat": -33.855659,
+              "long": 151.210553
             },
-            knownLocation: {
-              lat: -82.468636,
-              long: -87.998860
+            "knownLocation": {
+              "lat": -82.468636,
+              "long": -87.998860
             },
-            collectionID: 2019,
-            tags: {
-              photo: true,
-              Sydney: true,
-              architecture: true
+            "collectionID": 2019,
+            "tags": {
+              "photo": true,
+              "Sydney": true,
+              "architecture": true
             }
           };
         this.handleChange = this.handleChange.bind(this);
@@ -45,10 +45,12 @@ class AddItem extends React.Component {
     };
 
     onSubmit() {
-        console.log(JSON.stringify(this.state))
-
+        let body = JSON.stringify(this.state);
+        
+        console.log(body);
+        console.log(this.state);
         axios.put(`http://localhost:3001/api/artifacts`, 
-            JSON.stringify(this.state))
+            this.state)
         .then(res => {
             console.log(res);
             console.log(res.data);
