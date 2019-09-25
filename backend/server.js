@@ -41,7 +41,7 @@ router.put('/artifacts', (req,res) => {
         data: req.body,
         error: 'INVALID INPUTS'});
     }
-    if (!id) {
+    else if (!id) {
         Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
             res.json({
             success: true,
