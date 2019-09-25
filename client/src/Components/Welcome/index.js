@@ -26,10 +26,7 @@ class Welcome extends React.Component{
                     loading: false,
                     item: data
                 })
-                console.log(data) 
             })
-            console.log(this.state.item ? this.state.item.data : "no")
-            
     }
 
     //Handles form submission of searchbar
