@@ -2,10 +2,14 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 function WelcomeComponent(props){
+
+    
     if (!props.state.item.data) return null;
     let data = props.state.item.data;
     let search = props.state.search;
-    // Gets the tag names from the json file
+
+    //Creates an array of all items needing to be displayed and puts them
+    //into a list of items
     let items = [];
     for(let i = 0; i<data.length; i++) {
         if (search == "" | data[i].name.toLowerCase().includes(search) 
@@ -27,7 +31,6 @@ function WelcomeComponent(props){
         }
     }
 
-    console.log(search);
 
     return(
         <div>

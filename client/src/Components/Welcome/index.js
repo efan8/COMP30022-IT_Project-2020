@@ -32,6 +32,7 @@ class Welcome extends React.Component{
             
     }
 
+    //Handles form submission of searchbar
     handleSubmit = (event) => {
         this.setState ({search: event.target.search.value.toLowerCase()});
         event.preventDefault();
