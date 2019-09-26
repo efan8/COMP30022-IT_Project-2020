@@ -3,6 +3,7 @@
    
 import React from 'react';
 import '../../style.css';
+import { blank_item } from '../../Constants/index'
 
 import AddItemComponent from './AddItemComponent';
 import axios from 'axios';
@@ -12,29 +13,11 @@ class AddItem extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            "id": "",
-            "name": "IMG5000.jpg",
-            "description": "Photo of Sydney Opera House",
-            "ownerID": "abc123",
-            "originDate": 1548823080,
-            "originLocation": {
-              "lat": -33.855659,
-              "long": 151.210553
-            },
-            "knownLocation": {
-              "lat": -82.468636,
-              "long": -87.998860
-            },
-            "collectionID": 2019,
-            "tags": {
-              "photo": true,
-              "Sydney": true,
-              "architecture": true
-            }
-          };
+        
+        this.state = blank_item;
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onTagSubmit = this.onTagSubmit.bind(this);
     };
 
     handleChange(event){
@@ -43,6 +26,17 @@ class AddItem extends React.Component {
             {[name]: value}
         );
     };
+
+    onTagSubmit() {
+        
+        let tag = this.state.currentTypedTag.toString();
+        console.log(tag)
+        this.state.tags[tag] = true
+        console.log(this.state)
+        this.setState(
+            {"currentTypedTag": ""}
+        )
+    }
 
     onSubmit() {
         let body = JSON.stringify(this.state);
@@ -55,7 +49,7 @@ class AddItem extends React.Component {
             console.log(res);
             console.log(res.data);
         })
-    }
+    };
 
     render() {
         return(
@@ -64,6 +58,7 @@ class AddItem extends React.Component {
                     handleChange={this.handleChange} 
                     state={this.state}
                     submit={this.onSubmit}
+                    tagSubmit={this.onTagSubmit}
                 />
             </div> 
             
