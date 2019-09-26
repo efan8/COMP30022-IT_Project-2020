@@ -1,4 +1,5 @@
 import React from 'react';
+import MapMaker from '../MapMaker'
 
 function ViewItemComponent(props){
 
@@ -13,8 +14,11 @@ function ViewItemComponent(props){
 
     const {originLocation} = props.state.item
     const {lat, long} = originLocation ? originLocation : "";
+    console.log(lat)
+
 
     let dateObj = new Date(props.state.item.originDate * 1000);
+
 
     return(
         <div>
@@ -35,9 +39,10 @@ function ViewItemComponent(props){
             <h3>Location:</h3>
             <p>Lat: {lat} Long: {long}</p>
             
-
             <h3>Origin Date:</h3>
             <p>{dateObj.toString()}</p>
+
+            
             
         </div>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import MapMaker from '../MapMaker';
 import '../../style.css';
 
 class Welcome extends React.Component{
