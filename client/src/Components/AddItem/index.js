@@ -13,7 +13,7 @@ class AddItem extends React.Component {
     constructor() {
         super();
         this.state = {
-            "id": 123,
+            "id": "",
             "name": "IMG5000.jpg",
             "description": "Photo of Sydney Opera House",
             "ownerID": "abc123",

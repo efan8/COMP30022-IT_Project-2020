@@ -31,9 +31,9 @@ The endpoints for artifacts requests -  GET/artifacts, PUT/artifacts
 // put method - creating item in database
 router.put('/artifacts', (req,res) => {
     // Input an artifact - using firebase.js
-    const {name, description, id} = req.body;
+    const {id, name, description } = req.body;
     console.log("Received a PUT request");
-    console.log(req.body);
+    //console.log(req.body);
     if(!name || !description) {
         console.log('invalid input received');
         res.json({
@@ -41,21 +41,23 @@ router.put('/artifacts', (req,res) => {
         data: req.body,
         error: 'INVALID INPUTS'});
     }
-    // else if (!id) {
-    //     Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
-    //         res.json({
-    //         success: true,
-    //         data: updated_artifact_json});
-    //     });
-    // }
+    else if (!id) {
+        console.log("adding new");
+        Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
+            res.json({
+            success: true,
+            data: updated_artifact_json});
+        });
+    }
     else {
+        console.log("editing");
         Firebase.update_artifact(req.body).then(updated_artifact_json => {
             res.json({
             success: true,
             data: updated_artifact_json});
         });
     }
-});
+ });
 
 
 
