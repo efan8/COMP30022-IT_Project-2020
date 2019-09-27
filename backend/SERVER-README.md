@@ -86,16 +86,3 @@ To add a user to the database using a PUT request:
         "name": String,
         "email": String
     }
-
-To get a userID from the database:
-
-    GET: localhost:3001/api/users
-
-    where in the message's query the user's email is included as follows:
-
-    eg
-    localhost:3001/api/artifacts?email=user@email.com
-
-    where
-        "user@email.com"
-    is the user's email stored in the database.
