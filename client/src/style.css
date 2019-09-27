@@ -10,6 +10,11 @@
     align-items: center;
 }
 
+.map{
+    height: 400px;
+    width: 700px;
+}
+
 .title{
     background-color: #41354D;
     height: 70px;
