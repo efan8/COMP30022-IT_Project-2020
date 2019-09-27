@@ -16,6 +16,7 @@ class ViewItem extends React.Component {
             item: {}
         };
         this.map = <MapMaker />
+        this.componentDidMount = this.componentDidMount.bind(this);
     };
 
    

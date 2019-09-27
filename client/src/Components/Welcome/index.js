@@ -15,6 +15,7 @@ class Welcome extends React.Component{
             search: ""
         }
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
