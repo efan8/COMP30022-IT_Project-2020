@@ -14,7 +14,7 @@ class Welcome extends React.Component{
 
     componentDidMount() {
         this.setState({loading: true})
-        fetch("http://localhost:3001/api/artifacts?item_id=-LpBgBzsfMyY41fanxLn")
+        fetch("http://localhost:3001/api/artifacts?item_id=-LpgLUdAUJgvwXEXNt-2")
             .then(response => response.json())
             .then(data => {
                 this.setState({

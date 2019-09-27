@@ -57,7 +57,7 @@ router.put('/artifacts', (req,res) => {
             data: updated_artifact_json});
         });
     }
-});
+ });
 
 
 

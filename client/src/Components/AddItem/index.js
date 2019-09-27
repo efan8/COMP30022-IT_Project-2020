@@ -3,6 +3,7 @@
    
 import React from 'react';
 import '../../style.css';
+import { blank_item } from '../../Constants/index'
 
 import AddItemComponent from './AddItemComponent';
 import axios from 'axios';
@@ -12,16 +13,11 @@ class AddItem extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            name: "",
-            imageURL: "",
-            description: "",
-            tags: [],
-            collectionID: "",
-            originLocation: {lat: 0, long: 0},
-            orginDate: "",
-        };
+        
+        this.state = blank_item;
         this.handleChange = this.handleChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onTagSubmit = this.onTagSubmit.bind(this);
     };
 
     handleChange(event){
@@ -31,8 +27,28 @@ class AddItem extends React.Component {
         );
     };
 
-    putDataToDB = (message) => {``
-        axios.post('http://localhost:3001/api/artifacts', this.state);
+    onTagSubmit() {
+        
+        let tag = this.state.currentTypedTag.toString();
+        console.log(tag)
+        this.state.tags[tag] = true
+        console.log(this.state)
+        this.setState(
+            {"currentTypedTag": ""}
+        )
+    }
+
+    onSubmit() {
+        let body = JSON.stringify(this.state);
+        
+        console.log(body);
+        console.log(this.state);
+        axios.put(`http://localhost:3001/api/artifacts`, 
+            this.state)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
     };
 
     render() {
@@ -41,9 +57,11 @@ class AddItem extends React.Component {
                 <AddItemComponent 
                     handleChange={this.handleChange} 
                     state={this.state}
+                    submit={this.onSubmit}
+                    tagSubmit={this.onTagSubmit}
                 />
-                <button onClick={() => this.putDataToDB(this.state.message)}>SIGNUP</button>
             </div> 
+            
         );
         
     };
