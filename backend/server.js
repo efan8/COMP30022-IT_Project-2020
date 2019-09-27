@@ -22,6 +22,56 @@ app.use(body_parser.json());
 
 const API_PORT = 3001;
 
+
+/*
+The endpoints for users requests - GET/users, PUT/ users
+*/
+
+/*
+*/
+
+
+router.put('/users', (req, res) => {
+    const {name, email} = req.body;
+    if(!name || !email) {
+        console.log('invalid input received');
+        res.json({
+        success: false,
+        data: req.body,
+        error: 'INVALID INPUTS - missing name or email'});
+    }    
+    else {
+        Firebase.add_new_user(req.body).then(user_json => {
+            res.json({
+                success: true,
+                data: user_json
+            });
+        });
+    }
+});
+
+router.get('/users', (req, res) => {
+    const {email} = req.query.email;
+    if( !email) {
+        console.log('invalid input received');
+        res.json({
+        success: false,
+        data: req.body,
+        error: 'INVALID INPUT - not a valid email'});
+    }    
+    else {
+        Firebase.fetch_user(email).then(user_json => {
+            res.json({
+                success: true,
+                data: user_json
+            });
+        });
+
+    }
+});
+
+
+
 /*
 The endpoints for artifacts requests -  GET/artifacts, PUT/artifacts
 
