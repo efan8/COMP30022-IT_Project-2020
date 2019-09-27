@@ -12,7 +12,7 @@ function ViewItemComponent(props){
     const tagComponents = keys.map(key => <button className="basicButton" key={i++}>{key}</button>)
 
 
-    const {originLocation} = props.state.item
+    const {originLocation} = props.state.item;
     const {lat, long} = originLocation ? originLocation : "";
     console.log(lat)
 
