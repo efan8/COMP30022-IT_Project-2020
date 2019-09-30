@@ -13,6 +13,7 @@ import SignUp from './Components/SignUp';
 import Login from './Components/Login';
 import Error from './Components/Error';
 import Navigation from './Components/Navigation';
+import EditItem from './Components/EditItem';
 
 
  
@@ -31,6 +32,7 @@ class App extends React.Component {
              <Route path="/SignUp" component={SignUp}/>
              <Route path="/Login" component={Login}/>
              <Route path="/ItemBlockTest" component={ItemBlock}/>
+             <Route path="/EditItem" component={EditItem}/>
             <Route component={Error}/>
            </Switch>
         </div> 

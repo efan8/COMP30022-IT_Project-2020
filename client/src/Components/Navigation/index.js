@@ -20,6 +20,8 @@ const Navigation = () => {
           <NavLink to="/SignUp">SignUp</NavLink>
           <br></br>
           <NavLink to="/ItemBlockTest">ItemBlockTest</NavLink>
+          <br></br>
+          <NavLink to="/EditItem">Edit Item</NavLink>
        </div>
     );
 };

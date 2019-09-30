@@ -25,7 +25,13 @@ function WelcomeComponent(props){
                             id:`${data[i].id}`
                         }
                     }} >Link to item</NavLink>
-                    <p >edit item</p >
+                    <br></br>
+                    <NavLink to={{
+                        pathname:"/EditItem",
+                        aboutProps:{
+                            id:`${data[i].id}`
+                        }
+                    }} >Edit item</NavLink>
                 </div>
             );
         }
