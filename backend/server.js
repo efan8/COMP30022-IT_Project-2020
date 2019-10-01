@@ -15,7 +15,10 @@ const body_parser = require('body-parser');
 const Firebase = require('./firebase.js');
 
 var cors = require('cors');
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
@@ -123,42 +126,13 @@ router.post('/login', (req,res) => {
     // Get the ID token passed and the CSRF token.
     const idToken = req.body.idToken.toString();
 
-    // Set session expiration to 30 days.
-    const expiresIn = 60 * 60 * 24 * 30 * 1000;
-    // Create the session cookie. This will also verify the ID token in the process.
-    // The session cookie will have the same claims as the ID token.
-    // To only allow session cookie setting on recent sign-in, auth_time in ID token
-    // can be checked to ensure user was recently signed in before creating a session cookie.
-    admin.auth().createSessionCookie(idToken, {expiresIn}).then((sessionCookie) => {
-        // Set cookie policy for session cookie.
-        const options = {maxAge: expiresIn, httpOnly: true, secure: true};
-        res.cookie('session', sessionCookie, options);
+    Firebase.create_session_cookie(idToken).then(data => {
+        res.cookie('session', data.sessionCookie, data.options);
         res.end(JSON.stringify({status: 'success'}));
-    }, error => {
+    }).catch(error => {
         res.status(401).send('UNAUTHORIZED REQUEST!');
     });
 });
-
-/*
-Helper functions
-*/
-
-// Function to verify the session cookie of the HTTP request is valid
-function verify_session_cookie(req) {
-    return new Promise(function(resolve, reject) {
-        const sessionCookie = req.cookies.session || '';
-        // Verify the session cookie. In this case an additional check is added to detect
-        // if the user's Firebase session was revoked, user deleted/disabled, etc.
-        admin.auth().verifySessionCookie(
-            sessionCookie, true /** checkRevoked */)
-            .then((decodedClaims) => {
-                resolve(true);
-            }).catch(error => {
-                // Session cookie is unavailable or invalid. User must re-login.
-                resolve(false);
-            });
-    });
-}
 
 
 //append /api for our http requests

@@ -44,6 +44,7 @@ class SignUp extends React.Component {
             passwordTwo: "",
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     };
 
     // Updates state as soon as anything is typed into the input boxes
@@ -55,15 +56,19 @@ class SignUp extends React.Component {
     };
 
     handleSubmit(event) {
+        console.log("handling submit button pressed");
         if (this.state.firstName == "" || this.state.lastName == "" ||
             this.state.email == "" || this.state.passwordOne == "" ||
             this.state.passwordTwo == "") {
-            this.setState ({output : [<p>Please fill in all details before submitting</p>]});
+                console.log("Please fill in all details before submitting");
+                this.setState ({output : [<p>Please fill in all details before submitting</p>]});
         }
         else if (this.state.passwordOne != this.state.passwordTwo) {
+            console.log("Passwords do not match");
             this.setState ({output : [<p>Passwords do not match</p>]});
         }
         else {
+            console.log("Input valid, signing up now...");
             // Sign up this user via backend
             var user = {
                 "firstName": this.state.firstName,
@@ -77,14 +82,19 @@ class SignUp extends React.Component {
                 console.log(new_user_json);
 
                 // Sign in with email and password, obtaining user's ID token
+                console.log(user);
+                console.log("signing in...");
                 return firebase.auth().signInWithEmailAndPassword(user.email, user.password);
             }).then(user_credential => {
+                console.log("signed in");
+                console.log(user_credential);
+                console.log(user_credential.user ? user_credential.user.getIdToken() : "null");
                 // Get the user's ID token as it is needed to exchange for a session cookie.
                 return user_credential.user.getIdToken();
             }).then(idToken => {
                 console.log("ID Token: " + idToken);
                 // Session login endpoint in backed is queried and the session cookie is set.
-                return transport.post(LOGIN, idToken);
+                return transport.post(LOGIN, { "idToken": idToken });
             }).then(() => {
                 // A page redirect would suffice as the persistence is set to NONE.
                 return firebase.auth().signOut();
@@ -93,6 +103,8 @@ class SignUp extends React.Component {
                 //
                 //
                 console.log("Signed up and signed in! Navigating to welcome page now...")
+            }).catch(function(error) {
+                console.log(error);
             });
         }
         event.preventDefault();
@@ -103,6 +115,7 @@ class SignUp extends React.Component {
             <SignUpFormComponent
                 data={this.state}
                 handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
             />
         );
     };

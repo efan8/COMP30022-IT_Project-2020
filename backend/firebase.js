@@ -1,16 +1,6 @@
-var firebase = require("firebase-admin");
-var Artifact = require('./data/artifact.js');
-var User = require('./data/user.js');
-
-var firebaseConfig = {
-    apiKey: "AIzaSyDlG7W2KW8AzVM-W5tOYlcrAiH9lDbzv1Y",
-    authDomain: "it-project-2019sem2.firebaseapp.com",
-    databaseURL: "https://it-project-2019sem2.firebaseio.com",
-    projectId: "it-project-2019sem2",
-    storageBucket: "",
-    messagingSenderId: "240150750224",
-    appId: "1:240150750224:web:b6b663108abd79251e1695"
-};
+var admin = require("firebase-admin");
+var Artifact = require('./model/artifact.js');
+var User = require('./model/user.js');
 
 // Initialize Firebase
 var serviceAccount = require("./config/firebaseServiceAccountKey.json");
@@ -18,7 +8,7 @@ var serviceAccount = require("./config/firebaseServiceAccountKey.json");
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://databaseName.firebaseio.com"
+  databaseURL: "https://it-project-2019sem2.firebaseio.com"
 });
 
 var database = admin.database();
@@ -199,6 +189,46 @@ function signup_new_user(json) {
     });
 }
 
+function create_session_cookie(idToken) {
+    return new Promise(function(resolve, reject) {
+        // Set session expiration to 14 days.
+        const expiresIn = 60 * 60 * 24 * 14 * 1000;
+        // Create the session cookie. This will also verify the ID token in the process.
+        // The session cookie will have the same claims as the ID token.
+        // To only allow session cookie setting on recent sign-in, auth_time in ID token
+        // can be checked to ensure user was recently signed in before creating a session cookie.
+        admin.auth().createSessionCookie(idToken, {expiresIn}).then((sessionCookie) => {
+            // Set cookie policy for session cookie.
+            const options = {maxAge: expiresIn, httpOnly: true, secure: true};
+            const data = {
+                cookie: sessionCookie,
+                options: options
+            };
+            resolve(data);
+        }, error => {
+            console.log(error);
+            reject(error);
+        });
+    });
+}
+
+// Function to verify the session cookie of the HTTP request is valid
+function verify_session_cookie(req) {
+    return new Promise(function(resolve, reject) {
+        const sessionCookie = req.cookies.session || '';
+        // Verify the session cookie. In this case an additional check is added to detect
+        // if the user's Firebase session was revoked, user deleted/disabled, etc.
+        admin.auth().verifySessionCookie(
+            sessionCookie, true /** checkRevoked */)
+            .then((decodedClaims) => {
+                resolve(true);
+            }).catch(error => {
+                // Session cookie is unavailable or invalid. User must re-login.
+                resolve(false);
+            });
+    });
+}
+
 
 /*
 Exports
@@ -208,3 +238,6 @@ module.exports.add_new_artifact = add_new_artifact;
 module.exports.update_artifact = update_artifact;
 module.exports.fetch_artifact = fetch_artifact;
 module.exports.fetch_all_artifacts = fetch_all_artifacts;
+module.exports.signup_new_user = signup_new_user;
+module.exports.create_session_cookie = create_session_cookie;
+module.exports.verify_session_cookie = verify_session_cookie;
