@@ -1,5 +1,5 @@
 /*
-Server file for the backend that converts http messages into the required 
+Server file for the backend that converts http messages into the required
 actions by the database.
 Currently using:
     localhost:3001/api
@@ -84,6 +84,32 @@ router.get('/artifacts', (req, res) => {
             data: artifact_json});
         });
     }
+});
+
+/*
+The endpoints for authentication requests - PUT/signup
+*/
+
+router.put('/signup', (req,res) => {
+    const { firstName, lastName, email, password } = req.body;
+    if(!firstName || !lastName || !email || !password) {
+        console.log('invalid input received');
+        res.json({
+            success: false,
+            data: req.body,
+            error: 'INVALID INPUTS'
+        });
+    }
+    else {
+        Firebase.signup_new_user(req.body).then(user_json => {
+            console.log('Created user: ' + user_json.id);
+            res.json({
+                success: true,
+                data: user_json
+            });
+        });
+    }
+
 });
 
 //append /api for our http requests

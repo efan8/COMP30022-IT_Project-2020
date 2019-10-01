@@ -1,7 +1,6 @@
-var firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/database");
-var Artifact = require('./data.js');
+var firebase = require("firebase-admin");
+var Artifact = require('./data/artifact.js');
+var User = require('./data/user.js');
 
 var firebaseConfig = {
     apiKey: "AIzaSyDlG7W2KW8AzVM-W5tOYlcrAiH9lDbzv1Y",
@@ -12,6 +11,17 @@ var firebaseConfig = {
     messagingSenderId: "240150750224",
     appId: "1:240150750224:web:b6b663108abd79251e1695"
 };
+
+// Initialize Firebase
+var serviceAccount = require("./config/firebaseServiceAccountKey.json");
+
+// Initialize the app with a service account, granting admin privileges
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://databaseName.firebaseio.com"
+});
+
+var database = admin.database();
 
 // Endpoints
 var ARTIFACTS = "/artifacts";
@@ -42,14 +52,9 @@ var test_artifact = {
     }
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-var database = firebase.database();
-
-//
-// Base level helper functions
-//
+/*
+Realtime Database - Base level functions
+*/
 
 function create(path, data) {
     var root_ref = database.ref(path);
@@ -90,10 +95,49 @@ function fetch(path) {
     });
 }
 
+/*
+Realtime Database - Helper functions
+*/
 
-//
-// Public functions
-//
+function add_user_to_database(user) {
+    return new Promise(function(resolve, reject) {
+        update(USERS + "/" + user.id, user.to_firebase_JSON()).then(did_update => {
+            if (did_update) {
+                resolve(user.to_JSON());
+            }
+            else {
+                reject("Failed to add user to database");
+            }
+        });
+    });
+}
+
+/*
+Firebase Authentication - Base level functions
+*/
+
+function create_user(user, password) {
+    return new Promise(function(resolve, reject) {
+        admin.auth().createUser({
+            email: user.email,
+            password: password,
+            displayName: user.firstName + " " + user.lastName
+        }).then(function(userRecord) {
+            // See the UserRecord reference doc for the contents of userRecord.
+            console.log('Successfully created new user:', userRecord.uid);
+            resolve(userRecord.uid);
+        }).catch(function(error) {
+            // Need to handle error specifically
+            //
+            console.log('Error creating new user:', error);
+            reject(error);
+        });
+    });
+}
+
+/*
+Public functions
+*/
 
 function add_new_artifact(json) {
     var artifact = Artifact.new(json);
@@ -140,10 +184,25 @@ function fetch_artifact(id) {
     });
 }
 
+function signup_new_user(json) {
+    return new Promise(function(resolve, reject) {
+        var user = User.create(json);
+        create_user(user, json.password).then(user_id => {
+            user.update_id(user_id);
+            return add_user_to_database(user);
+        }).then(user_json => {
+            resolve(user_json);
+        }).catch(error => {
+            console.log(error);
+            reject(error);
+        });
+    });
+}
 
-//
-// Exports
-//
+
+/*
+Exports
+*/
 
 module.exports.add_new_artifact = add_new_artifact;
 module.exports.update_artifact = update_artifact;

@@ -1,7 +1,7 @@
 //
-// Data.js
+// artifact.js
 //
-// File containing the model for the backend
+// File containing the model for Artifact
 //
 
 class Artifact {
