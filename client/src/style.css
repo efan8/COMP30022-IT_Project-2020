@@ -10,6 +10,11 @@
     align-items: center;
 }
 
+.map{
+    height: 400px;
+    width: 700px;
+}
+
 .title{
     background-color: #41354D;
     height: 70px;
@@ -70,4 +75,22 @@
 
 .background{
     background-color: blue
+}
+
+.smallImage{
+    width: auto;
+    height: 200px;
+}
+
+.para{
+    font-size : 20px;
+    padding : 0;
+    margin : 0;
+    line-height : 20px;
+}
+
+.sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
 }

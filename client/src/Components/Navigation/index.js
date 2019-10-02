@@ -7,11 +7,15 @@ import { NavLink } from 'react-router-dom';
 const Navigation = () => {
     return (
        <div>
-          <NavLink to="/">Welcome</NavLink>
+          <NavLink to="/">LandingPage</NavLink>
+          <br></br>
+          <NavLink to="/Welcome">Welcome</NavLink>
           <br></br>
           <NavLink to="/AddItem">AddItem</NavLink>
           <br></br>
           <NavLink to="/ViewItem">ViewItem</NavLink>
+          <br></br>
+          <NavLink to="/Login">Login</NavLink>
           <br></br>
           <NavLink to="/SignUp">SignUp</NavLink>
           <br></br>
