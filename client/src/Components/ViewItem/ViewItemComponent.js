@@ -1,5 +1,4 @@
 import React from 'react';
-import MapMaker from '../MapMaker'
 
 function ViewItemComponent(props){
 
