@@ -67,7 +67,7 @@ router.put('/artifacts', (req,res) => {
 
 // the get method - viewing item with specific id in database
 router.get('/artifacts', (req, res) => {
-    verify_session_cookie(req).then(is_valid_cookie => {
+    Firebase.verify_session_cookie(req).then(is_valid_cookie => {
         if (is_valid_cookie) {
             console.log("Valid cookie");
         }
