@@ -38,7 +38,7 @@ function EditItemComponent(props) {
                 placeholder="Simple Description of  object and stuff"
                 className="descriptionbox"
                 name="description"
-                value={props.state.description}
+                value={props.state.item.description}
                 onChange={props.handleChange}
                 />
 
@@ -48,7 +48,7 @@ function EditItemComponent(props) {
             <input
                 placeholder="Enter tag here"
                 name="currentTypedTag"
-                value={props.state.currentTypedTag}
+                value={props.state.item.currentTypedTag}
                 onChange={props.handleChange} 
                 />
             <button 
@@ -72,7 +72,8 @@ function EditItemComponent(props) {
             <p>{dateObj.toString()}</p>
 
             
-            
+            <br></br>
+            <button>Update Item</button>
         </form>
 
     );
