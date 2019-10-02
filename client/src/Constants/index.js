@@ -17,4 +17,14 @@ export const blank_item = {
     "currentTypedTag": "",
     "locationString": "",
     "results": {}
+    "currentTypedTag": ""
+};
+
+export const blank_collection = {
+    "id": "",
+    "name": "",
+    "description": "",
+    "ownerID": "",
+    "dateCreated": "",
+    "dateLastModified": ""
 };
