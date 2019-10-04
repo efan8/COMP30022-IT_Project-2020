@@ -199,7 +199,8 @@ function create_session_cookie(idToken) {
         // can be checked to ensure user was recently signed in before creating a session cookie.
         admin.auth().createSessionCookie(idToken, {expiresIn}).then((sessionCookie) => {
             // Set cookie policy for session cookie.
-            const options = {maxAge: expiresIn, httpOnly: true, secure: true};
+            console.log("Session cookie: " + sessionCookie);
+            const options = {maxAge: expiresIn, httpOnly: false, secure: false };
             const data = {
                 cookie: sessionCookie,
                 options: options
@@ -216,15 +217,17 @@ function create_session_cookie(idToken) {
 function verify_session_cookie(req) {
     return new Promise(function(resolve, reject) {
         var sessionCookie = req.cookies ? (req.cookies.session || '') : '';
+        console.log("Cookie: " + sessionCookie);
         // Verify the session cookie. In this case an additional check is added to detect
         // if the user's Firebase session was revoked, user deleted/disabled, etc.
         admin.auth().verifySessionCookie(
             sessionCookie, true /** checkRevoked */)
             .then((decodedClaims) => {
-                resolve(true);
+                console.log("User ID: " + decodedClaims.uid)
+                resolve(decodedClaims.uid);
             }).catch(error => {
                 // Session cookie is unavailable or invalid. User must re-login.
-                resolve(false);
+                resolve(null);
             });
     });
 }

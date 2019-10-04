@@ -6,11 +6,7 @@ import '../../style.css';
 import Data from './testItem.json';
 import ViewItemComponent from './ViewItemComponent';
 import MapMaker from '../MapMaker';
-import axios from 'axios';
-
-const transport = axios.create({
-  withCredentials: true
-});
+import { get } from '../HTTP/http';
 
 class ViewItem extends React.Component {
 
@@ -32,16 +28,16 @@ class ViewItem extends React.Component {
             this.props.location.aboutProps.id : "";
         console.log("Item ID: " + itemId);
         this.setState({loading: true});
-        transport.get(`http://localhost:3001/api/artifacts?item_id=${itemId}`)
+        get(`artifacts?item_id=${itemId}`)
         .then(res => {
             this.setState({
                 loading: false,
-                item: res.data
-            })
-            console.log(res.data)
-        })
-        console.log(this.state.item ? this.state.item.id : "no")
-    };
+                item: res.data.data
+            });
+            console.log(res.data.data);
+        });
+        console.log(this.state.item ? this.state.item.id : "no");
+    }
 
     render() {
         // update map

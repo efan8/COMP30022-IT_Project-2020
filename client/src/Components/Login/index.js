@@ -3,6 +3,7 @@
 import React from 'react';
 import '../../style.css';
 import LoginComponent from './LoginComponent.js';
+import { login } from '../Auth/auth';
 
 let users = {"jibby98@hotmail.com" : "1234", "abcd@what.com" : "123"};
 
@@ -30,9 +31,14 @@ class Login extends React.Component {
         if (this.state.email == "" || this.state.password == "") {
             this.setState ({output : [<p>Please enter an email and password</p>]});
         } else {
-            // Login
-            //
-            //
+            login(this.state.email, this.state.password).then(res => {
+                console.log("Logged in!");
+                // Navigate to welcome page
+                //
+                //
+            }).catch(error => {
+                console.log(error);
+            });
         }
         event.preventDefault();
 
