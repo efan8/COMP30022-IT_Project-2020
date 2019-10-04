@@ -15,7 +15,7 @@ function AddItemComponent(props) {
     const tagComponents = keys.map(key => <button className="basicButton" key={i++} type="button">{key}</button>)
 
     return (
-        <form onSubmit={props.submit}>
+        <form onSubmit={e => { e.preventDefault(); }}>
             <h1 className="title">Add Item</h1>
             <h3 className="heading">Item Name:</h3>
 
@@ -45,7 +45,8 @@ function AddItemComponent(props) {
                 placeholder="Enter tag here"
                 name="currentTypedTag"
                 value={props.state.currentTypedTag}
-                onChange={props.handleChange} 
+                onChange={props.handleChange}
+                onKeyDown={props.keyDown}
                 />
             <button 
                 onClick={props.tagSubmit}
@@ -68,7 +69,7 @@ function AddItemComponent(props) {
             <input/> <button>changeDate</button>
 
             <br></br>
-            <button>Submit</button>
+            <button onClick={props.submit}>Submit</button>
         </form>
 
     );
