@@ -7,18 +7,22 @@ class Test extends React.Component {
         super();
         this.state = {
             location: "",
-            results: {}
+            results: {},
+            choice: 0
         }
         this.handleChange = this.handleChange.bind(this)
         this.onClick = this.onClick.bind(this);
+        this.upload = this.upload.bind(this);
     }
 
     handleChange(event) {
         const {name, value} = event.target;
+        
         this.setState(
-            {[name]: value}
-        );
-
+            {[name]: value}    
+        )
+        
+        console.log(this.state)
     }
 
     onClick(){
@@ -35,10 +39,13 @@ class Test extends React.Component {
         });
     }
 
+    upload(){
+        console.log(this.state.results[this.state.choice]);
+    }
+
     render(){
         let items = [];
         for(let i = 0; i < this.state.results.length; i ++){
-            console.log(this.state.results[i].display_name)
             items.push({
                 name: this.state.results[i].display_name,
                 long: this.state.results[i].lon,
@@ -46,14 +53,9 @@ class Test extends React.Component {
             })
 
         }
-        console.log(items)
-
+        let i = 0;
         const itemComponents = items.map(item => 
-        // <div>
-        //     <h3>{item.name}</h3>
-        //     <button>Choose</button>
-        // </div>
-        <option value={item.long, item.lat}>{item.name}</option>
+        <option value={i} key={i++}>{item.name}</option>
         )
 
         return (
@@ -62,7 +64,9 @@ class Test extends React.Component {
                 <input name="location" value={this.state.location}
                 onChange={this.handleChange}/>
                 <button onClick={this.onClick}>Check</button>
-                {itemComponents.length > 0 ? <select>{itemComponents}</select>: <div></div>}
+                {itemComponents.length > 0 ? <select name="choice" onChange={this.handleChange}>{itemComponents}</select>: <div></div>}
+
+                <button onClick={this.upload}>Upload</button>
                 
             </div>
         )

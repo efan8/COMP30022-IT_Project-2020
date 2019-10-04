@@ -11,6 +11,7 @@ import axios from 'axios';
 import { put } from '../HTTP/http';
 
 
+
 class AddItem extends React.Component {
 
     constructor() {
@@ -21,6 +22,7 @@ class AddItem extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onTagSubmit = this.onTagSubmit.bind(this);
         this.keyPress = this.keyPress.bind(this);
+        this.getDataList = this.getDataList.bind(this);
     };
 
     // Handles updates to form values
@@ -60,6 +62,7 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
+
         let body = JSON.stringify(this.state);
 
         console.log(body);
@@ -72,6 +75,21 @@ class AddItem extends React.Component {
         });
     };
 
+    async getDataList(){
+        
+        await fetch(`https://us1.locationiq.com/v1/search.php?key=5bbb3f798e3174&q=${this.state.locationString}&format=json`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+                results: data.data
+            })
+            console.log(data.data)
+        }
+            
+            
+        )
+    }
+
     render() {
         return(
             <div>
@@ -81,6 +99,7 @@ class AddItem extends React.Component {
                     submit={this.onSubmit}
                     tagSubmit={this.onTagSubmit}
                     keyDown={this.keyPress}
+                    locationSubmit={this.getDataList}
                 />
             </div>
 
