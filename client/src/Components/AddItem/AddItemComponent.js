@@ -27,8 +27,7 @@ function AddItemComponent(props) {
                 placeholder="Type item name here"
                 className="textbox"/>
             
-            <img src={defaultImage} alt=""/>
-            <p>Take Image | Upload Image</p>
+            <input type="file" name="file" onChange={props.handleChange}/>
 
             <h3>Description:</h3>
             <input 
