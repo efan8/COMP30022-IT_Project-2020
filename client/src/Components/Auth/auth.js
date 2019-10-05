@@ -1,4 +1,4 @@
-import { put, post } from "../HTTP/http";
+import { get, put, post } from "../HTTP/http";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
