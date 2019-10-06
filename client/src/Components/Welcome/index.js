@@ -4,6 +4,7 @@
 import React from 'react';
 import '../../style.css';
 import WelcomeComponent from './WelcomeComponent';
+import { get } from '../HTTP/http';
 
 class Welcome extends React.Component{
 
@@ -20,14 +21,13 @@ class Welcome extends React.Component{
 
     componentDidMount() {
         this.setState({loading: true})
-        fetch("http://localhost:3001/api/artifacts?")
-            .then(response => response.json())
-            .then(data => {
+        get("artifacts")
+            .then(res => {
                 this.setState({
                     loading: false,
-                    item: data
-                })
-            })
+                    item: res.data
+                });
+            });
     }
 
     //Handles form submission of searchbar
@@ -35,12 +35,12 @@ class Welcome extends React.Component{
         this.setState ({search: event.target.search.value.toLowerCase()});
         event.preventDefault();
     }
-    
+
 
     render() {
         return (
-            <WelcomeComponent 
-                state={this.state} 
+            <WelcomeComponent
+                state={this.state}
                 handleSubmit={this.handleSubmit}/>
         )
     }
