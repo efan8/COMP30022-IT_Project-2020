@@ -28,9 +28,22 @@ class AddItem extends React.Component {
     // Handles updates to form values
     handleChange(event){
         const {name, value} = event.target;
-        this.setState(
+        if(name == "choice"){
+            console.log("location" + value)
+            this.setState(
+                {"originLocation": {
+                    "lat": this.state.results[value].lat,
+                    "long": this.state.results[value].lon
+                    }
+                }
+            )
+        }
+        else{
+            this.setState(
             {[name]: value}
-        );
+            );
+        }
+        
         console.log(this.state)
     };
 
@@ -62,7 +75,6 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
-
         let body = JSON.stringify(this.state);
 
         console.log(body);
@@ -81,9 +93,8 @@ class AddItem extends React.Component {
         .then(res => res.json())
         .then(data => {
             this.setState({
-                results: data.data
+                results: data
             })
-            console.log(data.data)
         }
             
             

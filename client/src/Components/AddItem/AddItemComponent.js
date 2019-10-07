@@ -15,18 +15,22 @@ function AddItemComponent(props) {
     const tagComponents = keys.map(key => <button className="basicButton" key={i++} type="button">{key}</button>)
 
     let items = [];
-    // for(let i = 0; i < props.state.results.length; i ++){
-    //     items.push({
-    //         name: props.state.results[i].display_name,
-    //         long: props.state.results[i].lon,
-    //         lat: props.state.results[i].lat
-    //     })
+    if(props.state.results.length > 0){
+        for(let i = 0; i < props.state.results.length; i ++){
+            items.push({
+                name: props.state.results[i].display_name,
+                long: props.state.results[i].lon,
+                lat: props.state.results[i].lat
+            })
+        }
+    }
+    console.log(items)
 
-    // }
     i = 0;
     const itemComponents = items.map(item => 
     <option value={i} key={i++}>{item.name}</option>
     )
+    console.log(itemComponents)
 
     return (
         <form onSubmit={e => { e.preventDefault(); }}>
@@ -79,7 +83,8 @@ function AddItemComponent(props) {
             <h3>Location:</h3>
             <input placeholder="Type in location here" name="locationString" value={props.state.locationString} onChange={props.handleChange}/>
             <button onClick={props.locationSubmit}>Find location</button>
-            {itemComponents.length > 0 ? <select name="choice" onChange={this.handleChange}>{itemComponents}</select>: <div></div>}
+            {itemComponents ? <select name="choice" onChange={props.handleChange}>{itemComponents}</select>: <div></div>
+            }
 
             <h3>Origin Date:</h3>
             <input/> <button>changeDate</button>
