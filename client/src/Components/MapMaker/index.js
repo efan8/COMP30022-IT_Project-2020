@@ -53,8 +53,8 @@ function MapMaker(props) {
         view: new View({
             center: conversion,
             zoom: 5,
-            minZoom: 3,
-            maxZoom: 13
+            minZoom: 5,
+            maxZoom: 5
         })
     });
     

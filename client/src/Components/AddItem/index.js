@@ -40,7 +40,7 @@ class AddItem extends React.Component {
         }
         else{
             this.setState(
-            {[name]: value}
+                {[name]: value}
             );
         }
         
@@ -75,16 +75,23 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
-        let body = JSON.stringify(this.state);
 
-        console.log(body);
-        console.log(this.state);
-        put('artifacts',
-            this.state)
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        });
+        if(this.state.originLocation.lat === null){
+            console.log("CANT DO IT")
+        }
+        else{
+            let body = JSON.stringify(this.state);
+        
+            console.log(body);
+            console.log(this.state);
+            axios.put(`http://localhost:3001/api/artifacts`, 
+                this.state)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            }
+        )
+        }
     };
 
     async getDataList(){

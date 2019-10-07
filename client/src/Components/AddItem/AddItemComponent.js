@@ -16,6 +16,11 @@ function AddItemComponent(props) {
 
     let items = [];
     if(props.state.results.length > 0){
+        items.push({
+            name: "Please choose one of the following locations",
+            lat: null,
+            long: null
+        })
         for(let i = 0; i < props.state.results.length; i ++){
             items.push({
                 name: props.state.results[i].display_name,
