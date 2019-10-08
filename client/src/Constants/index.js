@@ -19,7 +19,6 @@ export const blank_item = {
     "results": {},
     "selectedFile": null
 };
-
 export const blank_collection = {
     "id": "",
     "name": "",
