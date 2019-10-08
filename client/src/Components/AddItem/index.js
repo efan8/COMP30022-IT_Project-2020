@@ -24,6 +24,7 @@ class AddItem extends React.Component {
         this.onTagSubmit = this.onTagSubmit.bind(this);
         this.keyPress = this.keyPress.bind(this);
         this.getDataList = this.getDataList.bind(this);
+        this.deleteTag = this.deleteTag.bind(this);
     };
 
     // Handles updates to form values
@@ -39,6 +40,7 @@ class AddItem extends React.Component {
                 }
             )
         }
+        // Checks to see if the number of files submitted is past the set value
         else if(name === "selectedFile"){
             if(maxPossibleFiles(event)){
                 this.setState({
@@ -82,6 +84,18 @@ class AddItem extends React.Component {
 
     }
 
+    // "Deletes" tag when the tag is clicked. Just sets it to false
+    deleteTag(event){
+        let tagToDelete = event.target.value;
+        if(tagToDelete in this.state.tags){
+            let currentTags = this.state.tags;
+            currentTags[tagToDelete] = false;
+            this.setState({
+                tags: currentTags        
+            })
+        }
+    }
+
     // Final form submit button which sends infomation to backend
     onSubmit() {
         if(this.state.originLocation.lat === null){
@@ -121,6 +135,7 @@ class AddItem extends React.Component {
                     tagSubmit={this.onTagSubmit}
                     keyDown={this.keyPress}
                     locationSubmit={this.getDataList}
+                    deleteTag={this.deleteTag}
                 />
             </div>
 

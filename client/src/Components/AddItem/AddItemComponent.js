@@ -6,14 +6,22 @@ import defaultImage from '../../placeholder.png';
 
 function AddItemComponent(props) {
 
-    // Gets the tag names from the json file
-    let keys = [];
-    for(let k in props.state.tags) keys.push(k);
+    // Gets the tag names from the json file and adds them if they are true
+    let tags = Object.keys(props.state.tags)
+    let keys = tags.filter(function(id){
+        return props.state.tags[id]
+    })
 
     // generate tag buttons for user when they type them in
     let i = 0;
-    const tagComponents = keys.map(key => <button className="basicButton" key={i++} type="button">{key}</button>)
+    const tagComponents = keys.map(key => 
+        <button className="basicButton" 
+            key={i++} 
+            onClick={props.deleteTag}
+            type="button"
+            value={key.toString()}>{key}</button>)
 
+    console.log(tagComponents)
     let items = [];
     if(props.state.results.length > 0){
         items.push({
@@ -29,7 +37,7 @@ function AddItemComponent(props) {
             })
         }
     }
-    console.log(items)
+    //console.log(items)
 
     i = 0;
     const itemComponents = items.map(item => 
