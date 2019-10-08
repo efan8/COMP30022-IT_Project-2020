@@ -96,6 +96,18 @@ class AddItem extends React.Component {
         }
     }
 
+    // "Deletes" tag when the tag is clicked. Just sets it to false
+    deleteTag(event){
+        let tagToDelete = event.target.value;
+        if(tagToDelete in this.state.tags){
+            let currentTags = this.state.tags;
+            currentTags[tagToDelete] = false;
+            this.setState({
+                tags: currentTags        
+            })
+        }
+    }
+
     // Final form submit button which sends infomation to backend
     onSubmit() {
         if(this.state.originLocation.lat === null){
