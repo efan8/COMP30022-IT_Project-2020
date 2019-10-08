@@ -62,10 +62,8 @@ class SignUp extends React.Component {
                 console.log("signing in...");
                 return login(user.email, user.password);
             }).then(res => {
-                // Navigate to Welcome page
-                //
-                //
                 console.log("Signed up and signed in! Navigating to welcome page now...");
+                window.location = "/Welcome";
             }).catch(function(error) {
                 console.log(error);
             });
