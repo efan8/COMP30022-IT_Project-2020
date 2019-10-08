@@ -5,6 +5,7 @@
 import React from 'react';
 import '../../style.css';
 import { blank_item } from '../../Constants/index'
+import { maxPossibleFiles } from '../../Constants/validation'
 
 import AddItemComponent from './AddItemComponent';
 import axios from 'axios';
@@ -27,8 +28,8 @@ class AddItem extends React.Component {
 
     // Handles updates to form values
     handleChange(event){
-        const {name, value} = event.target;
-        if(name == "choice"){
+        const {name, value, files} = event.target;
+        if(name === "choice"){
             console.log("location" + value)
             this.setState(
                 {"originLocation": {
@@ -37,6 +38,14 @@ class AddItem extends React.Component {
                     }
                 }
             )
+        }
+        else if(name === "selectedFile"){
+            if(maxPossibleFiles(event)){
+                this.setState({
+                    [name]: files,
+                    loaded: 0
+                });
+            };        
         }
         else{
             this.setState(
@@ -49,7 +58,7 @@ class AddItem extends React.Component {
 
     // Handles enter key to update tag values with str length validation
     keyPress(e){
-        if(e.keyCode == 13 && e.target.value.length > 0){
+        if(e.keyCode === 13 && e.target.value.length > 0){
             console.log('value', e.target.value);
             this.state.tags[e.target.value.toString()] = true
             console.log(this.state)
@@ -75,7 +84,6 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
-
         if(this.state.originLocation.lat === null){
             console.log("CANT DO IT")
         }
@@ -91,17 +99,15 @@ class AddItem extends React.Component {
         }
     };
 
+    // Get the locations that match the input string.
     async getDataList(){
-
         await fetch(`https://us1.locationiq.com/v1/search.php?key=5bbb3f798e3174&q=${this.state.locationString}&format=json`)
         .then(res => res.json())
         .then(data => {
             this.setState({
                 results: data
-            })
-        }
-
-
+                })
+            }            
         )
     }
 

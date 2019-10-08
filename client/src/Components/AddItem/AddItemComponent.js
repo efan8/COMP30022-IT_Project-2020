@@ -50,7 +50,12 @@ function AddItemComponent(props) {
                 placeholder="Type item name here"
                 className="textbox"/>
             
-            <input type="file" name="file" onChange={props.handleChange}/>
+            <input type="file" 
+                name="selectedFile" 
+                multiple 
+                onChange={props.handleChange}
+                accept="image/*"
+                />
 
             <h3>Description:</h3>
             <input 

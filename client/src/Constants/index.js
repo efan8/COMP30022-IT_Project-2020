@@ -16,7 +16,8 @@ export const blank_item = {
     "tags": {},
     "currentTypedTag": "",
     "locationString": "",
-    "results": {}
+    "results": {},
+    "selectedFile": null
 };
 
 export const blank_collection = {
