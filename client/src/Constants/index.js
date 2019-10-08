@@ -14,5 +14,7 @@ export const blank_item = {
     },
     "collectionID": null,
     "tags": {},
-    "currentTypedTag": ""
+    "currentTypedTag": "",
+    "locationString": "",
+    "results": {}
 };
