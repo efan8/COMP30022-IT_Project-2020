@@ -3,7 +3,7 @@ export const blank_item = {
     "name": "",
     "description": "",
     "ownerID": "",
-    "originDate": null,
+    "originDate": new Date(),
     "originLocation": {
         "lat": null,
         "long": null

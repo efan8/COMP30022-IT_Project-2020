@@ -19,6 +19,7 @@ class AddItem extends React.Component {
         super();
 
         this.state = blank_item;
+        this.dateChange = this.dateChange.bind(this)
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onTagSubmit = this.onTagSubmit.bind(this);
@@ -27,8 +28,18 @@ class AddItem extends React.Component {
         this.deleteTag = this.deleteTag.bind(this);
     };
 
+    // date picker needs its onChange since it doesn't send an event like everything else
+    dateChange(date){
+        console.log(date)
+        this.setState({
+            "originDate": date
+        });
+        console.log(this.state)
+    }
+
     // Handles updates to form values
     handleChange(event){
+        console.log(event)
         const {name, value, files} = event.target;
         if(name === "choice"){
             console.log("location" + value)
@@ -148,6 +159,7 @@ class AddItem extends React.Component {
                     keyDown={this.keyPress}
                     locationSubmit={this.getDataList}
                     deleteTag={this.deleteTag}
+                    dateChange={this.dateChange}
                 />
             </div>
 

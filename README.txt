@@ -12,3 +12,5 @@ Installation Notes (Frontend):
 Running Both Frontend and Backend:
 1. Navigate to IT_Project folder
 2. run npm start
+
+npm install react-date-picker

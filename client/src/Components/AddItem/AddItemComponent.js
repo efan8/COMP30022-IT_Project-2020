@@ -2,6 +2,7 @@
 
 import React from 'react';
 import '../../style.css';
+import DatePicker from 'react-date-picker'
 import defaultImage from '../../placeholder.png';
 
 function AddItemComponent(props) {
@@ -105,7 +106,11 @@ function AddItemComponent(props) {
             }
 
             <h3>Origin Date:</h3>
-            <input/> <button>changeDate</button>
+
+            <DatePicker name="originDate" value={props.state.originDate}
+            onChange={props.dateChange}/>
+
+
 
             <br></br>
             <button onClick={props.submit}>Submit</button>
