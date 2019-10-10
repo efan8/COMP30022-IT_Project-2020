@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { logout } from '../Auth/auth';
 
  
 const Navigation = () => {
@@ -24,6 +25,8 @@ const Navigation = () => {
           <NavLink to="/ItemBlockTest">ItemBlockTest</NavLink>
           <br></br>
           <NavLink to="/EditItem">Edit Item</NavLink>
+          <br></br>
+          <NavLink to="/LandingPage" onClick={logout}>Logout</NavLink>
        </div>
     );
 };
