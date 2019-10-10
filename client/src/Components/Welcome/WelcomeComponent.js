@@ -93,6 +93,7 @@ function WelcomeComponent(props){
                 </select>
                 </p>
             </form>
+            <button onClick={props.logoutPressed}>Logout</button>
             <p>{items}</p>
         </div>
     );

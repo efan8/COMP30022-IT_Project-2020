@@ -1,8 +1,6 @@
 /* Initial page users will see that will take them to login or signup */
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { logout } from '../Auth/auth';
 import { check_login_status } from '../Auth/auth';
 
 class LandingPage extends React.Component {
@@ -22,12 +20,6 @@ class LandingPage extends React.Component {
         window.location = "/SignUp";
     };
 
-    logoutPressed() {
-        logout().then(() => {
-            console.log("Logged out");
-        });
-    };
-
     render() {
         if (check_login_status()) {
             window.location = "/Welcome";
@@ -38,8 +30,6 @@ class LandingPage extends React.Component {
                 <button onClick={this.logChange}>Login</button>
                 <br></br>
                 <button onClick={this.signChange}>Sign Up</button>
-                <br></br>
-                <button onClick={this.logoutPressed}>Logout</button>
             </div>
         );
     };

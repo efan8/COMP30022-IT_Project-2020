@@ -5,6 +5,7 @@ import React from 'react';
 import '../../style.css';
 import WelcomeComponent from './WelcomeComponent';
 import { get } from '../HTTP/http';
+import { logout } from '../Auth/auth';
 
 class Welcome extends React.Component{
 
@@ -19,6 +20,7 @@ class Welcome extends React.Component{
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.logoutPressed = this.logoutPressed.bind(this);
     }
 
     componentDidMount() {
@@ -43,13 +45,20 @@ class Welcome extends React.Component{
             {selectedOption: event.target[event.target.selectedIndex].value});
     }
     
+    logoutPressed() {
+        logout().then(() => {
+            console.log("Logged out");
+        });
+        window.location = "/Welcome";
+    };
 
     render() {
         return (
             <WelcomeComponent 
                 state={this.state} 
                 handleSubmit={this.handleSubmit}
-                handleSelectChange={this.handleSelectChange}/>
+                handleSelectChange={this.handleSelectChange}
+                logoutPressed={this.logoutPressed}/>
         )
     }
 }
