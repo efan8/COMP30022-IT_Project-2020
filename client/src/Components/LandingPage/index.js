@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { logout } from '../Auth/auth';
 
 class LandingPage extends React.Component {
-    
+
     constructor() {
         super();
         this.state ={
@@ -19,6 +20,11 @@ class LandingPage extends React.Component {
     signChange() {
         window.location = "/SignUp";
     }
+    logoutPressed() {
+        logout().then(() => {
+            console.log("Logged out");
+        });
+    }
 
     render() {
         return(
@@ -27,6 +33,8 @@ class LandingPage extends React.Component {
                 <button onClick={this.logChange}>Login</button>
                 <br></br>
                 <button onClick={this.signChange}>Sign Up</button>
+                <br></br>
+                <button onClick={this.logoutPressed}>Logout</button>
             </div>
         );
     };

@@ -1,11 +1,24 @@
 import axios from 'axios';
 
-const transport = axios.create({
+var transport = axios.create({
   withCredentials: true
 });
 
 // Endpoints
 const BACKEND_ROOT = "http://localhost:3001/api/"
+
+export function refresh_transport(usingCookies) {
+    if (usingCookies) {
+        transport = axios.create({
+          withCredentials: true
+        });
+    }
+    else {
+        transport = axios.create({
+          withCredentials: false
+        });
+    }
+}
 
 export function get(path) {
     return new Promise(function(resolve, reject) {
