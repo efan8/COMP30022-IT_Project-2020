@@ -146,9 +146,6 @@ router.post('/login', (req,res) => {
 });
 
 router.get('/login_status', (req,res) => {
-    // Get the ID token passed and the CSRF token.
-    const idToken = req.body.idToken.toString();
-
     Firebase.verify_session_cookie(req).then(verified_user_id => {
         if (verified_user_id) {
             res.status(200).send("User is logged in");

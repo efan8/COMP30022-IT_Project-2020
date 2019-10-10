@@ -1,23 +1,14 @@
 import axios from 'axios';
 
-var transport = axios.create({
+const transport = axios.create({
   withCredentials: true
 });
 
 // Endpoints
 const BACKEND_ROOT = "http://localhost:3001/api/"
 
-export function refresh_transport(usingCookies) {
-    if (usingCookies) {
-        transport = axios.create({
-          withCredentials: true
-        });
-    }
-    else {
-        transport = axios.create({
-          withCredentials: false
-        });
-    }
+export function clear_cookies() {
+    document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }
 
 export function get(path) {
