@@ -1,7 +1,7 @@
-/* Add Item form to allow user to input a new item. Currently users can 
+/* Add Item form to allow user to input a new item. Currently users can
    input a name, description, tags, collection, location (in coordindates)
    and origin date. Majority of this data is sent to backend correctly */
-   
+
 import React from 'react';
 import '../../style.css';
 import { blank_item } from '../../Constants/index'
@@ -43,7 +43,7 @@ class AddItem extends React.Component {
                 {[name]: value}
             );
         }
-        
+
         console.log(this.state)
     };
 
@@ -70,7 +70,7 @@ class AddItem extends React.Component {
                 {"currentTypedTag": ""}
             )
         }
-        
+
     }
 
     // Final form submit button which sends infomation to backend
@@ -81,21 +81,18 @@ class AddItem extends React.Component {
         }
         else{
             let body = JSON.stringify(this.state);
-        
+
             console.log(body);
             console.log(this.state);
-            axios.put(`http://localhost:3001/api/artifacts`, 
-                this.state)
-            .then(res => {
+            put(`artifacts`, this.state).then(res => {
                 console.log(res);
                 console.log(res.data);
-            }
-        )
+            });
         }
     };
 
     async getDataList(){
-        
+
         await fetch(`https://us1.locationiq.com/v1/search.php?key=5bbb3f798e3174&q=${this.state.locationString}&format=json`)
         .then(res => res.json())
         .then(data => {
@@ -103,8 +100,8 @@ class AddItem extends React.Component {
                 results: data
             })
         }
-            
-            
+
+
         )
     }
 
