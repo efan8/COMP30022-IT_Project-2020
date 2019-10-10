@@ -3,6 +3,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../Auth/auth';
+import { check_login_status } from '../Auth/auth';
 
 class LandingPage extends React.Component {
 
@@ -12,21 +13,25 @@ class LandingPage extends React.Component {
             name: ""
         };
     };
-
+    
     //To change page using buttons
     logChange() {
         window.location = "/Login";
-    }
+    };
     signChange() {
         window.location = "/SignUp";
-    }
+    };
+
     logoutPressed() {
         logout().then(() => {
             console.log("Logged out");
         });
-    }
+    };
 
     render() {
+        if (check_login_status()) {
+            window.location = "/Welcome";
+        };
         return(
             <div>
                 <h1 className="title">Landing Page</h1>
