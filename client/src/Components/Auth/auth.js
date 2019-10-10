@@ -1,4 +1,4 @@
-import { get, put, post } from "../HTTP/http";
+import { get, put, post, refresh_transport } from "../HTTP/http";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
@@ -32,6 +32,7 @@ export function signup(user) {
 
 export function login(email, password) {
     return new Promise(function(resolve, reject) {
+        refresh_transport(true);
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(user_credential => {
             console.log("signed in");
@@ -53,6 +54,13 @@ export function login(email, password) {
             console.log(error);
             reject(error);
         });
+    });
+}
+
+export function logout() {
+    return new Promise(function(resolve, reject) {
+        refresh_transport(false);
+        resolve(true);
     });
 }
 
