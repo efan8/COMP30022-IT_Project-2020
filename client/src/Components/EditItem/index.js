@@ -2,6 +2,7 @@ import React from 'react';
 import EditItemComponent from './EditItemComponent';
 import { blank_item } from '../../Constants/index'
 import axios from 'axios';
+import { get, put } from '../HTTP/http';
 
 class EditItem extends React.Component {
 
@@ -19,17 +20,16 @@ class EditItem extends React.Component {
     }
 
     componentDidMount() {
-        let itemId = this.props.location.aboutProps? 
+        let itemId = this.props.location.aboutProps?
             this.props.location.aboutProps.id : "";
         this.setState({loading: true});
-        fetch(`http://localhost:3001/api/artifacts?item_id=${itemId}`)
-        .then(response => response.json())
-        .then(data => {
+        get(`artifacts?item_id=${itemId}`)
+        .then(res => {
             this.setState({
                 loading: false,
-                item: data.data,
-            }) 
-        })
+                item: res.data.data
+            });
+        });
     }
 
     handleChange(event){
@@ -55,7 +55,7 @@ class EditItem extends React.Component {
     };
 
     onTagSubmit() {
-        
+
         let tag = this.state.currentTypedTag;
         console.log(tag)
         this.state.item.tags[tag] = true
@@ -67,15 +67,13 @@ class EditItem extends React.Component {
 
     onSubmit() {
         let body = JSON.stringify(this.state.item);
-        
+
         console.log(body);
         console.log(this.state.item);
-        axios.put(`http://localhost:3001/api/artifacts`, 
-            this.state.item)
-        .then(res => {
+        put('artifacts', this.state.item).then(res => {
             console.log(res);
             console.log(res.data);
-        })
+        });
     };
 
     render() {
