@@ -42,6 +42,7 @@ class ViewItem extends React.Component {
     render() {
         // update map
         if(this.state.item.originLocation){
+            console.log(this.state.item.originLocation)
             this.map = <MapMaker location={this.state.item.originLocation}/>
         }
         return(

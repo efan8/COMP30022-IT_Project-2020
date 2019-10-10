@@ -8,7 +8,6 @@ import { blank_item } from '../../Constants/index'
 import { maxPossibleFiles } from '../../Constants/validation'
 
 import AddItemComponent from './AddItemComponent';
-import axios from 'axios';
 import { put } from '../HTTP/http';
 
 
@@ -30,7 +29,6 @@ class AddItem extends React.Component {
 
     // date picker needs its onChange since it doesn't send an event like everything else
     dateChange(date){
-        console.log(date)
         this.setState({
             "originDate": date
         });
@@ -126,10 +124,16 @@ class AddItem extends React.Component {
         }
         else{
             let body = JSON.stringify(this.state);
-
+            let unix = this.state.originDate.getTime();
+            this.setState({
+                "originDate": unix
+            })
+        
             console.log(body);
             console.log(this.state);
-            put(`artifacts`, this.state).then(res => {
+            put(`artifacts`, 
+                this.state)
+            .then(res => {
                 console.log(res);
                 console.log(res.data);
             });
