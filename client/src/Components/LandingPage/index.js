@@ -10,6 +10,8 @@ class LandingPage extends React.Component {
         this.state ={
             name: ""
         };
+        this.logChange = this.logChange.bind(this);
+        this.signChange = this.signChange.bind(this);
     };
     
     //To change page using buttons
@@ -21,9 +23,11 @@ class LandingPage extends React.Component {
     };
 
     render() {
-        if (check_login_status()) {
-            window.location = "/Welcome";
-        };
+        check_login_status().then(is_logged_in => {
+            if(is_logged_in) {
+                window.location = "/Welcome";
+            };
+        });
         return(
             <div>
                 <h1 className="title">Landing Page</h1>

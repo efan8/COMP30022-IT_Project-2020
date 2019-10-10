@@ -48,8 +48,8 @@ class Welcome extends React.Component{
     logoutPressed() {
         logout().then(() => {
             console.log("Logged out");
+            window.location = "/LandingPage";
         });
-        window.location = "/Welcome";
     };
 
     render() {
