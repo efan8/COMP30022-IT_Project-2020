@@ -3,6 +3,10 @@
 import React from 'react';
  
 import { NavLink } from 'react-router-dom';
+
+function logoutHandler() {
+
+};
  
 const Navigation = () => {
     return (
@@ -24,6 +28,8 @@ const Navigation = () => {
           <NavLink to="/ItemBlockTest">ItemBlockTest</NavLink>
           <br></br>
           <NavLink to="/EditItem">Edit Item</NavLink>
+          <br></br>
+          <NavLink to="/LandingPage" onClick={logoutHandler}>Logout</NavLink>
        </div>
     );
 };

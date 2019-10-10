@@ -23,11 +23,12 @@ import Test from './Components/Test';
 class App extends React.Component {
     render() {
         return(
-            <BrowserRouter>
+      <BrowserRouter>
         <div>
           <Navigation />
             <Switch>
              <Route path="/" component={LandingPage} exact/>
+             <Route path="/LandingPage" component={LandingPage}/>
              <Route path="/Welcome" component={Welcome}/>
              <Route path="/AddItem" component={AddItem}/>
              <Route path="/ViewItem" component={ViewItem}/>
