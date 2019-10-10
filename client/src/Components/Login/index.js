@@ -33,9 +33,7 @@ class Login extends React.Component {
         } else {
             login(this.state.email, this.state.password).then(res => {
                 console.log("Logged in!");
-                // Navigate to welcome page
-                //
-                //
+                window.location = "/Welcome";
             }).catch(error => {
                 console.log(error);
             });

@@ -18,3 +18,12 @@ export const blank_item = {
     "locationString": "",
     "results": {}
 };
+
+export const blank_collection = {
+    "id": "",
+    "name": "",
+    "description": "",
+    "ownerID": "",
+    "dateCreated": "",
+    "dateLastModified": ""
+};

@@ -13,10 +13,12 @@ class Welcome extends React.Component{
         this.state = {
             loading: false,
             item: {},
-            search: ""
+            search: "",
+            selectedOption: ""
         }
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
     componentDidMount() {
@@ -36,12 +38,18 @@ class Welcome extends React.Component{
         event.preventDefault();
     }
 
+    handleSelectChange(event) {
+        this.setState(
+            {selectedOption: event.target[event.target.selectedIndex].value});
+    }
+    
 
     render() {
         return (
-            <WelcomeComponent
-                state={this.state}
-                handleSubmit={this.handleSubmit}/>
+            <WelcomeComponent 
+                state={this.state} 
+                handleSubmit={this.handleSubmit}
+                handleSelectChange={this.handleSelectChange}/>
         )
     }
 }
