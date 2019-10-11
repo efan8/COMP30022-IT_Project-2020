@@ -4,7 +4,13 @@ import { NavLink } from 'react-router-dom';
 function WelcomeComponent(props){
 
     
-    if (!props.state.item.data) return null;
+    if (!props.state.item.data) return (
+        <div>
+            <h1 className = "title"> Here are your items:</h1>
+            <h1>You have no items.</h1>
+        </div>
+    )
+
     let data = props.state.item.data;
     let search = props.state.search;
 
@@ -12,6 +18,9 @@ function WelcomeComponent(props){
     //Old and new case are kinda broken need to fix
     function sortData(sortType) {
         switch(sortType) {
+            case "default":
+                window.location = "/Welcome";
+                break;
             // case "old":
             //     data.sort(function(a, b) {
             //         var orderBool = a.dataAdded > b.dataAdded;
@@ -86,6 +95,7 @@ function WelcomeComponent(props){
                 <input type="submit"/>
                 <p> Sort by:
                 <select onChange={props.handleSelectChange} name="sort">
+                    <option value="default">--------------</option>
                     {/* <option value="old">Oldest</option>
                     <option value="new">Newest</option> */}
                     <option value="nameDesc">Name A-Z</option>
@@ -93,6 +103,7 @@ function WelcomeComponent(props){
                 </select>
                 </p>
             </form>
+            <button onClick={props.logoutPressed}>Logout</button>
             <p>{items}</p>
         </div>
     );
