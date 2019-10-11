@@ -8,7 +8,7 @@
     "cookie-parser": "^1.4.4",
     "firebase": "^6.5.0",
     "google-maps-react": "^2.0.2",
-    "mapbox-gl": "^1.4.0",
+    "mapbox-gl": "^1.4.1",
     "ol": "^5.3.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
