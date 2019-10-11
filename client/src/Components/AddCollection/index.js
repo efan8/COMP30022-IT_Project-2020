@@ -2,8 +2,7 @@
 
    import React from 'react';
    import '../../style.css';
-   import { blank_collection } from '../../Constants/index'
-
+   import { blank_collection } from '../../Constants/index';
    import AddCollectionComponent from './AddCollectionComponent';
    import axios from 'axios';
    import { put } from '../HTTP/http';

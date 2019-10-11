@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function ViewItemComponent(props){
 
@@ -8,7 +9,13 @@ function ViewItemComponent(props){
 
     // Generates the tag buttons from the list of tags
     let i = 0;
-    const tagComponents = keys.map(key => <button className="basicButton" key={i++}>{key}</button>)
+    const tagComponents = keys.map(key => <div><NavLink to={{
+        pathname:"/ViewTag",
+        aboutProps:{
+            viewTag : key
+        }
+    }} >{key}</NavLink>
+    <br></br></div>)
 
 
     const {originLocation} = props.state.item;
