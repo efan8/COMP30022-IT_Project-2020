@@ -1,5 +1,5 @@
 --- Friday Slacker's IT Project v0 ---
-Description: Upload family artifacts 
+Description: Upload family artifacts
 and access them on the internet.
 
 Installation Notes (Frontend):
@@ -12,3 +12,5 @@ Installation Notes (Frontend):
 Running Both Frontend and Backend:
 1. Navigate to IT_Project folder
 2. run npm start
+
+npm install react-date-picker

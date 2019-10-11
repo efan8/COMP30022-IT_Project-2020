@@ -5,9 +5,9 @@
 import React from 'react';
 import '../../style.css';
 import { blank_item } from '../../Constants/index'
+import { maxPossibleFiles } from '../../Constants/validation'
 
 import AddItemComponent from './AddItemComponent';
-import axios from 'axios';
 import { put } from '../HTTP/http';
 
 
@@ -18,17 +18,28 @@ class AddItem extends React.Component {
         super();
 
         this.state = blank_item;
+        this.dateChange = this.dateChange.bind(this)
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onTagSubmit = this.onTagSubmit.bind(this);
         this.keyPress = this.keyPress.bind(this);
         this.getDataList = this.getDataList.bind(this);
+        this.deleteTag = this.deleteTag.bind(this);
     };
+
+    // date picker needs its onChange since it doesn't send an event like everything else
+    dateChange(date){
+        this.setState({
+            "originDate": date
+        });
+        console.log(this.state)
+    }
 
     // Handles updates to form values
     handleChange(event){
-        const {name, value} = event.target;
-        if(name == "choice"){
+        console.log(event)
+        const {name, value, files} = event.target;
+        if(name === "choice"){
             console.log("location" + value)
             this.setState(
                 {"originLocation": {
@@ -37,6 +48,15 @@ class AddItem extends React.Component {
                     }
                 }
             )
+        }
+        // Checks to see if the number of files submitted is past the set value
+        else if(name === "selectedFile"){
+            if(maxPossibleFiles(event)){
+                this.setState({
+                    [name]: files,
+                    loaded: 0
+                });
+            };
         }
         else{
             this.setState(
@@ -49,7 +69,7 @@ class AddItem extends React.Component {
 
     // Handles enter key to update tag values with str length validation
     keyPress(e){
-        if(e.keyCode == 13 && e.target.value.length > 0){
+        if(e.keyCode === 13 && e.target.value.length > 0){
             console.log('value', e.target.value);
             this.state.tags[e.target.value.toString()] = true
             console.log(this.state)
@@ -73,35 +93,62 @@ class AddItem extends React.Component {
 
     }
 
+    // "Deletes" tag when the tag is clicked. Just sets it to false
+    deleteTag(event){
+        let tagToDelete = event.target.value;
+        if(tagToDelete in this.state.tags){
+            let currentTags = this.state.tags;
+            currentTags[tagToDelete] = false;
+            this.setState({
+                tags: currentTags
+            })
+        }
+    }
+
+    // "Deletes" tag when the tag is clicked. Just sets it to false
+    deleteTag(event){
+        let tagToDelete = event.target.value;
+        if(tagToDelete in this.state.tags){
+            let currentTags = this.state.tags;
+            currentTags[tagToDelete] = false;
+            this.setState({
+                tags: currentTags
+            })
+        }
+    }
+
     // Final form submit button which sends infomation to backend
     onSubmit() {
-
         if(this.state.originLocation.lat === null){
             console.log("CANT DO IT")
         }
         else{
             let body = JSON.stringify(this.state);
+            let unix = this.state.originDate.getTime();
+            this.setState({
+                "originDate": unix
+            })
 
             console.log(body);
             console.log(this.state);
-            put(`artifacts`, this.state).then(res => {
+            put(`artifacts`,
+                this.state)
+            .then(res => {
                 console.log(res);
                 console.log(res.data);
             });
         }
     };
 
+    // Get the locations that match the input string.
     async getDataList(){
-
         await fetch(`https://us1.locationiq.com/v1/search.php?key=5bbb3f798e3174&q=${this.state.locationString}&format=json`)
         .then(res => res.json())
         .then(data => {
             this.setState({
                 results: data
-            })
-        }
-
-
+                })
+            }
         )
     }
 
@@ -115,6 +162,8 @@ class AddItem extends React.Component {
                     tagSubmit={this.onTagSubmit}
                     keyDown={this.keyPress}
                     locationSubmit={this.getDataList}
+                    deleteTag={this.deleteTag}
+                    dateChange={this.dateChange}
                 />
             </div>
 

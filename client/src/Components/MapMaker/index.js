@@ -16,19 +16,21 @@ function MapMaker(props) {
     console.log(props);
 
     let conversion = [0,0];
-    
+
     if(props.location){
-        const longlat = [props.location.long, props.location.lat]
+        console.log("HELLO " + props.location)
+        console.log(props.location)
+        const longlat = [Number(props.location.long), Number(props.location.lat)]
         conversion = fromLonLat(longlat)
         console.log(conversion)
-        
+
     };
 
     let circle = new Circle(conversion, 300000);
     let point = new Point(conversion);
     let pointFeature = new Feature(point);
     let circleFeature = new Feature(circle);
-    
+
 
 
     // Source and vector layer
@@ -57,13 +59,13 @@ function MapMaker(props) {
             maxZoom: 5
         })
     });
-    
+
 
     return(
         <div id="map" className="map"></div>
     );
-    
+
 
 }
-    
+
 export default MapMaker;

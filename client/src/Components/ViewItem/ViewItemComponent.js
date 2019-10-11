@@ -16,7 +16,7 @@ function ViewItemComponent(props){
     console.log(lat)
 
 
-    let dateObj = new Date(props.state.item.originDate * 1000);
+    let dateObj = new Date(props.state.item.originDate);
 
 
     return(
@@ -27,22 +27,19 @@ function ViewItemComponent(props){
             <h3>Description:</h3>
             <p>{props.state.item.description}</p>
 
-            
+
             <h3>Tags:</h3>
             {tagComponents}
-           
+
 
             <h3>Collection:</h3>
             <p>{props.state.item.collectionID}</p>
 
-            <h3>Location:</h3>
-            <p>Lat: {lat} Long: {long}</p>
-            
             <h3>Origin Date:</h3>
             <p>{dateObj.toString()}</p>
 
-            
-            
+            <h3>Location:</h3>
+
         </div>
     );
 };

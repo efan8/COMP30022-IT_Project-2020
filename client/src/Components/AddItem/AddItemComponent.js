@@ -2,18 +2,27 @@
 
 import React from 'react';
 import '../../style.css';
+import DatePicker from 'react-date-picker'
 import defaultImage from '../../placeholder.png';
 
 function AddItemComponent(props) {
 
-    // Gets the tag names from the json file
-    let keys = [];
-    for(let k in props.state.tags) keys.push(k);
+    // Gets the tag names from the json file and adds them if they are true
+    let tags = Object.keys(props.state.tags)
+    let keys = tags.filter(function(id){
+        return props.state.tags[id]
+    })
 
     // generate tag buttons for user when they type them in
     let i = 0;
-    const tagComponents = keys.map(key => <button className="basicButton" key={i++} type="button">{key}</button>)
+    const tagComponents = keys.map(key =>
+        <button className="basicButton"
+            key={i++}
+            onClick={props.deleteTag}
+            type="button"
+            value={key.toString()}>{key}</button>)
 
+    console.log(tagComponents)
     let items = [];
     if(props.state.results.length > 0){
         items.push({
@@ -29,10 +38,10 @@ function AddItemComponent(props) {
             })
         }
     }
-    console.log(items)
+    //console.log(items)
 
     i = 0;
-    const itemComponents = items.map(item => 
+    const itemComponents = items.map(item =>
     <option value={i} key={i++}>{item.name}</option>
     )
     console.log(itemComponents)
@@ -49,11 +58,16 @@ function AddItemComponent(props) {
                 onChange={props.handleChange}
                 placeholder="Type item name here"
                 className="textbox"/>
-            
-            <input type="file" name="file" onChange={props.handleChange}/>
+
+            <input type="file"
+                name="selectedFile"
+                multiple
+                onChange={props.handleChange}
+                accept="image/*"
+                />
 
             <h3>Description:</h3>
-            <input 
+            <input
                 placeholder="Simple Description of  object and stuff"
                 className="descriptionbox"
                 name="description"
@@ -71,7 +85,7 @@ function AddItemComponent(props) {
                 onChange={props.handleChange}
                 onKeyDown={props.keyDown}
                 />
-            <button 
+            <button
                 onClick={props.tagSubmit}
                 type="button">
                 add tag
@@ -92,7 +106,11 @@ function AddItemComponent(props) {
             }
 
             <h3>Origin Date:</h3>
-            <input/> <button>changeDate</button>
+
+            <DatePicker name="originDate" value={props.state.originDate}
+            onChange={props.dateChange}/>
+
+
 
             <br></br>
             <button onClick={props.submit}>Submit</button>
