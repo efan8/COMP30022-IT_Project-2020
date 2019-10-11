@@ -7,7 +7,7 @@ function WelcomeComponent(props){
     if (!props.state.item.data) return (
         <div>
             <h1 className = "title"> Here are your items:</h1>
-            <h1>You have no items.</h1>
+            <h1>You have no items currently.</h1>
         </div>
     )
 
