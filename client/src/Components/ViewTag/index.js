@@ -24,7 +24,9 @@
        }
 
        componentDidMount() {
-           console.log(this.props.location ? this.props.location.aboutProps.viewTag:"");
+           let viewTag = this.props.location.aboutProps?
+           this.props.location.aboutProps.viewTag : "";
+           this.setState({tag: viewTag});
            //this.setState({tag: viewTag});
            this.setState({loading: true});
            get("artifacts")

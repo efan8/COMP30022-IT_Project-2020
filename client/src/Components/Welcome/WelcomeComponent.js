@@ -57,8 +57,12 @@ function WelcomeComponent(props){
     //into a list of items
     let items = [];
     for(let i = 0; i<data.length; i++) {
+        let tags = [];
+        for(let k in data[i].tags) tags.push(k.toLowerCase());
+        tags = tags.join();
         if (search == "" | data[i].name.toLowerCase().includes(search) 
-            | data[i].description.toLowerCase().includes(search)) {
+            | data[i].description.toLowerCase().includes(search)
+            | tags.includes(search)) {
             items.push(
                 <div>
                     <h1>{data[i].name}</h1>
