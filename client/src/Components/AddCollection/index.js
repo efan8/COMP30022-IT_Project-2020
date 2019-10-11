@@ -5,7 +5,7 @@
    import { blank_collection } from '../../Constants/index'
 
    import AddCollectionComponent from './AddCollectionComponent';
-   import axios from 'axios';
+   import { put } from '../HTTP/http'
 
 
    class AddCollection extends React.Component {
