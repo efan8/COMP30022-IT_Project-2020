@@ -1,18 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function WelcomeComponent(props){
+function ViewTagComponent(props){
 
     
-    if (!props.state.item.data) return (
+    if (!props.state.item.data ) return (
         <div>
-            <h1 className = "title"> Here are your items:</h1>
-            <h1>You have no items currently.</h1>
+            <h1 className = "title"> Loading</h1>
+            <h1>You have no items.</h1>
         </div>
     )
+    
+    function capitalise(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     let data = props.state.item.data;
     let search = props.state.search;
+    let tag = props.state.tag;
 
     //Sorting of items
     //Old and new case are kinda broken need to fix
@@ -50,46 +55,46 @@ function WelcomeComponent(props){
         }
     }
     sortData(props.state.selectedOption);
-
-
-
+    
     //Creates an array of all items needing to be displayed and puts them
     //into a list of items
     let items = [];
     for(let i = 0; i<data.length; i++) {
         let tags = [];
-        for(let k in data[i].tags) tags.push(k.toLowerCase());
-        tags = tags.join();
-        if (search == "" | data[i].name.toLowerCase().includes(search) 
-            | data[i].description.toLowerCase().includes(search)
-            | tags.includes(search)) {
-            items.push(
-                <div>
-                    <h1>{data[i].name}</h1>
-                    <img src={data[i].imageURL} alt="" className="smallImage"/>
-                    <p className="para">{data[i].description}</p>
-                    <NavLink to={{
-                        pathname:"/ViewItem",
-                        aboutProps:{
-                            id:`${data[i].id}`
-                        }
-                    }} >Link to item</NavLink>
-                    <br></br>
-                    <NavLink to={{
-                        pathname:"/EditItem",
-                        aboutProps:{
-                            id:`${data[i].id}`
-                        }
-                    }} >Edit item</NavLink>
-                </div>
-            );
+        for(let k in data[i].tags) tags.push(k);
+        let tagsString = tags.join();
+        if (tags.includes(tag)) {
+            if (search == "" | data[i].name.toLowerCase().includes(search) 
+                | data[i].description.toLowerCase().includes(search)
+                | tagsString.includes(search)) {
+                items.push(
+                    <div>
+                        <h1>{data[i].name}</h1>
+                        <img src={data[i].imageURL} alt="" className="smallImage"/>
+                        <p className="para">{data[i].description}</p>
+                        <NavLink to={{
+                            pathname:"/ViewItem",
+                            aboutProps:{
+                                id:`${data[i].id}`
+                            }
+                        }} >Link to item</NavLink>
+                        <br></br>
+                        <NavLink to={{
+                            pathname:"/EditItem",
+                            aboutProps:{
+                                id:`${data[i].id}`
+                            }
+                        }} >Edit item</NavLink>
+                    </div>
+                );
+            }
         }
     }
 
 
     return(
         <div>
-            <h1 className = "title"> Here are your items:</h1>
+            <h1 className = "title"> {capitalise(tag)}</h1>
             <form onSubmit={props.handleSubmit}>
                 <input
                     type="text" 
@@ -107,11 +112,10 @@ function WelcomeComponent(props){
                 </select>
                 </p>
             </form>
-            <button onClick={props.logoutPressed}>Logout</button>
             <p>{items}</p>
         </div>
     );
 
 };
 
-export default WelcomeComponent;
+export default ViewTagComponent;
