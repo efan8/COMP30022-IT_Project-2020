@@ -13,7 +13,6 @@ admin.initializeApp({
 });
 
 var database = admin.database();
-var bucket = admin.storage().bucket();
 
 // Endpoints
 var ARTIFACTS = "/artifacts";
@@ -134,6 +133,7 @@ Firebase Storage - Base level functions
 function create_upload_promise(filepath) {
     return new Promise(function(resolve, reject) {
         console.log(filepath);
+        var bucket = admin.storage().bucket();
         bucket.upload(filepath, function(err, newFile) {
             if (err) {
                 console.log(err);
