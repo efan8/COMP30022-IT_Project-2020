@@ -10,6 +10,8 @@ import { maxPossibleFiles } from '../../Constants/validation';
 
 import AddItemComponent from './AddItemComponent';
 import { put } from '../HTTP/http';
+import { upload_image } from '../Image/image';
+
 
 class AddItem extends React.Component {
 
@@ -68,6 +70,14 @@ class AddItem extends React.Component {
         console.log(this.state)
     };
 
+    handleImageUpload(e) {
+        console.log(e.target.files);
+        let img_file = e.target.files[0];
+        console.log(img_file);
+
+        upload_image(img_file, "item456");
+    }
+
     // Handles enter key to update tag values with str length validation
     keyPress(e){
         if(e.keyCode === 13 && e.target.value.length > 0){
@@ -120,9 +130,10 @@ class AddItem extends React.Component {
 
             console.log(body);
             console.log(this.state);
-            put(`artifacts`,
-                this.state)
-            .then(res => {
+            put(`artifacts`, this.state).then(res => {
+                // Need to grab item_id here, and then upload image
+                //
+                //
                 console.log(res);
                 console.log(res.data);
             });
@@ -152,6 +163,7 @@ class AddItem extends React.Component {
                 <h1 className="title">Add Item</h1>
                 <AddItemComponent
                     handleChange={this.handleChange}
+                    handleImageUpload={this.handleImageUpload}
                     state={this.state}
                     submit={this.onSubmit}
                     tagSubmit={this.onTagSubmit}

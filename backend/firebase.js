@@ -4,12 +4,13 @@ var User = require('./model/user.js');
 
 // Initialize Firebase
 var serviceAccount = require("./config/firebaseServiceAccountKey.json");
+const storage_bucket_url = "gs://it-project-2019sem2.appspot.com";
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://it-project-2019sem2.firebaseio.com",
-  storageBucket: "gs://it-project-2019sem2.appspot.com"
+  storageBucket: storage_bucket_url
 });
 
 var database = admin.database();
@@ -131,11 +132,10 @@ function create_user(user, password) {
 Firebase Storage - Base level functions
 */
 
-function create_upload_promise(filepath, user_id, item_id, uploaded_filepaths) {
+function create_upload_promise(filepath, filename, user_id, item_id) {
     return new Promise(function(resolve, reject) {
-        let filepath_components = filepath.split("/");
-        let filename = filepath_components[filepath_components.length - 1];
         let unique_filepath = user_id + "/" + item_id + "/" + filename;
+        let url = storage_bucket_url + "/" + unique_filepath;
         console.log(unique_filepath);
         var bucket = storage.bucket();
         const options = {
@@ -147,27 +147,21 @@ function create_upload_promise(filepath, user_id, item_id, uploaded_filepaths) {
                 reject(err);
             }
             else {
-                //console.log(newFile);
-                if (uploaded_filepaths) {
-                    uploaded_filepaths.push(unique_filepath);
-                    resolve(uploaded_filepaths);
-                }
-                else {
-                    resolve([unique_filepath]);
-                }
+                resolve(url);
             }
         });
     });
 }
 
 // Function will asynchronously return an array containing the filepath (ie. URL) of each uploaded image
-function upload_images(filepaths, user_id, item_id) {
-    let chain = Promise.resolve();
+function upload_image(filepath, filename, user_id, item_id) {
+    /*let chain = Promise.resolve();
     // Upload images
     for (let filepath of filepaths) {
-        chain = chain.then(uploaded_filepaths => create_upload_promise(filepath, user_id, item_id, uploaded_filepaths));
+        chain = chain.then(uploaded_filepaths => create_upload_promise(filepath, filename, user_id, item_id));
     }
-    return chain;
+    return chain;*/
+    return create_upload_promise(filepath, filename, user_id, item_id);
 }
 
 
@@ -283,7 +277,7 @@ function verify_session_cookie(req) {
 Exports
 */
 
-module.exports.upload_images = upload_images;
+module.exports.upload_image = upload_image;
 module.exports.add_new_artifact = add_new_artifact;
 module.exports.update_artifact = update_artifact;
 module.exports.fetch_artifact = fetch_artifact;

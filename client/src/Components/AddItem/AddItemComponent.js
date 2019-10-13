@@ -66,7 +66,7 @@ function AddItemComponent(props) {
             <input type="file"
                 name="selectedFile"
                 multiple
-                onChange={props.handleChange}
+                onChange={props.handleImageUpload}
                 accept="image/*"
                 />
 

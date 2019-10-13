@@ -12,6 +12,7 @@ const app = express();
 const router = express.Router();
 
 const body_parser = require('body-parser');
+const formidable = require('formidable');
 
 const Firebase = require('./firebase.js');
 
@@ -160,7 +161,29 @@ router.get('/login_status', (req,res) => {
 The endpoints for image upload
 */
 
+router.post('/upload_image', (req,res) => {
+    Firebase.verify_session_cookie(req).then(verified_user_id => {
+        if (verified_user_id) {
+            new formidable.IncomingForm().parse(req, (err, fields, files) => {
+                if (err) {
+                    console.error('Error', err);
+                    throw err;
+                }
+                var item_id = fields.item_id;
+                var file = files.file;
 
+                Firebase.upload_image(file.path, file.name, verified_user_id, item_id).then(url => {
+                    res.status(200).send(url);
+                }).catch(error => {
+                    res.status(400).send("Internal error");
+                });
+            });
+        }
+        else {
+            res.status(401).send("User is not logged in");
+        }
+    });
+});
 
 
 //append /api for our http requests
