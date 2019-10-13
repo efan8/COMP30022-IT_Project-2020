@@ -47,7 +47,7 @@ class Welcome extends React.Component{
 
     render() {
         check_login_status().then(is_logged_in => {
-            if(is_logged_in != true) {
+            if(!is_logged_in) {
                 window.location = "/LandingPage";
             }
         });
