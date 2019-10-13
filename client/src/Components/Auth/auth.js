@@ -72,6 +72,8 @@ export function check_login_status() {
             else {
                 resolve(false);
             }
+        }).catch(error => {
+            resolve(false);
         });
     });
 }
