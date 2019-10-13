@@ -8,10 +8,12 @@ var serviceAccount = require("./config/firebaseServiceAccountKey.json");
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://it-project-2019sem2.firebaseio.com"
+  databaseURL: "https://it-project-2019sem2.firebaseio.com",
+  storageBucket: "gs://it-project-2019sem2.appspot.com"
 });
 
 var database = admin.database();
+var bucket = admin.storage().bucket();
 
 // Endpoints
 var ARTIFACTS = "/artifacts";
@@ -124,6 +126,32 @@ function create_user(user, password) {
         });
     });
 }
+
+/*
+Firebase Storage - Base level functions
+*/
+
+function create_upload_promise(filepath) {
+    return new Promise(function(resolve, reject) {
+        bucket.upload(filepath, function(err, newFile) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(newFile);
+            }
+        });
+    });
+}
+
+function upload_images(filepaths) {
+    let chain = Promise.resolve();
+    for (let filepath in filepaths) {
+        chain = chain.then(() => create_upload_promise(filepath));
+    }
+    return chain;
+}
+
 
 /*
 Public functions
