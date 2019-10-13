@@ -131,7 +131,7 @@ function create_user(user, password) {
 Firebase Storage - Base level functions
 */
 
-function create_upload_promise(filepath, user_id, item_id) {
+function create_upload_promise(filepath, user_id, item_id, uploaded_filepaths) {
     return new Promise(function(resolve, reject) {
         let filepath_components = filepath.split("/");
         let filename = filepath_components[filepath_components.length - 1];
@@ -147,18 +147,25 @@ function create_upload_promise(filepath, user_id, item_id) {
                 reject(err);
             }
             else {
-                console.log(newFile);
-                resolve(unique_filepath);
+                //console.log(newFile);
+                if (uploaded_filepaths) {
+                    uploaded_filepaths.push(unique_filepath);
+                    resolve(uploaded_filepaths);
+                }
+                else {
+                    resolve([unique_filepath]);
+                }
             }
         });
     });
 }
 
+// Function will asynchronously return an array containing the filepath (ie. URL) of each uploaded image
 function upload_images(filepaths, user_id, item_id) {
     let chain = Promise.resolve();
     // Upload images
     for (let filepath of filepaths) {
-        chain = chain.then(() => create_upload_promise(filepath, user_id, item_id));
+        chain = chain.then(uploaded_filepaths => create_upload_promise(filepath, user_id, item_id, uploaded_filepaths));
     }
     return chain;
 }
