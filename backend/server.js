@@ -156,6 +156,10 @@ router.get('/login_status', (req,res) => {
     });
 });
 
+/*
+The endpoints for image upload
+*/
+
 
 
 
