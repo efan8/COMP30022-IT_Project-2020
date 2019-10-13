@@ -13,3 +13,13 @@ export function maxPossibleFiles(event){
 }
 
 // Do we want to limit file size? 
+// export function maxFileSize(event){
+//     let files = event.target.files;
+//     for(file in files){
+//         if(file.size > 1){
+//             const msg = 'Files must be x MB or smaller'
+//             return false;
+//         }
+//     }
+//     return true
+// }

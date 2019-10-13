@@ -4,13 +4,12 @@
 
 import React from 'react';
 import '../../style.css';
-import { blank_item } from '../../Constants/index'
-import { maxPossibleFiles } from '../../Constants/validation'
+import { blank_item } from '../../Constants/index';
+import { check_login_status } from '../Auth/auth';
+import { maxPossibleFiles } from '../../Constants/validation';
 
 import AddItemComponent from './AddItemComponent';
 import { put } from '../HTTP/http';
-
-
 
 class AddItem extends React.Component {
 
@@ -18,14 +17,16 @@ class AddItem extends React.Component {
         super();
 
         this.state = blank_item;
-        this.dateChange = this.dateChange.bind(this)
+        this.dateChange = this.dateChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onTagSubmit = this.onTagSubmit.bind(this);
         this.keyPress = this.keyPress.bind(this);
         this.getDataList = this.getDataList.bind(this);
         this.deleteTag = this.deleteTag.bind(this);
+
     };
+
 
     // date picker needs its onChange since it doesn't send an event like everything else
     dateChange(date){
@@ -40,11 +41,11 @@ class AddItem extends React.Component {
         console.log(event)
         const {name, value, files} = event.target;
         if(name === "choice"){
-            console.log("location" + value)
+            console.log("location" + value - 1)
             this.setState(
                 {"originLocation": {
-                    "lat": this.state.results[value].lat,
-                    "long": this.state.results[value].lon
+                    "lat": this.state.results[value - 1].lat,
+                    "long": this.state.results[value - 1].lon
                     }
                 }
             )
@@ -105,18 +106,6 @@ class AddItem extends React.Component {
         }
     }
 
-    // "Deletes" tag when the tag is clicked. Just sets it to false
-    deleteTag(event){
-        let tagToDelete = event.target.value;
-        if(tagToDelete in this.state.tags){
-            let currentTags = this.state.tags;
-            currentTags[tagToDelete] = false;
-            this.setState({
-                tags: currentTags
-            })
-        }
-    }
-
     // Final form submit button which sends infomation to backend
     onSubmit() {
         if(this.state.originLocation.lat === null){
@@ -153,8 +142,14 @@ class AddItem extends React.Component {
     }
 
     render() {
+        check_login_status().then(is_logged_in => {
+            if(!is_logged_in) {
+                window.location = "/LandingPage";
+            }
+        });
         return(
             <div>
+                <h1 className="title">Add Item</h1>
                 <AddItemComponent
                     handleChange={this.handleChange}
                     state={this.state}
