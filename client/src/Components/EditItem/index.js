@@ -16,7 +16,8 @@ class EditItem extends React.Component {
         this.getDataList = this.getDataList.bind(this);
         this.deleteTag = this.deleteTag.bind(this);
 
-        this.state.results = {}
+        this.state.results = {};
+        this.state.selectedFile = null;
     }
 
     // date picker needs its onChange since it doesn't send an event like everything else

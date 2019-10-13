@@ -10,8 +10,6 @@ import { maxPossibleFiles } from '../../Constants/validation'
 import AddItemComponent from './AddItemComponent';
 import { put } from '../HTTP/http';
 
-
-
 class AddItem extends React.Component {
 
     constructor() {
@@ -25,7 +23,9 @@ class AddItem extends React.Component {
         this.keyPress = this.keyPress.bind(this);
         this.getDataList = this.getDataList.bind(this);
         this.deleteTag = this.deleteTag.bind(this);
+
     };
+
 
     // date picker needs its onChange since it doesn't send an event like everything else
     dateChange(date){
