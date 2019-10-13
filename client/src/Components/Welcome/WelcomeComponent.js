@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { check_login_status } from '../Auth/auth';
 
 function WelcomeComponent(props){
 
