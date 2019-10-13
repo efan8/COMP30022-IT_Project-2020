@@ -13,7 +13,7 @@ import AddCollection from './Components/AddCollection';
 import SignUp from './Components/SignUp';
 import Login from './Components/Login';
 import Error from './Components/Error';
-import Navigation from './Components/Navigation';
+import Navigation from './Components/NavigationBar';
 import EditItem from './Components/EditItem';
 import Test from './Components/Test';
 import ViewTag from './Components/ViewTag';
