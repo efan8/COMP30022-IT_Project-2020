@@ -1,7 +1,5 @@
 import React from 'react';
 import EditItemComponent from './EditItemComponent';
-import { blank_item } from '../../Constants/index'
-import axios from 'axios';
 import { get, put } from '../HTTP/http';
 
 class EditItem extends React.Component {
@@ -29,6 +27,7 @@ class EditItem extends React.Component {
                 loading: false,
                 item: res.data.data
             });
+            console.log(this.state)
         });
     }
 
@@ -47,10 +46,6 @@ class EditItem extends React.Component {
                 item: updatedItem
             })
         }
-        // let updatedItem = {...this.state.item};
-        // updatedItem[{target}] = value;
-        // console.log(updatedItem[{target}])
-        // console.log(this.state);
 
     };
 
@@ -69,6 +64,7 @@ class EditItem extends React.Component {
         let body = JSON.stringify(this.state.item);
 
         console.log(body);
+        
         console.log(this.state.item);
         put('artifacts', this.state.item).then(res => {
             console.log(res);
@@ -77,7 +73,6 @@ class EditItem extends React.Component {
     };
 
     render() {
-        let display = this.state.item ? this.state.item.id : "Loading";
         return(
             <div>
                 <p>display {this.state.loading ? "Loading" : this.state.item.id}</p>

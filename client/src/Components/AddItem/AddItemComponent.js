@@ -3,7 +3,6 @@
 import React from 'react';
 import '../../style.css';
 import DatePicker from 'react-date-picker'
-import defaultImage from '../../placeholder.png';
 
 function AddItemComponent(props) {
 
@@ -23,6 +22,8 @@ function AddItemComponent(props) {
             value={key.toString()}>{key}</button>)
 
     console.log(tagComponents)
+
+    // get the resulting items from a location search
     let items = [];
     if(props.state.results.length > 0){
         items.push({

@@ -1,23 +1,35 @@
 
 import React from 'react';
 import '../../style.css';
-import defaultImage from '../../placeholder.png';
+
 
 function EditItemComponent(props) {
 
-    // Gets the tag names from the json file
-    let keys = [];
-    for(let k in props.state.item.tags) keys.push(k);
+    let item = props.state.item;
 
-    // Generates the tag buttons from the list of tags
+    let keys = []
+    if(item.tags){
+        // Gets the tag names from the json file and adds them if they are true
+        let tags = Object.keys(item.tags)
+        keys = tags.filter(function(id){
+            return item.tags[id]
+        })
+    }
+
+    // generate tag buttons for user when they type them in
     let i = 0;
-    const tagComponents = keys.map(key => <button className="basicButton" key={i++}>{key}</button>)
+    const tagComponents = keys.map(key =>
+        <button className="basicButton"
+            key={i++}
+            onClick={props.deleteTag}
+            type="button"
+            value={key.toString()}>{key}</button>)
+    
 
-
-    const {originLocation} = props.state.item;
+    const {originLocation} = item;
     const {lat, long} = originLocation ? originLocation : "";
 
-    let dateObj = new Date(props.state.item.originDate * 1000);
+    let dateObj = new Date(props.state.item.originDate);
 
 
     return(
