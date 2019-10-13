@@ -29,7 +29,7 @@ function ViewItemComponent(props){
     return(
         <div>
             <h1 className="title">{props.state.item.name}</h1>
-            <img src={props.state.item.imageURL} alt="" className="mediumImage"/>
+            <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="mediumImage"/>
 
             <h3>Description:</h3>
             <p>{props.state.item.description}</p>

@@ -4,7 +4,7 @@ import { check_login_status } from '../Auth/auth';
 
 function WelcomeComponent(props){
 
-    
+
     if (!props.state.item.data) return (
         <div>
             <h1 className = "title"> Here are your items:</h1>
@@ -61,13 +61,13 @@ function WelcomeComponent(props){
         let tags = [];
         for(let k in data[i].tags) tags.push(k.toLowerCase());
         tags = tags.join();
-        if (search == "" | data[i].name.toLowerCase().includes(search) 
+        if (search == "" | data[i].name.toLowerCase().includes(search)
             | data[i].description.toLowerCase().includes(search)
             | tags.includes(search)) {
             items.push(
                 <div>
                     <h1>{data[i].name}</h1>
-                    <img src={data[i].imageURL} alt="" className="smallImage"/>
+                    <img src={ data[i].imageURLs ? data[i].imageURLs[0] : ""} alt="" className="smallImage"/>
                     <p className="para">{data[i].description}</p>
                     <NavLink to={{
                         pathname:"/ViewItem",
@@ -93,8 +93,8 @@ function WelcomeComponent(props){
             <h1 className = "title"> Here are your items:</h1>
             <form onSubmit={props.handleSubmit}>
                 <input
-                    type="text" 
-                    name="search" 
+                    type="text"
+                    name="search"
                     placeholder="Search"
                 />
                 <input type="submit"/>

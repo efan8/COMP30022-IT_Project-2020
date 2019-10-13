@@ -36,5 +36,10 @@ Where an artifact in the following format is included in the body:
     "photo": true,
     "Sydney": true,
     "architecture": true
+  },
+  "imageURLs": {
+    0: "url1",
+    1: "url2",
+    2: "url3"
   }
 }

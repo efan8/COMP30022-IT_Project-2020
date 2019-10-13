@@ -5,6 +5,7 @@ var User = require('./model/user.js');
 // Initialize Firebase
 var serviceAccount = require("./config/firebaseServiceAccountKey.json");
 const storage_bucket_url = "gs://it-project-2019sem2.appspot.com";
+const storage_bucket_download_url = "https://firebasestorage.googleapis.com/v0/b/it-project-2019sem2.appspot.com/o";
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -132,14 +133,18 @@ function create_user(user, password) {
 Firebase Storage - Base level functions
 */
 
-function create_upload_promise(filepath, filename, user_id, item_id) {
+function create_upload_promise(filepath, filename, filetype, user_id, item_id) {
     return new Promise(function(resolve, reject) {
         let unique_filepath = user_id + "/" + item_id + "/" + filename;
-        let url = storage_bucket_url + "/" + unique_filepath;
+        let download_filepath = user_id + "%2F" + item_id + "%2F" + filename + "?alt=media";
+        let url = storage_bucket_download_url + "/" + download_filepath;
         console.log(unique_filepath);
         var bucket = storage.bucket();
         const options = {
-            destination: unique_filepath
+            destination: unique_filepath,
+            metadata: {
+                contentType: filetype
+            }
         };
         bucket.upload(filepath, options, function(err, newFile) {
             if (err) {
@@ -154,14 +159,14 @@ function create_upload_promise(filepath, filename, user_id, item_id) {
 }
 
 // Function will asynchronously return an array containing the filepath (ie. URL) of each uploaded image
-function upload_image(filepath, filename, user_id, item_id) {
+function upload_image(filepath, filename, filetype, user_id, item_id) {
     /*let chain = Promise.resolve();
     // Upload images
     for (let filepath of filepaths) {
         chain = chain.then(uploaded_filepaths => create_upload_promise(filepath, filename, user_id, item_id));
     }
     return chain;*/
-    return create_upload_promise(filepath, filename, user_id, item_id);
+    return create_upload_promise(filepath, filename, filetype, user_id, item_id);
 }
 
 
