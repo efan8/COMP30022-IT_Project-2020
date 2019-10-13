@@ -4,8 +4,9 @@
 
 import React from 'react';
 import '../../style.css';
-import { blank_item } from '../../Constants/index'
-import { maxPossibleFiles } from '../../Constants/validation'
+import { blank_item } from '../../Constants/index';
+import { check_login_status } from '../Auth/auth';
+import { maxPossibleFiles } from '../../Constants/validation';
 
 import AddItemComponent from './AddItemComponent';
 import { put } from '../HTTP/http';
@@ -141,6 +142,11 @@ class AddItem extends React.Component {
     }
 
     render() {
+        check_login_status().then(is_logged_in => {
+            if(!is_logged_in) {
+                window.location = "/LandingPage";
+            }
+        });
         return(
             <div>
                 <h1 className="title">Add Item</h1>
