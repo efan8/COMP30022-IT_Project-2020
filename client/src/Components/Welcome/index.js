@@ -5,6 +5,7 @@ import React from 'react';
 import '../../style.css';
 import WelcomeComponent from './WelcomeComponent';
 import { get } from '../HTTP/http';
+import { check_login_status } from '../Auth/auth';
 
 class Welcome extends React.Component{
 
@@ -45,6 +46,11 @@ class Welcome extends React.Component{
     
 
     render() {
+        check_login_status().then(is_logged_in => {
+            if(!is_logged_in) {
+                window.location = "/LandingPage";
+            }
+        });
         return (
             <WelcomeComponent 
                 state={this.state} 
