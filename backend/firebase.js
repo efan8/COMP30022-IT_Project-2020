@@ -8,7 +8,8 @@ var serviceAccount = require("./config/firebaseServiceAccountKey.json");
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://it-project-2019sem2.firebaseio.com"
+  databaseURL: "https://it-project-2019sem2.firebaseio.com",
+  storageBucket: "gs://it-project-2019sem2.appspot.com"
 });
 
 var database = admin.database();
@@ -126,6 +127,36 @@ function create_user(user, password) {
 }
 
 /*
+Firebase Storage - Base level functions
+*/
+
+function create_upload_promise(filepath) {
+    return new Promise(function(resolve, reject) {
+        console.log(filepath);
+        var bucket = admin.storage().bucket();
+        bucket.upload(filepath, function(err, newFile) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log(newFile);
+                resolve(newFile);
+            }
+        });
+    });
+}
+
+function upload_images(filepaths) {
+    let chain = Promise.resolve();
+    for (let filepath of filepaths) {
+        chain = chain.then(() => create_upload_promise(filepath));
+    }
+    return chain;
+}
+
+
+/*
 Public functions
 */
 
@@ -237,6 +268,7 @@ function verify_session_cookie(req) {
 Exports
 */
 
+module.exports.upload_images = upload_images;
 module.exports.add_new_artifact = add_new_artifact;
 module.exports.update_artifact = update_artifact;
 module.exports.fetch_artifact = fetch_artifact;
