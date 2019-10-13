@@ -3,15 +3,17 @@
 import React from 'react';
 import '../../style.css';
 import DatePicker from 'react-date-picker'
-import defaultImage from '../../placeholder.png';
 
 function AddItemComponent(props) {
 
     // Gets the tag names from the json file and adds them if they are true
-    let tags = Object.keys(props.state.tags)
-    let keys = tags.filter(function(id){
-        return props.state.tags[id]
-    })
+    let keys = []
+    if(props.state.tags){
+        let tags = Object.keys(props.state.tags)
+        keys = tags.filter(function(id){
+            return props.state.tags[id]
+        })
+    }
 
     // generate tag buttons for user when they type them in
     let i = 0;
@@ -23,6 +25,8 @@ function AddItemComponent(props) {
             value={key.toString()}>{key}</button>)
 
     console.log(tagComponents)
+
+    // get the resulting items from a location search
     let items = [];
     if(props.state.results.length > 0){
         items.push({
@@ -48,7 +52,7 @@ function AddItemComponent(props) {
 
     return (
         <form onSubmit={e => { e.preventDefault(); }}>
-            <h1 className="title">Add Item</h1>
+            
             <h3 className="heading">Item Name:</h3>
 
             <input
@@ -90,14 +94,6 @@ function AddItemComponent(props) {
                 type="button">
                 add tag
                 </button>
-
-            <h3>Collection:</h3>
-            <select>
-                <option value="collection1">collection1</option>
-                <option value="collection2">collection2</option>
-                <option value="collection3">collection3</option>
-                <option value="newcollection">create new collection</option>
-            </select>
 
             <h3>Location:</h3>
             <input placeholder="Type in location here" name="locationString" value={props.state.locationString} onChange={props.handleChange}/>
