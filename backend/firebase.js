@@ -13,6 +13,7 @@ admin.initializeApp({
 });
 
 var database = admin.database();
+var storage = admin.storage();
 
 // Endpoints
 var ARTIFACTS = "/artifacts";
@@ -130,27 +131,34 @@ function create_user(user, password) {
 Firebase Storage - Base level functions
 */
 
-function create_upload_promise(filepath) {
+function create_upload_promise(filepath, user_id, item_id) {
     return new Promise(function(resolve, reject) {
-        console.log(filepath);
-        var bucket = admin.storage().bucket();
-        bucket.upload(filepath, function(err, newFile) {
+        let filepath_components = filepath.split("/");
+        let filename = filepath_components[filepath_components.length - 1];
+        let unique_filepath = user_id + "/" + item_id + "/" + filename;
+        console.log(unique_filepath);
+        var bucket = storage.bucket();
+        const options = {
+            destination: unique_filepath
+        };
+        bucket.upload(filepath, options, function(err, newFile) {
             if (err) {
                 console.log(err);
                 reject(err);
             }
             else {
                 console.log(newFile);
-                resolve(newFile);
+                resolve(unique_filepath);
             }
         });
     });
 }
 
-function upload_images(filepaths) {
+function upload_images(filepaths, user_id, item_id) {
     let chain = Promise.resolve();
+    // Upload images
     for (let filepath of filepaths) {
-        chain = chain.then(() => create_upload_promise(filepath));
+        chain = chain.then(() => create_upload_promise(filepath, user_id, item_id));
     }
     return chain;
 }
