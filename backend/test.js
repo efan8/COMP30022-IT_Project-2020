@@ -1,4 +1,4 @@
-var Artifact = require('./data.js');
+//var Artifact = require('./model/artifact.js');
 var Firebase = require('./firebase.js');
 
 var test_artifact_json = {
@@ -30,9 +30,13 @@ var test_artifact_json = {
 /*Firebase.add_new_artifact(test_artifact_json).then(updated_artifact_json => {
   console.log(updated_artifact_json.id);
 });*/
-Firebase.fetch_artifact("-LoJV2WbBCM2Gz8vDq_H").then(artifact_json => {
+/*Firebase.fetch_artifact("-LoJV2WbBCM2Gz8vDq_H").then(artifact_json => {
   console.log(artifact_json.description);
+});*/
+Firebase.upload_images(["/Users/eric/IT_Project/backend/github_avatar.png"]).then(() => {
+    console.log("Done");
 });
+
 /*Firebase.fetch_all_artifacts().then(artifact_jsons => {
   console.log(artifact_jsons);
 });*/

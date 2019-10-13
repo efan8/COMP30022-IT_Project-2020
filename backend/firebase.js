@@ -133,11 +133,14 @@ Firebase Storage - Base level functions
 
 function create_upload_promise(filepath) {
     return new Promise(function(resolve, reject) {
+        console.log(filepath);
         bucket.upload(filepath, function(err, newFile) {
             if (err) {
+                console.log(err);
                 reject(err);
             }
             else {
+                console.log(newFile);
                 resolve(newFile);
             }
         });
@@ -146,7 +149,7 @@ function create_upload_promise(filepath) {
 
 function upload_images(filepaths) {
     let chain = Promise.resolve();
-    for (let filepath in filepaths) {
+    for (let filepath of filepaths) {
         chain = chain.then(() => create_upload_promise(filepath));
     }
     return chain;
@@ -265,6 +268,7 @@ function verify_session_cookie(req) {
 Exports
 */
 
+module.exports.upload_images = upload_images;
 module.exports.add_new_artifact = add_new_artifact;
 module.exports.update_artifact = update_artifact;
 module.exports.fetch_artifact = fetch_artifact;
