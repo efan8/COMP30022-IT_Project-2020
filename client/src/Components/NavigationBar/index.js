@@ -27,9 +27,12 @@ class NavigationBar extends React.Component {
                         <li><NavLink to="/LandingPage">Home</NavLink></li>
                         <li><NavLink to="/Welcome">Welcome</NavLink></li>
                         <li><NavLink to="/AddItem">Add Item</NavLink></li>
-                        <li position='right'><NavLink to="/LandingPage" onClick={logout}>Logout</NavLink></li>
                     </ul>
                 </nav>
+                <NavLink className="logout"
+                    to="/LandingPage" 
+                    onClick={logout}>Logout
+                </NavLink>
             </header>
         )
     }
