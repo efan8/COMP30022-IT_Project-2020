@@ -67,7 +67,8 @@ function WelcomeComponent(props){
             items.push(
                 <div>
                     <h1>{data[i].name}</h1>
-                    <img src={ data[i].imageURLs ? data[i].imageURLs[0] : ""} alt="" className="smallImage"/>
+                    <img src={ data[i].imageURLs ? data[i].imageURLs[0] : ""} 
+                        alt="" className="smallImage"/>
                     <p className="para">{data[i].description}</p>
                     <NavLink to={{
                         pathname:"/ViewItem",
