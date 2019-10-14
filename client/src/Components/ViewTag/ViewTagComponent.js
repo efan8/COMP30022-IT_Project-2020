@@ -95,7 +95,7 @@ function ViewTagComponent(props){
 
     return(
         <div>
-            <h1 className = "title"> {capitalise(tag)}</h1>
+            <h1 className = "title"> Items with tag :- {capitalise(tag)}</h1>
             <form onSubmit={props.handleSubmit}>
                 <input
                     type="text" 
