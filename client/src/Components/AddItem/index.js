@@ -10,6 +10,8 @@ import { maxPossibleFiles } from '../../Constants/validation';
 
 import AddItemComponent from './AddItemComponent';
 import { put } from '../HTTP/http';
+import { upload_images } from '../Image/image';
+
 
 class AddItem extends React.Component {
 
@@ -19,6 +21,7 @@ class AddItem extends React.Component {
         this.state = blank_item;
         this.dateChange = this.dateChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleImageUpload = this.handleImageUpload.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onTagSubmit = this.onTagSubmit.bind(this);
         this.keyPress = this.keyPress.bind(this);
@@ -68,6 +71,12 @@ class AddItem extends React.Component {
         console.log(this.state)
     };
 
+    handleImageUpload(e) {
+        if(maxPossibleFiles(e)){
+            this.setState({ files: e.target.files });
+        }
+    }
+
     // Handles enter key to update tag values with str length validation
     keyPress(e){
         if(e.keyCode === 13 && e.target.value.length > 0){
@@ -115,16 +124,29 @@ class AddItem extends React.Component {
             let body = JSON.stringify(this.state);
             let unix = this.state.originDate.getTime();
             this.setState({
-                "originDate": unix
-            })
+                "dateAdded": unix
+            }, function() {
+                var item = this.state;
 
-            console.log(body);
-            console.log(this.state);
-            put(`artifacts`,
-                this.state)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
+                console.log(body);
+                console.log(this.state);
+
+                put('artifacts', this.state).then(res => {
+                    var artifact = res.data.data;
+                    var item_id = artifact.id;
+                    console.log("Created database entry for artifact of ID: " + item_id);
+                    item.id = item_id;
+                    return upload_images(this.state.files, item_id);
+                }).then(image_urls => {
+                    console.log("Uploaded images for this artifact");
+                    item.imageURLs = image_urls;
+                    return put('artifacts', item);
+                }).then(res => {
+                    console.log(res);
+                    console.log("Updated artifact entry with image_urls");
+                }).catch(error => {
+                    console.log(error);
+                });
             });
         }
     };
@@ -152,6 +174,7 @@ class AddItem extends React.Component {
                 <h1 className="title">Add Item</h1>
                 <AddItemComponent
                     handleChange={this.handleChange}
+                    handleImageUpload={this.handleImageUpload}
                     state={this.state}
                     submit={this.onSubmit}
                     tagSubmit={this.onTagSubmit}

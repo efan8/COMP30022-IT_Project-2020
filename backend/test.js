@@ -33,7 +33,8 @@ var test_artifact_json = {
 /*Firebase.fetch_artifact("-LoJV2WbBCM2Gz8vDq_H").then(artifact_json => {
   console.log(artifact_json.description);
 });*/
-Firebase.upload_images(["/Users/eric/IT_Project/backend/github_avatar.png"], "user1").then(() => {
+Firebase.upload_images(["/Users/eric/IT_Project/backend/github_avatar.png"], "user1", "item1").then(urls => {
+    console.log("Uploaded image URLs: " + urls);
     console.log("Done");
 });
 

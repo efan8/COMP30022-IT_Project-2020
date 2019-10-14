@@ -31,12 +31,21 @@ export function put(path, body) {
     });
 }
 
-export function post(path, body) {
+export function post(path, body, options) {
     return new Promise(function(resolve, reject) {
-        transport.post(BACKEND_ROOT + path, body).then(res => {
-            resolve(res);
-        }).catch(error => {
-            reject(error);
-        });
+        if (options) {
+            transport.post(BACKEND_ROOT + path, body, options).then(res => {
+                resolve(res);
+            }).catch(error => {
+                reject(error);
+            });
+        }
+        else {
+            transport.post(BACKEND_ROOT + path, body).then(res => {
+                resolve(res);
+            }).catch(error => {
+                reject(error);
+            });
+        }
     });
 }

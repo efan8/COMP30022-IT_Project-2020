@@ -70,7 +70,8 @@ function ViewTagComponent(props){
                 items.push(
                     <div>
                         <h1>{data[i].name}</h1>
-                        <img src={data[i].imageURL} alt="" className="smallImage"/>
+                        <img src={data[i].imageURLs ? data[i].imageURLs[0] : ""}
+                            alt="" className="smallImage"/>
                         <p className="para">{data[i].description}</p>
                         <NavLink to={{
                             pathname:"/ViewItem",
@@ -94,7 +95,7 @@ function ViewTagComponent(props){
 
     return(
         <div>
-            <h1 className = "title"> {capitalise(tag)}</h1>
+            <h1 className = "title"> Items with tag :- {capitalise(tag)}</h1>
             <form onSubmit={props.handleSubmit}>
                 <input
                     type="text" 

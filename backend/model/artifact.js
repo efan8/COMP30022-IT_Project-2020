@@ -11,7 +11,7 @@ class Artifact {
     this.name = json.name;
     this.description = json.description;
     this.ownerID = json.ownerID;
-    this.imageURL = json.imageURL;
+    this.imageURLs = json.imageURLs;
     this.dateAdded = json.dateAdded;
     this.dateLastModified = json.dateLastModified;
     this.originDate = json.originDate;
@@ -27,7 +27,7 @@ class Artifact {
       "name": this.name,
       "description": this.description,
       "ownerID": this.ownerID,
-      "imageURL": this.imageURL,
+      "imageURLs": this.imageURLs,
       "dateAdded": this.dateAdded,
       "dateLastModified": this.dateLastModified,
       "originDate": this.originDate,
@@ -43,7 +43,7 @@ class Artifact {
       "name": this.name,
       "description": this.description,
       "ownerID": this.ownerID,
-      "imageURL": this.imageURL || "",
+      "imageURLs": this.imageURLs || [],
       "dateAdded": this.dateAdded,
       "dateLastModified": this.dateLastModified,
       "originDate": this.originDate,
@@ -59,7 +59,6 @@ class Artifact {
   }
 
   static new(json) {
-    json.dateAdded = Date.now();
     json.dateLastModified = Date.now();
     return new Artifact(json);
   }
