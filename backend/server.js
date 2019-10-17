@@ -39,7 +39,7 @@ router.put('/artifacts', (req,res) => {
     Firebase.verify_session_cookie(req).then(verified_user_id => {
         if (verified_user_id) {
             // Input an artifact - using firebase.js
-            const {id, name, description } = req.body;
+            const {id, name, description, ownerID } = req.body;
             console.log("Received a PUT request");
             console.log(req.body);
             if(!name || !description) {
@@ -51,6 +51,8 @@ router.put('/artifacts', (req,res) => {
             }
             else if (!id) {
                 console.log("adding new");
+                console.log("ownerID:" + ownerID);
+                req.body.ownerID = verified_user_id;
                 Firebase.add_new_artifact(req.body).then(updated_artifact_json => {
                     res.json({
                     success: true,
@@ -58,12 +60,29 @@ router.put('/artifacts', (req,res) => {
                 });
             }
             else {
+                var permission = false;
                 console.log("editing");
-                Firebase.update_artifact(req.body).then(updated_artifact_json => {
-                    res.json({
-                    success: true,
-                    data: updated_artifact_json});
+                Firebase.fetch_artifact(id).then(artifact_json => {
+                    const {ownerID = "N/A" } = artifact_json;
+                    if(verified_user_id === ownerID) {
+                        permission = true;
+                    }
                 });
+                if(permission) {
+                    Firebase.update_artifact(req.body).then(updated_artifact_json => {
+                        res.json({
+                        success: true,
+                        data: updated_artifact_json});
+                    });
+                }
+                else
+                {
+                    res.json({
+                        success: false,
+                        data: "Access Denied"
+                    })
+                }
+
             }
         }
         else {
@@ -78,23 +97,34 @@ router.put('/artifacts', (req,res) => {
 router.get('/artifacts', (req, res) => {
     Firebase.verify_session_cookie(req).then(verified_user_id => {
         if (verified_user_id) {
-            console.log("Valid cookie");
+            console.log("Valid cookie from:" + verified_user_id);
             const item_id = req.query.item_id;
             if(!item_id) {
-                console.log("Getting everything");
+                console.log("Getting everything for this user: " + verified_user_id);
+                
                 // GET all items
                 Firebase.fetch_all_artifacts().then( artifacts_json => {
+                    const payload = artifacts_json.filter( artifact => artifact.ownerID === verified_user_id);
                     res.json({
                     success: true,
-                    data: artifacts_json});
+                    data: payload});
                 });
             }
             else {
                 Firebase.fetch_artifact(item_id).then(artifact_json => {
                     console.log('Getting: ' + item_id);
+                    const {ownerID = "" } = artifact_json;
+                    var payload = "Access Denied";
+                    var result = false;
+                    console.log(ownerID)
+                    if(verified_user_id === ownerID) {
+                        payload = artifact_json;
+                        result = true;
+                        console.log("An allowed user")
+                    }
                     res.json({
-                    success: true,
-                    data: artifact_json});
+                    success: result,
+                    data: payload});
                 });
             }
         }
