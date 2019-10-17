@@ -80,7 +80,7 @@ router.put('/artifacts', (req,res) => {
                     res.json({
                         success: false,
                         data: "Access Denied"
-                    })
+                    });
                 }
 
             }
