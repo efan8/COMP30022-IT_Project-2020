@@ -114,14 +114,9 @@ This item_id is then added to the message's query
 
 where in the message's query the item_id is included
 
-    POST localhost:3001/api/upload
-
-eg
-    localhost:3001/api/upload?item_id=-LpcM-nohsWusv7Hf67-
-
-    where
-        "-LpcM-nohsWusv7Hf67-"
-    is the item_id stored as "id" in the database.    
+    POST localhost:3001/api/upload_image
+    
+where the file and item_id is stored in fields of Form Data
 
 The frontend will then make a third call to the backend updating the artifact entry in the database with
 the URL of the images stored on Firebase this is the "imageURL": "<example_url>" field. Which is initially
