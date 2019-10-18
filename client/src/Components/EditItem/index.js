@@ -158,6 +158,7 @@ class EditItem extends React.Component {
                         console.log(error);
                     });
                 }
+                window.location = "/Welcome";
             });
         }
     }

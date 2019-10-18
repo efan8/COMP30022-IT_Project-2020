@@ -3,10 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 function ViewItemComponent(props){
 
-    // Gets the tag names from the json file
-    let keys = [];
-    for(let k in props.state.item.tags) keys.push(k);
 
+    // Gets the tag names from the json file and adds them if they are true
+    let keys = []
+    if(props.state.item.tags){
+        let tags = Object.keys(props.state.item.tags)
+        keys = tags.filter(function(id){
+            return props.state.item.tags[id]
+        })
+    }
+    console.log(keys)
     // Generates the tag buttons from the list of tags
     let i = 0;
     const tagComponents = keys.map(key => <div><NavLink to={{
@@ -38,9 +44,6 @@ function ViewItemComponent(props){
             <h3>Tags:</h3>
             {tagComponents}
 
-
-            <h3>Collection:</h3>
-            <p>{props.state.item.collectionID}</p>
 
             <h3>Origin Date:</h3>
             <p>{dateObj.toString()}</p>
