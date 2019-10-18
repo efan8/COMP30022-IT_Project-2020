@@ -67,21 +67,22 @@ router.put('/artifacts', (req,res) => {
                     if(verified_user_id === ownerID) {
                         permission = true;
                     }
-                });
-                if(permission) {
-                    Firebase.update_artifact(req.body).then(updated_artifact_json => {
+                    if(permission) {
+                        Firebase.update_artifact(req.body).then(updated_artifact_json => {
+                            res.json({
+                            success: true,
+                            data: updated_artifact_json});
+                        });
+                    }
+                    else
+                    {
                         res.json({
-                        success: true,
-                        data: updated_artifact_json});
-                    });
-                }
-                else
-                {
-                    res.json({
-                        success: false,
-                        data: "Access Denied"
-                    });
-                }
+                            success: false,
+                            data: "Access Denied"
+                        });
+                    }
+                });
+                
 
             }
         }
@@ -231,3 +232,30 @@ app.use(function (req, res, next) {
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+
+
+/*
+
+var permission = false;
+                console.log("editing");
+                Firebase.fetch_artifact(id).then(artifact_json => {
+                    const {ownerID = "N/A" } = artifact_json;
+                    if(verified_user_id === ownerID) {
+                        permission = true;
+                    }
+                    if(permission) {
+                        Firebase.update_artifact(req.body).then(updated_artifact_json => {
+                            res.json({
+                            success: true,
+                            data: updated_artifact_json});
+                        });
+                    }
+                    else
+                    {
+                        res.json({
+                            success: false,
+                            data: "Access Denied"
+                        });
+                    }
+                });
+*/
