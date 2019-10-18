@@ -95,24 +95,22 @@ function ViewTagComponent(props){
 
     return(
         <div>
-            <h1 className = "title"> Items with tag :- {capitalise(tag)}</h1>
-            <form onSubmit={props.handleSubmit}>
-                <input
-                    type="text" 
-                    name="search" 
-                    placeholder="Search"
-                />
-                <input type="submit"/>
-                <p> Sort by:
-                <select onChange={props.handleSelectChange} name="sort">
-                    <option value="default">--------------</option>
-                    {/* <option value="old">Oldest</option>
-                    <option value="new">Newest</option> */}
-                    <option value="nameDesc">Name A-Z</option>
-                    <option value="nameAsc">Name Z-A</option>
-                </select>
-                </p>
-            </form>
+            <h1 className = "title"> Items with Tag: {capitalise(tag)}</h1>
+            <input 
+                onChange={props.handleChange}
+                type="text"
+                name="search"
+                placeholder="Search"
+            />
+            <p> Sort by:
+            <select onChange={props.handleSelectChange} name="sort">
+                <option value="default">--------------</option>
+                {/* <option value="old">Oldest</option>
+                <option value="new">Newest</option> */}
+                <option value="nameDesc">Name A-Z</option>
+                <option value="nameAsc">Name Z-A</option>
+            </select>
+            </p>
             <p>{items}</p>
         </div>
     );

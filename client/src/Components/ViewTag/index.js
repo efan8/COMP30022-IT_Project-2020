@@ -19,7 +19,7 @@
                tag: ""
            }
            this.componentDidMount = this.componentDidMount.bind(this);
-           this.handleSubmit = this.handleSubmit.bind(this);
+           this.handleChange = this.handleChange.bind(this);
            this.handleSelectChange = this.handleSelectChange.bind(this);
        }
 
@@ -38,23 +38,22 @@
                });
        }
    
-       //Handles form submission of searchbar
-       handleSubmit(event) {
-           this.setState ({search: event.target.search.value.toLowerCase()});
-           event.preventDefault();
-       }
+       handleChange(event) {
+            let name = event.target.name;
+            let value = event.target.value.toLowerCase();
+            this.setState({[name]: value});
+        }
    
        handleSelectChange(event) {
            this.setState(
                {selectedOption: event.target[event.target.selectedIndex].value});
        }
        
-   
        render() {
            return (
                <ViewTagComponent 
                    state={this.state} 
-                   handleSubmit={this.handleSubmit}
+                   handleChange={this.handleChange}
                    handleSelectChange={this.handleSelectChange}/>
            )
        }
