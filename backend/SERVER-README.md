@@ -107,7 +107,7 @@ To EDIT an item in the database using PUT request:
     }
 
 To upload an image to the database send a request to the endpoint with a binary file in Form Data:
-
+    *See note below regarding upload limitations.*
 This call occurs after the frontend has already uploaded the rest of the artifact information and has
 received the item_id from the backend.
 This item_id is then added to the message's query
@@ -115,11 +115,14 @@ This item_id is then added to the message's query
 where in the message's query the item_id is included
 
     POST localhost:3001/api/upload_image
-    
+
 where the file and item_id is stored in fields of Form Data
 
 The frontend will then make a third call to the backend updating the artifact entry in the database with
 the URL of the images stored on Firebase this is the "imageURL": "<example_url>" field. Which is initially
 an empty string.
+
+Note:
+    There is a limit of 1mb per image and each artifact can only have 5 images uploaded to the database.
 
 
