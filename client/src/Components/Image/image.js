@@ -3,7 +3,7 @@ import FormData from 'form-data';
 import imageCompression from 'browser-image-compression';
 
 const UPLOAD_IMAGE = "upload_image";
-const MAX_IMAGE_SIZE = 0.05;   // MB
+const MAX_IMAGE_SIZE = 0.2;   // MB
 const MAX_IMAGE_WIDTH = 1920;
 
 export function upload_image(file, item_id, image_urls) {
