@@ -136,6 +136,7 @@ class AddItem extends React.Component {
                     var item_id = artifact.id;
                     console.log("Created database entry for artifact of ID: " + item_id);
                     item.id = item_id;
+                    item.ownerID = artifact.ownerID;
                     return upload_images(this.state.files, item_id);
                 }).then(image_urls => {
                     console.log("Uploaded images for this artifact");
