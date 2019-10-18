@@ -202,8 +202,9 @@ router.post('/upload_image', (req,res) => {
                 }
                 var item_id = fields.item_id;
                 var file = files.file;
+                var filename = fields.filename;
 
-                Firebase.upload_image(file.path, file.name, file.type, verified_user_id, item_id).then(url => {
+                Firebase.upload_image(file.path, filename, file.type, verified_user_id, item_id).then(url => {
                     res.status(200).send(url);
                 }).catch(error => {
                     res.status(400).send("Internal error");

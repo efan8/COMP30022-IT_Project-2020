@@ -1,7 +1,10 @@
 import { get, post } from "../HTTP/http";
 import FormData from 'form-data';
+import imageCompression from 'browser-image-compression';
 
 const UPLOAD_IMAGE = "upload_image";
+const MAX_IMAGE_SIZE = 0.05;   // MB
+const MAX_IMAGE_WIDTH = 1920;
 
 export function upload_image(file, item_id, image_urls) {
     return new Promise(function(resolve, reject) {
@@ -11,9 +14,21 @@ export function upload_image(file, item_id, image_urls) {
                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`
             }
         };
-        data.append('file', file, file.fileName);
         data.append('item_id', item_id);
-        post(UPLOAD_IMAGE, data, options).then(res => {
+
+        var options = {
+            maxSizeMB: MAX_IMAGE_SIZE,
+            maxWidthOrHeight: MAX_IMAGE_WIDTH,
+            useWebWorker: true
+        };
+        imageCompression(file, options).then(function (compressedFile) {
+            console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+            console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+            data.append('file', compressedFile, file.name);
+            data.append('filename', file.name);
+
+            return post(UPLOAD_IMAGE, data, options);
+        }).then(res => {
             var url = res.data;
             console.log(url);
             if (!image_urls) {
@@ -27,7 +42,13 @@ export function upload_image(file, item_id, image_urls) {
             console.log(error);
             reject(error);
         });
+
+
     });
+}
+
+export function compress_image(file) {
+    return
 }
 
 export function upload_images(files, item_id) {
