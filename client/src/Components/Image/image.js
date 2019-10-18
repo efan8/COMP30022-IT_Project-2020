@@ -47,10 +47,6 @@ export function upload_image(file, item_id, image_urls) {
     });
 }
 
-export function compress_image(file) {
-    return
-}
-
 export function upload_images(files, item_id) {
     var promise_chain = Promise.resolve();
     for (let file of files) {
