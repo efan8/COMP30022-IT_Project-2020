@@ -262,7 +262,6 @@ function create_session_cookie(idToken) {
 function verify_session_cookie(req) {
     return new Promise(function(resolve, reject) {
         var sessionCookie = req.cookies ? (req.cookies.session || '') : '';
-        console.log("Cookie: " + sessionCookie);
         // Verify the session cookie. In this case an additional check is added to detect
         // if the user's Firebase session was revoked, user deleted/disabled, etc.
         admin.auth().verifySessionCookie(
