@@ -145,8 +145,6 @@ class AddItem extends React.Component {
                 }).then(res => {
                     console.log(res);
                     console.log("Updated artifact entry with image_urls");
-                }).then(res => {
-                    console.log(res);
                     window.location = "/Welcome";
                 }).catch(error => {
                     console.log(error);
