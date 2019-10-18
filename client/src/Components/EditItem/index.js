@@ -159,6 +159,9 @@ class EditItem extends React.Component {
                         console.log(error);
                     });
                 }
+                else {
+                    window.location = "/Welcome";
+                }
             }).catch(error => {
                 console.log(error);
             });
