@@ -71,7 +71,7 @@ function AddItemComponent(props) {
                 />
 
             <h3>Description:</h3>
-            <input
+            <textarea
                 placeholder="Simple Description of  object and stuff"
                 className="descriptionbox"
                 name="description"

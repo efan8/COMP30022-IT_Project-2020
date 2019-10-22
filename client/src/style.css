@@ -33,6 +33,7 @@
     width: 20%;
     justify-content: top;
     align-content: top;
+    resize: none;
 }
 
 .heading{
