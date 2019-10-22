@@ -14,3 +14,5 @@ Running Both Frontend and Backend:
 2. run npm start
 
 npm install react-date-picker
+npm install formidable
+npm install browser-image-compression
