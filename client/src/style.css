@@ -166,15 +166,9 @@
 
 .gridDisplay {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     grid-auto-rows: minmax(100px, auto);
     grid-gap: 20px;
-}
-
-.gridImg {
-    width: 100%;
-    height: auto;
-    max-width: 50vw;
 }
 
 .thumbnail {
@@ -195,18 +189,21 @@
             transform: translate(-50%,-50%);
 }
 
-.itemBox{
+#containerGrid{
     background-color: #FFD195;
     outline: 5px solid #DE7E44;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 .toText{
     text-align: center;
-    font-size: 1.5vw;
-    overflow: hidden;
+    text-align-last: center;
+    font-size: 30px;
     text-decoration: none;
     color: black !important;
-    
 }
 
 /* For Signup and Signin */

@@ -49,7 +49,7 @@ function WelcomeComponent(props){
             | data[i].description.toLowerCase().includes(search)
             | tags.includes(search)) {
             items.push(
-                <div className="itemBox">
+                <div id="containerGrid">
                     <NavLink className= "toText" to={{
                         pathname:"/ViewItem",
                         aboutProps:{
@@ -84,9 +84,11 @@ function WelcomeComponent(props){
                 <option value="nameAsc">Name Z-A</option>
             </select>
             </p>
+            <div id="center">
             <grid className = "gridDisplay">
                 <React.Fragment>{items}</React.Fragment>
             </grid>
+            </div>
         </div>
     );
 
