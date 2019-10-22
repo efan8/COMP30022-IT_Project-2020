@@ -31,9 +31,9 @@ class SignUp extends React.Component {
 
     handleSubmit(event) {
         console.log("handling submit button pressed");
-        if (this.state.firstName == "" || this.state.lastName == "" ||
-            this.state.email == "" || this.state.passwordOne == "" ||
-            this.state.passwordTwo == "") {
+        if (this.state.firstName === "" || this.state.lastName === "" ||
+            this.state.email === "" || this.state.passwordOne === "" ||
+            this.state.passwordTwo === "") {
                 console.log("Please fill in all details before submitting");
                 this.setState ({output : [<p>Please fill in all details before submitting</p>]});
         }
@@ -41,7 +41,7 @@ class SignUp extends React.Component {
             console.log("Password must be at least 6 characters long.");
             this.setState ({output : [<p>Password must be at least 6 characters long</p>]});
         }
-        else if (this.state.passwordOne != this.state.passwordTwo) {
+        else if (this.state.passwordOne !== this.state.passwordTwo) {
             console.log("Passwords do not match");
             this.setState ({output : [<p>Passwords do not match</p>]});
         }

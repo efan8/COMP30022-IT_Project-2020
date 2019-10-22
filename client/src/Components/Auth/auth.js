@@ -66,7 +66,7 @@ export function logout() {
 export function check_login_status() {
     return new Promise(function(resolve, reject) {
         get(LOGIN_STATUS).then(res => {
-            if (res.status == 200) {
+            if (res.status === 200) {
                 resolve(true);
             }
             else {

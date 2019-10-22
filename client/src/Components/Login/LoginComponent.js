@@ -20,7 +20,7 @@ function Login(props) {
                 onChange={props.handleChange}
             />
             <br></br>
-            <input type="submit"/>
+            <input type="submit" value="Login"/>
         </form>
     );
 };

@@ -1,11 +1,9 @@
-/* Login page for users to access their items */
+/* Login page for users to get access to their welcome page */
 
 import React from 'react';
 import '../../style.css';
 import LoginComponent from './LoginComponent.js';
 import { login } from '../Auth/auth';
-
-let users = {"jibby98@hotmail.com" : "1234", "abcd@what.com" : "123"};
 
 class Login extends React.Component {
 
@@ -26,9 +24,10 @@ class Login extends React.Component {
         let value = event.target.value;
         this.setState({[name]: value});
     }
+    
     // Updates state as soon as anything is typed into the input boxes
     handleSubmit(event) {
-        if (this.state.email == "" || this.state.password == "") {
+        if (this.state.email === "" || this.state.password === "") {
             this.setState ({output : [<p>Please enter an email and password</p>]});
         } else {
             login(this.state.email, this.state.password).then(res => {
