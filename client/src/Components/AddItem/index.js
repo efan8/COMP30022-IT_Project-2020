@@ -173,7 +173,6 @@ class AddItem extends React.Component {
             }
         });
         const isEnabled = this.state.name.length > 0;
-        console.log(isEnabled);
         return(
             <div>
                 <h1 className="title">Add Item</h1>
@@ -187,6 +186,7 @@ class AddItem extends React.Component {
                     locationSubmit={this.getDataList}
                     deleteTag={this.deleteTag}
                     dateChange={this.dateChange}
+                    isEnabled={isEnabled}
                 />
             </div>
 

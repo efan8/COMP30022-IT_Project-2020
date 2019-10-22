@@ -109,7 +109,7 @@ function AddItemComponent(props) {
 
 
             <br></br>
-            <button onClick={props.submit}>Submit</button>
+            <button onClick={props.submit} disabled={!props.isEnabled}>Submit</button>
         </form>
 
     );
