@@ -207,18 +207,45 @@
     
 }
 
-#container {
+#containerL {
     position: fixed;
     width: 340px;
-    height: 280px;
-    top: 10%;
+    height: 282px;
+    top: 35%;
     left: 50%;
     margin-top: -140px;
     margin-left: -170px;
 	background: #fff;
     border-radius: 3px;
-    border: 1px solid #ccc;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    border: 1px solid black;
+    box-shadow: 0 5px 30px 20px #FFD195;
+}
+
+#containerS {
+    position: fixed;
+    width: 340px;
+    height: 555px;
+    top: 30%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -170px;
+	background: #fff;
+    border-radius: 3px;
+    border: 1px solid black;
+    box-shadow: 0 5px 30px 20px #FFD195;
+}
+
+#containerLand {
+    position: fixed;
+    width: 340px;
+    height: 200px;
+    top: 30%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -170px;
+	background: #FFD195;
+    border-radius: 3px;
+    border: 5px double black;
 }
 form {
     margin: 0 auto;
@@ -253,6 +280,23 @@ input[type=submit] {
     margin-top: 15px;
     width: 80px;
     height: 30px;
+}
+
+.landButton {
+	background:linear-gradient(to bottom, #6b3d99 5%, #41354d 100%);
+	border-radius:10px;
+	cursor:pointer;
+	color:#ffc42e;
+	font-size:25px;
+	font-weight:bold;
+	padding:20px 60px;
+    text-decoration:none;
+    margin-left: 65px;
+    margin-top: 18px;
+}
+.landButton:hover {
+	background:linear-gradient(to bottom, #41354d 5%, #6b3d99 100%);
+	background-color:#41354d;
 }
 
 /* CSS TO CHANGE ALL PAGES

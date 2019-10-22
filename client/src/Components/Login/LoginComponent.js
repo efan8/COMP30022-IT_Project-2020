@@ -4,23 +4,25 @@ import React from 'react';
 
 function Login(props) {
     return(
-        <div style={{marginTop: "4rem"}} id="container">
+        <div id="containerL">
             <form onSubmit={props.handleSubmit}>
                 {props.state.output}
                 <label for="email">Email: </label>
                 <input 
                     type="email"
+                    id="email"
                     name="email"
                     onChange={props.handleChange}
                 />
                 <label for="password">Password: </label>
                 <input
                     type="password"
+                    id="password"
                     name="password"
                     onChange={props.handleChange}
                 />
                 <div id="lower">
-                <input type="submit" value="Login"/>
+                <input type="submit" value="Sign in"/>
                 </div>
             </form>
         </div>
