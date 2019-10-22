@@ -19,6 +19,7 @@ class AddItem extends React.Component {
         super();
 
         this.state = blank_item;
+        this.state.submitting = false;
         this.dateChange = this.dateChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
@@ -117,6 +118,7 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
+        this.state.submitting = true;
         if(this.state.originLocation.lat === null){
             this.state.originLocation = default_location;
             console.log(this.state.originLocation);
@@ -172,7 +174,8 @@ class AddItem extends React.Component {
                 window.location = "/LandingPage";
             }
         });
-        const isEnabled = this.state.name.length > 0;
+        console.log(this.state.files)
+        const isEnabled = this.state.name.length > 0 && this.state.files && this.state.description > 0 && !this.state.submitting;
         return(
             <div>
                 <h1 className="title">Add Item</h1>
