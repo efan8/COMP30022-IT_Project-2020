@@ -116,6 +116,7 @@
 
     .mainNavigationItems {
         display: flex;
+        margin: 0;
     }
 
     .main-nav-links ul {
@@ -142,6 +143,19 @@
 }
 
 @media screen and (max-width: 720px) {
+    .mainNavigation {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #41354D;
+        align-items: center;
+        padding: 0;
+      }
+
+    .mainNavigationItems {
+        margin: 1rem;
+    }
       .main-nav-links {
           display: none;
       }
@@ -160,16 +174,6 @@
           margin-left: 0rem;
       }
 }
-
-.mainNavigation {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #41354D;
-    align-items: center;
-    padding: 1rem;
-  }
 
   #nav-menu-icon {
       fill: #FFD195;
@@ -191,6 +195,7 @@
 }
 
   .mainNavigationLogo h1 {
+    padding-left: 1rem;
     margin: 0;
     font-family: 'Aspira';
     font-size: 1.5rem;
