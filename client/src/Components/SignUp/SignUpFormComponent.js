@@ -4,50 +4,59 @@ import React from 'react';
 
 function SignUpForm(props) {
     return(
+        <div id="containerS">
         <form onSubmit={props.handleSubmit}>
-                <h1 className="title">Sign Up</h1>
-
-                <h3>First Name:</h3>
+                
+                <label for="firstName">First Name: </label>
                 <input
-                    type="textbox"
+                    type="email"
+                    id="firstName"
                     name="firstName"
                     value={props.data.firstName}
                     onChange={props.handleChange}
                 />
 
-                <h3>Last Name:</h3>
+                <label for="lastName">Last Name: </label>
                 <input
-                    type="textbox"
+                    type="email"
+                    id="lastName"
                     name="lastName"
                     value={props.data.lastName}
                     onChange={props.handleChange}
                 />
 
-                <h3>Email:</h3>
+                <label for="email">Email: </label>
                 <input
-                    type="textbox"
-                    name="email" value={props.data.email}
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={props.data.email}
                     onChange={props.handleChange}
                 />
 
-                <h3>Password:</h3>
+                <label for="passwordOne">Password: </label>
                 <input
                     type="password"
+                    id="passwordOne"
                     name="passwordOne"
                     value={props.data.passwordOne}
                     onChange={props.handleChange}
                 />
 
-                <h3>Re-enter Password:</h3>
+                <label for="passwordTwo">Re-enter Password: </label>
                 <input
                     type="password"
+                    id="passwordTwo"
                     name="passwordTwo"
                     value={props.data.passwordTwo}
                     onChange={props.handleChange}
                 />
-                <br></br>
-                <button>Sign Up</button>
+
+                <div id="lower">
+                <input type="submit" value="Sign up"/>
+                </div>
             </form>
+            </div>
     );
 };
 

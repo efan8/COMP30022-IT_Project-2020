@@ -1,8 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import load from '../../load.gif';
 
 function ViewItemComponent(props){
 
+    if (!props.state.item) return (
+        <div className = "center" >
+            <img className = "load" src={load} alt="loading..." />
+        </div>
+    )
 
     // Gets the tag names from the json file and adds them if they are true
     let keys = []
@@ -14,7 +20,6 @@ function ViewItemComponent(props){
     }
     console.log(keys)
     // Generates the tag buttons from the list of tags
-    let i = 0;
     const tagComponents = keys.map(key => <div><NavLink to={{
         pathname:"/ViewTag",
         aboutProps:{
@@ -26,7 +31,7 @@ function ViewItemComponent(props){
 
     const {originLocation} = props.state.item;
     const {lat, long} = originLocation ? originLocation : "";
-    console.log(lat)
+    console.log(lat, long);
 
 
     let dateObj = new Date(props.state.item.originDate);
@@ -36,6 +41,13 @@ function ViewItemComponent(props){
         <div>
             <h1 className="title">{props.state.item.name}</h1>
             <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="mediumImage"/>
+            <br></br>
+            <NavLink to={{
+                pathname:"/EditItem",
+                aboutProps:{
+                    id:`${props.state.item.id}`
+                }
+            }} >Edit item</NavLink>
 
             <h3>Description:</h3>
             <p>{props.state.item.description}</p>

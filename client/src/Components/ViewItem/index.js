@@ -3,7 +3,6 @@
 
 import React from 'react';
 import '../../style.css';
-import Data from './testItem.json';
 import ViewItemComponent from './ViewItemComponent';
 import MapMaker from '../MapMaker';
 import { get } from '../HTTP/http';

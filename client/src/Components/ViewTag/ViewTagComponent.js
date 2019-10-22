@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import load from '../../load.gif';
 
 function ViewTagComponent(props){
 
     
-    if (!props.state.item.data ) return (
-        <div>
-            <h1 className = "title"> Loading</h1>
-            <h1>You have no items.</h1>
+    if (!props.state.item.data) return (
+        <div className = "center" >
+            <img className = "load" src={load} alt="loading..." />
         </div>
     )
     
@@ -26,18 +26,6 @@ function ViewTagComponent(props){
             case "default":
                 window.location = "/Welcome";
                 break;
-            // case "old":
-            //     data.sort(function(a, b) {
-            //         var orderBool = a.dataAdded > b.dataAdded;
-            //         return orderBool ? 1 : -1;
-            //     });
-            //     break;
-            // case "new":
-            //     data.sort(function(a, b) {
-            //         var orderBool = a.dataAdded < b.dataAdded;
-            //         return orderBool ? 1 : -1;
-            //     });
-            //     break;
             case "nameDesc":
                 data.sort(function(a, b) {
                     var orderBool = a.name.toLowerCase() > b.name.toLowerCase();
@@ -64,7 +52,7 @@ function ViewTagComponent(props){
         for(let k in data[i].tags) tags.push(k);
         let tagsString = tags.join();
         if (tags.includes(tag)) {
-            if (search == "" | data[i].name.toLowerCase().includes(search) 
+            if (search === "" | data[i].name.toLowerCase().includes(search) 
                 | data[i].description.toLowerCase().includes(search)
                 | tagsString.includes(search)) {
                 items.push(
@@ -105,8 +93,6 @@ function ViewTagComponent(props){
             <p> Sort by:
             <select onChange={props.handleSelectChange} name="sort">
                 <option value="default">--------------</option>
-                {/* <option value="old">Oldest</option>
-                <option value="new">Newest</option> */}
                 <option value="nameDesc">Name A-Z</option>
                 <option value="nameAsc">Name Z-A</option>
             </select>

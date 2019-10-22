@@ -1,6 +1,7 @@
 /* Initial page users will see that will take them to login or signup */
 
 import React from 'react';
+import '../../style.css';
 import { check_login_status } from '../Auth/auth';
 
 class LandingPage extends React.Component {
@@ -29,11 +30,16 @@ class LandingPage extends React.Component {
             };
         });
         return(
-            <div>
-                <h1 className="title">Landing Page</h1>
-                <button onClick={this.logChange}>Login</button>
+            <div id="containerLand">
+                <button 
+                    className="landButton" 
+                    onClick={this.logChange}
+                >Sign in</button>
                 <br></br>
-                <button onClick={this.signChange}>Sign Up</button>
+                <button 
+                className="landButton" 
+                    onClick={this.signChange}
+                >Sign up</button>
             </div>
         );
     };

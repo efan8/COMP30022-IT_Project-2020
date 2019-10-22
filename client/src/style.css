@@ -100,6 +100,7 @@
 
 }
 
+/* For Navigation bar */
 .mainNavigation {
     position: fixed;
     left: 0;
@@ -150,4 +151,166 @@
     text-decoration: none;
     margin: 0;
     color: #FFD195;
+}
+
+/* For Welcome Page */
+.center {
+    justify-content: center;
+    align-items: center;
+}
+
+.load {
+    width: 300;
+    height: 400;
+}
+
+.gridDisplay {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 20px;
+}
+
+.thumbnail {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
   }
+  .thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    place-content: center;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
+
+#containerGrid{
+    background-color: #FFD195;
+    outline: 5px solid #DE7E44;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.toText{
+    text-align: center;
+    text-align-last: center;
+    font-size: 30px;
+    text-decoration: none;
+    color: black !important;
+}
+
+/* For Signup and Signin */
+#containerL {
+    position: fixed;
+    width: 340px;
+    height: 282px;
+    top: 35%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -170px;
+	background: #fff;
+    border-radius: 3px;
+    border: 1px solid black;
+    box-shadow: 0 5px 30px 20px #FFD195;
+}
+
+#containerS {
+    position: fixed;
+    width: 340px;
+    height: 555px;
+    top: 30%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -170px;
+	background: #fff;
+    border-radius: 3px;
+    border: 1px solid black;
+    box-shadow: 0 5px 30px 20px #FFD195;
+}
+
+form {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+label {
+    display: inline-block;
+    margin-left: 18px;
+    font-size: 25px;
+}
+input {
+    font-size: 20px;
+}
+input[type=email],
+input[type=password] {
+    padding-left: 10px;
+    margin: 10px;
+    margin-top: 12px;
+    margin-left: 18px;
+    width: 290px;
+    height: 35px;
+}
+#lower {
+    background: #41354D;
+    width: 100%;
+    height: 60px;
+    margin-top: 20px;
+}
+input[type=submit] {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 100px;
+    height: 40px;
+    background-color: #ffc42e;
+    border-color: #41354d;
+}
+input[type=submit]:hover{
+    opacity:0.7
+}
+
+/* For Landing Page */
+#containerLand {
+    position: fixed;
+    width: 340px;
+    height: 200px;
+    top: 30%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -170px;
+	background: #FFD195;
+    border-radius: 3px;
+    border: 5px double black;
+}
+
+.landButton {
+	background:linear-gradient(to bottom, #6b3d99 5%, #41354d 100%);
+	border-radius:10px;
+	cursor:pointer;
+	color:#ffc42e;
+	font-size:25px;
+	font-weight:bold;
+	padding:20px 60px;
+    text-decoration:none;
+    margin-left: 65px;
+    margin-top: 18px;
+}
+.landButton:hover {
+	background:linear-gradient(to bottom, #41354d 5%, #6b3d99 100%);
+	background-color:#41354d;
+}
+
+/* CSS TO CHANGE ALL PAGES
+html, body {   
+width: 100%;   
+height: 100%;   
+font-family: "Helvetica Neue", Helvetica, sans-serif;
+-webkit-font-smoothing: antialiased;  
+background: white;
+} */
