@@ -30,10 +30,6 @@
     margin-left: 1000px
 }
 
-.mediumImage {
-    size: 60%;
-}
-
 .background{
     background-color: blue
 }
@@ -287,6 +283,26 @@
 
 .center {
     text-align:center;
+}
+/* For View Item */
+.viewImg {
+    height: 400px;
+    width: auto;
+    margin: 0 auto;
+}
+
+.editItem{
+    background-color: whitesmoke;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+}
+.editItem:hover{
+    background-color: white;
+    opacity: 0.6;
 }
 
 /* For Add/Edit Item */
