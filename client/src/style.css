@@ -13,6 +13,9 @@
 .map{
     height: 400px;
     width: 700px;
+    position: absolute!important;
+    left: 50%;
+    margin-left: -350px!important; /*negative half of width*/
 }
 
 
