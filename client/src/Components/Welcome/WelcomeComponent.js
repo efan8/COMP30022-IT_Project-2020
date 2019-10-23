@@ -58,10 +58,10 @@ function WelcomeComponent(props){
                     }}>{data[i].name}</NavLink>
                     <div className = "thumbnail">
                         <img
-                        src={ data[i].imageURLs ? data[i].imageURLs[0] : ""} 
+                        src={ data[i].imageURLs ? data[i].imageURLs[0] : ""}
                         alt="" className="smallImage"/>
                     </div>
-                    <p className="para">Desc: {data[i].description.slice(0,18)}..</p>
+                    <p className="para">Desc: {data[i].description.slice(0,25)}..</p>
                 </div>
             );
         }
@@ -71,12 +71,21 @@ function WelcomeComponent(props){
     return(
         <div>
             <h1 className = "title"> Here are your items:</h1>
-            <input 
-                onChange={props.handleChange}
-                type="text"
-                name="search"
-                placeholder="Search"
-            />
+            <div className="search-box">
+                <div className="search-icon">
+                    <img className="searchbar-icon-image" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMzAiIGhlaWdodD0iMzAiCnZpZXdCb3g9IjAgMCAzMCAzMCIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBkPSJNIDEzIDMgQyA3LjQ4ODk5NzEgMyAzIDcuNDg4OTk3MSAzIDEzIEMgMyAxOC41MTEwMDMgNy40ODg5OTcxIDIzIDEzIDIzIEMgMTUuMzk2NTA4IDIzIDE3LjU5NzM4NSAyMi4xNDg5ODYgMTkuMzIyMjY2IDIwLjczNjMyOCBMIDI1LjI5Mjk2OSAyNi43MDcwMzEgQSAxLjAwMDEgMS4wMDAxIDAgMSAwIDI2LjcwNzAzMSAyNS4yOTI5NjkgTCAyMC43MzYzMjggMTkuMzIyMjY2IEMgMjIuMTQ4OTg2IDE3LjU5NzM4NSAyMyAxNS4zOTY1MDggMjMgMTMgQyAyMyA3LjQ4ODk5NzEgMTguNTExMDAzIDMgMTMgMyB6IE0gMTMgNSBDIDE3LjQzMDEyMyA1IDIxIDguNTY5ODc3NCAyMSAxMyBDIDIxIDE3LjQzMDEyMyAxNy40MzAxMjMgMjEgMTMgMjEgQyA4LjU2OTg3NzQgMjEgNSAxNy40MzAxMjMgNSAxMyBDIDUgOC41Njk4Nzc0IDguNTY5ODc3NCA1IDEzIDUgeiI+PC9wYXRoPjwvc3ZnPg=="></img>
+                </div>
+                <input
+                    id="search-bar-input"
+                    onChange={props.handleChange}
+                    type="text"
+                    name="search"
+                    placeholder="Search"
+                />
+                <div onClick={props.handleClearSearchText} id="clear-search-icon" className={"clear-search-icon inactive"}>
+                    <img className="searchbar-icon-image" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMzIiIGhlaWdodD0iMzIiCnZpZXdCb3g9IjAgMCAzMiAzMiIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBkPSJNIDcuMjE4NzUgNS43ODEyNSBMIDUuNzgxMjUgNy4yMTg3NSBMIDE0LjU2MjUgMTYgTCA1Ljc4MTI1IDI0Ljc4MTI1IEwgNy4yMTg3NSAyNi4yMTg3NSBMIDE2IDE3LjQzNzUgTCAyNC43ODEyNSAyNi4yMTg3NSBMIDI2LjIxODc1IDI0Ljc4MTI1IEwgMTcuNDM3NSAxNiBMIDI2LjIxODc1IDcuMjE4NzUgTCAyNC43ODEyNSA1Ljc4MTI1IEwgMTYgMTQuNTYyNSBaIj48L3BhdGg+PC9zdmc+"></img>
+                </div>
+            </div>
             <p> Sort by:
             <select onChange={props.handleSelectChange} name="sort">
                 <option value="default">--------------</option>

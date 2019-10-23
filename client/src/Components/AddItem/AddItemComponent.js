@@ -51,66 +51,86 @@ function AddItemComponent(props) {
     console.log(itemComponents)
 
     return (
-        <form onSubmit={e => { e.preventDefault(); }}>
+        <div>
+            <form className="center" onSubmit={e => { e.preventDefault(); }}>
             
-            <h3 className="heading">Item Name:</h3>
+                
+                <h3 className="heading">Item Name:</h3>
 
-            <input
-                name="name"
-                type="textbox"
-                value={props.state.name}
-                onChange={props.handleChange}
-                placeholder="Type item name here"
-                className="textbox"/>
+                <input
+                    name="name"
+                    type="textbox"
+                    value={props.state.name}
+                    onChange={props.handleChange}
+                    placeholder="Type item name here"
+                    className="textbox"/>
+                <br></br>
+                <input 
+                    className="textbox"
+                    type="file"
+                    name="selectedFile"
+                    multiple
+                    onChange={props.handleImageUpload}
+                    accept="image/*"
+                    />
 
-            <input type="file"
-                name="selectedFile"
-                multiple
-                onChange={props.handleImageUpload}
-                accept="image/*"
-                />
+                <h3 className="centerText">Description:</h3>
+                <textarea
+                    placeholder="Simple Description of  object and stuff"
+                    className="descriptionbox"
+                    name="description"
+                    value={props.state.description}
+                    onChange={props.handleChange}
+                    />
 
-            <h3>Description:</h3>
-            <textarea
-                placeholder="Simple Description of  object and stuff"
-                className="descriptionbox"
-                name="description"
-                value={props.state.description}
-                onChange={props.handleChange}
-                />
+                <h3 className="centerText">Tags:</h3>
+                <p className="centerText">{tagComponents}</p>
+                <input
+                    placeholder="Enter tag here"
+                    name="currentTypedTag"
+                    value={props.state.currentTypedTag}
+                    onChange={props.handleChange}
+                    onKeyDown={props.keyDown}
+                    />
+                <button
+                    onClick={props.tagSubmit}
+                    type="button">
+                    Add tag
+                    </button>
 
-            <h3>Tags:</h3>
-            {tagComponents}
-            <br></br>
-            <input
-                placeholder="Enter tag here"
-                name="currentTypedTag"
-                value={props.state.currentTypedTag}
-                onChange={props.handleChange}
-                onKeyDown={props.keyDown}
-                />
-            <button
-                onClick={props.tagSubmit}
-                type="button">
-                add tag
-                </button>
+                <h3 className="centerText">Location:</h3>
+                <input  
+                    className="textbox" 
+                    placeholder="Type in location here" 
+                    name="locationString" 
+                    value={props.state.locationString} 
+                    onChange={props.handleChange}/>
+                
+                {itemComponents ? <select 
+                                    className="textbox" 
+                                    name="choice" 
+                                    onChange=
+                                        {props.handleChange}>{itemComponents}
+                                    </select>: <div></div>
+                }
 
-            <h3>Location:</h3>
-            <input placeholder="Type in location here" name="locationString" value={props.state.locationString} onChange={props.handleChange}/>
-            <button onClick={props.locationSubmit}>Find location</button>
-            {itemComponents ? <select name="choice" onChange={props.handleChange}>{itemComponents}</select>: <div></div>
-            }
+                <button  
+                    className="centerButton" 
+                    onClick={props.locationSubmit}>Find location</button>
+                <h3 className="centerText">Origin Date:</h3>
 
-            <h3>Origin Date:</h3>
-
-            <DatePicker name="originDate" value={props.state.originDate}
-            onChange={props.dateChange}/>
+                <DatePicker className="centerDate" name="originDate" value={props.state.originDate}
+                onChange={props.dateChange}/>
 
 
-
-            <br></br>
-            <button onClick={props.submit} disabled={!props.isEnabled}>Submit</button>
-        </form>
+                <br></br>
+                <br></br>
+                <button 
+                    className="centerButton" 
+                    onClick={props.submit} 
+                    disabled={!props.isEnabled}>Submit</button>
+            </form>
+        </div>
 
     );
 };

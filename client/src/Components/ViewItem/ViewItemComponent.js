@@ -38,11 +38,11 @@ function ViewItemComponent(props){
 
 
     return(
-        <div>
+        <div className="center">
             <h1 className="title">{props.state.item.name}</h1>
-            <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="mediumImage"/>
+            <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="viewImg"/>
             <br></br>
-            <NavLink to={{
+            <NavLink className="editItem" to={{
                 pathname:"/EditItem",
                 aboutProps:{
                     id:`${props.state.item.id}`
