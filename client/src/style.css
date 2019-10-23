@@ -191,7 +191,9 @@
 .inactive {
     display: none;
 }
-
+.mainNavigation{
+    z-index: 10;
+}
 .navbar-toggle {
   position: fixed;
   top: 0;
