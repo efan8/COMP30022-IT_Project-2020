@@ -237,7 +237,7 @@
   .logout:hover {
       color: red;
   }
-  
+
 
 /* For Centering things */
 .centerButton {
@@ -301,7 +301,7 @@
     justify-content: center;
     text-align: center;
     align-content: center;
-    
+
 }
 
 .toText{
@@ -315,6 +315,11 @@
     color: red;
 }
 
+.page-container {
+    padding: 0.75rem;
+    margin-top: 5rem;
+}
+
 /* For Welcome Page Search box*/
 .search-box {
     position: relative;
@@ -322,17 +327,13 @@
     max-width: 720px;
     height: 50px;
     border-radius: 120px;
-    border-color: rgba(0, 0, 0, 0.3);
-    border-width: 2px;
+    box-shadow: 0px 1px 3px 0.1px rgba(0,0,0,.3);
     margin: 0 auto;
-    border-style: solid;
 }
 
 #search-bar-input {
-    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
     border-radius: 120px;
     border: none;
@@ -342,6 +343,11 @@
     font-weight: 400;
     letter-spacing: -0.015em;
     outline: none;
+    position: relative;
+    display: inline;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .searchbar-icon-image {
@@ -420,6 +426,163 @@
     justify-content: center;
     align-content: center;
 }
+
+    @media screen and (max-width: 474px) {
+        /* Mobile */
+
+        .gridDisplay {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+            grid-auto-rows: minmax(100px, auto);
+            grid-gap: 15px;
+        }
+
+        .thumbnail {
+            position: relative;
+            top: 0;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin: 1rem
+          }
+
+        .toText{
+            text-align: center;
+            -moz-text-align-last: center;
+                 text-align-last: center;
+            font-size: 30px;
+            text-decoration: none;
+            color: black !important;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .grid-text {
+            font-size : 20px;
+            padding : 0;
+            margin : 0;
+            line-height : 20px;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+    }
+
+    @media screen and (min-width: 474px) {
+        /* Small to Regular Desktop */
+
+        .gridDisplay {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            grid-auto-rows: minmax(100px, auto);
+            grid-gap: 20px;
+        }
+
+        .thumbnail {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            margin: 1rem
+          }
+
+          .toText{
+              text-align: center;
+              -moz-text-align-last: center;
+                   text-align-last: center;
+              font-size: 30px;
+              text-decoration: none;
+              color: black !important;
+              max-width: calc(100% - 200px);
+              overflow: hidden;
+          }
+
+          .grid-text {
+              font-size : 20px;
+              padding : 0;
+              margin : 0;
+              line-height : 20px;
+              max-width: calc(100% - 200px);
+              overflow-wrap: anywhere;
+          }
+    }
+
+    @media screen and (min-width: 1390px) {
+        /* Large Desktop */
+
+        .gridDisplay {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+            grid-auto-rows: minmax(100px, auto);
+            grid-gap: 20px;
+        }
+    }
+
+    .thumbnail img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 100%;
+      width: auto;
+      place-content: center;
+      object-fit: cover;
+      -webkit-transform: translate(-50%,-50%);
+          -ms-transform: translate(-50%,-50%);
+              transform: translate(-50%,-50%);
+    }
+
+    #containerGrid{
+        background-color: #FFF;
+        border-radius: 20px;
+        min-height: 200px;
+        position: relative;
+        padding: 1.2rem;
+        -webkit-box-shadow: 0px 2px 4.5px 0.1px rgba(0,0,0,.3);
+                box-shadow: 0px 2px 4.5px 0.1px rgba(0,0,0,.3);
+        display: inline-block;
+        -ms-flex-align: center;
+            align-items: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    }
+
+    .item-grid-link {
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+    }
+
+    /* Sort selector */
+
+    .sort-selector-container {
+        text-align: right;
+    }
+
+    .sort-selector {
+        border-style: none;
+        box-shadow: 0px 1.5px 2px rgba(0, 0, 0, 0.25);
+        -webkit-appearance:none;
+    	-moz-appearance:none;
+    	-ms-appearance:none;
+    	background:url('https://img.icons8.com/ios-glyphs/30/000000/expand-arrow.png');
+    	background-repeat:no-repeat;
+    	background-size:16px 17px;
+    	background-position:right 5px top 7px;
+        height: 30px;
+        padding-right: 20px;
+        padding-left: 5px;
+        margin-left: 10px;
+        border-radius: 5px;
+    }
+
+    .sort-selector:focus, .sort-selector:focus-within, .sort-selector:active {
+        outline: none;
+    }
+
 
 
 

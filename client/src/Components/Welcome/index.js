@@ -21,6 +21,7 @@ class Welcome extends React.Component{
         this.handleChange = this.handleChange.bind(this);
         this.handleClearSearchText = this.handleClearSearchText.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.closeNavMenu = this.closeNavMenu.bind(this);
     }
 
     componentDidMount() {
@@ -54,6 +55,18 @@ class Welcome extends React.Component{
         }
     }
 
+    closeNavMenu(event) {
+        let mainNavLinks = document.getElementById('main-nav-links');
+        let openIcon = document.getElementById('navbar-icon-open');
+        let closeIcon = document.getElementById('navbar-icon-close');
+
+        mainNavLinks.classList.remove('active');
+        openIcon.classList.add('active');
+        openIcon.classList.remove('inactive');
+        closeIcon.classList.remove('active');
+        closeIcon.classList.add('inactive');
+    }
+
     handleClearSearchText(event) {
         let clearIcon = document.getElementById('clear-search-icon');
         let searchText = document.getElementById('search-bar-input');
@@ -82,6 +95,7 @@ class Welcome extends React.Component{
         return (
             <WelcomeComponent
                 state={this.state}
+                closeNavMenu={this.closeNavMenu}
                 handleChange={this.handleChange}
                 handleClearSearchText={this.handleClearSearchText}
                 handleSelectChange={this.handleSelectChange}/>
