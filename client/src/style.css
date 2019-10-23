@@ -175,12 +175,21 @@
       }
 }
 
-  #nav-menu-icon {
+  #navbar-icon-open {
       fill: #FFD195;
   }
 
+  #navbar-icon-close {
+      fill: #FFD195;
+  }
+
+
 .active {
     display: block;
+}
+
+.inactive {
+    display: none;
 }
 
 .navbar-toggle {
@@ -215,7 +224,7 @@
   .mainNavigationItems a:hover,
   .mainNavigationItems a:active,
   .mainNavigationItems a.active {
-      color: red;
+      color: #DE7E44;
   }
 
   .logout {
@@ -227,6 +236,62 @@
 }
 
 /* For Welcome Page */
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    height: 50px;
+    border-radius: 120px;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-width: 2px;
+    margin: 0 auto;
+    border-style: solid;
+}
+
+#search-bar-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 120px;
+    border: none;
+    background: rgba(255,255,255,0);
+    padding: 0 68px 0 68px;
+    font-size: 1.32em;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    outline: none;
+}
+
+.searchbar-icon-image {
+    vertical-align: middle;
+}
+
+.search-icon {
+    position: absolute;
+    top: 0;
+    height: 50px;
+    width: 56px;
+    line-height: 51px;
+    text-align: center;
+    left: 0;
+    pointer-events: none;
+    font-size: 1.22em;
+}
+
+.clear-search-icon {
+    position: absolute;
+    top: 0;
+    height: 50px;
+    width: 56px;
+    line-height: 51px;
+    text-align: center;
+    right: 0;
+    font-size: 1.38em;
+    cursor: default;
+}
+
 .center {
     justify-content: center;
     align-items: center;
@@ -268,7 +333,6 @@
     display: inline-block;
     align-items: center;
     justify-content: center;
-
 }
 
 .toText{

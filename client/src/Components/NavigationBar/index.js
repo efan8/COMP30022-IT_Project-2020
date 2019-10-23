@@ -20,14 +20,27 @@ class NavigationBar extends React.Component {
 
     toggleMenu(event) {
         let mainNavLinks = document.getElementById('main-nav-links');
-        console.log(mainNavLinks.classList);
+        let openIcon = document.getElementById('navbar-icon-open');
+        let closeIcon = document.getElementById('navbar-icon-close');
+
         mainNavLinks.classList.toggle('active');
+        openIcon.classList.toggle('active');
+        openIcon.classList.toggle('inactive');
+        closeIcon.classList.toggle('active');
+        closeIcon.classList.toggle('inactive');
     }
 
     toggleMenuThenLogout(event) {
         let mainNavLinks = document.getElementById('main-nav-links');
-        console.log(mainNavLinks.classList);
+        let openIcon = document.getElementById('navbar-icon-open');
+        let closeIcon = document.getElementById('navbar-icon-close');
+
         mainNavLinks.classList.toggle('active');
+        openIcon.classList.toggle('active');
+        openIcon.classList.toggle('inactive');
+        closeIcon.classList.toggle('active');
+        closeIcon.classList.toggle('inactive');
+
         logout();
     }
 
@@ -39,8 +52,11 @@ class NavigationBar extends React.Component {
                     <h1>FridaySlackers</h1>
                 </span>
                     <span onClick={this.toggleMenu} className="navbar-toggle" id="navbar-toggle">
-                        <svg id="nav-menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20" height="20">
+                        <svg id="navbar-icon-open" className="active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20" height="20">
                             <path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z"/>
+                        </svg>
+                        <svg id="navbar-icon-close" className="inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20" height="20">
+                            <path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z"/>
                         </svg>
                     </span>
                     <span className="main-nav-links" id="main-nav-links">
