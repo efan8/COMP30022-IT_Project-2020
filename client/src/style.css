@@ -51,7 +51,7 @@
     float: left;
     alt: "Can't Find image";
     width: 200px;
-    height: 120px; 
+    height: 120px;
 }
 
 .thumbnailHeader {
@@ -93,6 +93,7 @@
     left: 0;
     top: 0;
     color: #FFD195;
+    font-family: 'Aspira';
     font-size: 30px;
     display: flex;
     justify-content: center;
@@ -101,48 +102,129 @@
 }
 
 /* For Navigation bar */
-.mainNavigation {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 3.5rem;
-    background: #41354D;
-    padding: 0 1rem;
-    display: flex;
-    align-items: center;
+
+/* Desktop */
+@media screen and (min-width: 720px) {
+    .mainNavigation {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #41354D;
+        padding: 1rem;
+    }
+
+    .mainNavigationItems {
+        display: flex;
+        margin: 0;
+    }
+
+    .main-nav-links ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-bottom: 0;
+    }
+
+    .main-nav-links li {
+        margin-left: 30px;
+    }
+
+    .main-nav-links {
+        list-style-type: none;
+        list-style: none;
+    }
+
+    .navbar-toggle {
+       display: none;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .mainNavigation {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #41354D;
+        align-items: center;
+        padding: 0;
+      }
+
+    .mainNavigationItems {
+        margin: 1rem;
+    }
+      .main-nav-links {
+          display: none;
+      }
+
+      .main-nav-links li {
+          text-align: center;
+          margin: 15px 0px;
+      }
+
+      .main-nav-links ul {
+          margin: 0;
+          padding: 0;
+      }
+
+      .main-nav-links {
+          margin-left: 0rem;
+      }
+}
+
+  #navbar-icon-open {
+      fill: #FFD195;
   }
-  
+
+  #navbar-icon-close {
+      fill: #FFD195;
+  }
+
+
+.active {
+    display: block;
+}
+
+.inactive {
+    display: none;
+}
+
+.navbar-toggle {
+  position: fixed;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  color: rgba(255,255,255,0.8);
+  font-size: 24px;
+  margin-top: 1.2rem;
+  margin-right: 1.2rem;
+}
+
   .mainNavigationLogo h1 {
+    padding-left: 1rem;
     margin: 0;
+    font-family: 'Aspira';
     font-size: 1.5rem;
     color: #FFD195;
   }
-  
-  .mainNavigationItems {
-    margin-left: 1.5rem;
-  }
-  
+
   .mainNavigationItems ul {
-    display: flex;
+    list-style-type: none;
     list-style: none;
-    padding: 0;
-    margin: 0;
   }
-  
-  .mainNavigationItems li {
-    margin: 0 1rem;
-  }
-  
+
   .mainNavigationItems a {
     text-decoration: none;
     color: #FFD195;
   }
-  
+
   .mainNavigationItems a:hover,
   .mainNavigationItems a:active,
   .mainNavigationItems a.active {
-      color: red;
+      color: #DE7E44;
   }
 
   .logout {
@@ -154,6 +236,62 @@
 }
 
 /* For Welcome Page */
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    height: 50px;
+    border-radius: 120px;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-width: 2px;
+    margin: 0 auto;
+    border-style: solid;
+}
+
+#search-bar-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 120px;
+    border: none;
+    background: rgba(255,255,255,0);
+    padding: 0 68px 0 68px;
+    font-size: 1.32em;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    outline: none;
+}
+
+.searchbar-icon-image {
+    vertical-align: middle;
+}
+
+.search-icon {
+    position: absolute;
+    top: 0;
+    height: 50px;
+    width: 56px;
+    line-height: 51px;
+    text-align: center;
+    left: 0;
+    pointer-events: none;
+    font-size: 1.22em;
+}
+
+.clear-search-icon {
+    position: absolute;
+    top: 0;
+    height: 50px;
+    width: 56px;
+    line-height: 51px;
+    text-align: center;
+    right: 0;
+    font-size: 1.38em;
+    cursor: default;
+}
+
 .center {
     justify-content: center;
     align-items: center;
@@ -195,7 +333,6 @@
     display: inline-block;
     align-items: center;
     justify-content: center;
-    
 }
 
 .toText{
@@ -242,9 +379,11 @@ form {
 label {
     display: inline-block;
     margin-left: 18px;
+    font-family: 'Aspira';
     font-size: 25px;
 }
 input {
+    font-family: 'Aspira';
     font-size: 20px;
 }
 input[type=email],
@@ -294,6 +433,7 @@ input[type=submit]:hover{
 	border-radius:10px;
 	cursor:pointer;
 	color:#ffc42e;
+    font-family: 'Aspira';
 	font-size:25px;
 	font-weight:bold;
 	padding:20px 60px;
@@ -306,11 +446,34 @@ input[type=submit]:hover{
 	background-color:#41354d;
 }
 
+/*
+General
+*/
+
+body {
+    font-family: 'Aspira';
+}
+
+
+/*
+Fonts
+*/
+
+@font-face {
+    font-family: 'Aspira';
+    src: url('Resources/aspira/Aspira-DEMO-webfont.woff2') format('woff2'),
+         url('Resources/aspira/Aspira-DEMO-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
 /* CSS TO CHANGE ALL PAGES
-html, body {   
-width: 100%;   
-height: 100%;   
+html, body {
+width: 100%;
+height: 100%;
 font-family: "Helvetica Neue", Helvetica, sans-serif;
--webkit-font-smoothing: antialiased;  
+-webkit-font-smoothing: antialiased;
 background: white;
 } */

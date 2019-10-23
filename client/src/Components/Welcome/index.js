@@ -19,6 +19,7 @@ class Welcome extends React.Component{
         }
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleClearSearchText = this.handleClearSearchText.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
@@ -30,20 +31,47 @@ class Welcome extends React.Component{
                     loading: false,
                     item: res.data
                 });
-            });
+        });
     }
 
     handleChange(event) {
+        let clearIcon = document.getElementById('clear-search-icon');
         let name = event.target.name;
         let value = event.target.value.toLowerCase();
         this.setState({[name]: value});
+
+        if (clearIcon) {
+            if (value == "") {
+                // Empty string
+                clearIcon.classList.remove("active");
+                clearIcon.classList.add("inactive");
+            }
+            else {
+                // Non-empty string
+                clearIcon.classList.remove("inactive");
+                clearIcon.classList.add("active");
+            }
+        }
+    }
+
+    handleClearSearchText(event) {
+        let clearIcon = document.getElementById('clear-search-icon');
+        let searchText = document.getElementById('search-bar-input');
+        this.setState({"search": ""});
+        if (clearIcon) {
+            clearIcon.classList.remove("active");
+            clearIcon.classList.add("inactive");
+        }
+        if (searchText) {
+            searchText.value = '';
+        }
     }
 
     handleSelectChange(event) {
         this.setState(
             {selectedOption: event.target[event.target.selectedIndex].value});
     }
-    
+
 
     render() {
         check_login_status().then(is_logged_in => {
@@ -52,9 +80,10 @@ class Welcome extends React.Component{
             }
         });
         return (
-            <WelcomeComponent 
-                state={this.state} 
+            <WelcomeComponent
+                state={this.state}
                 handleChange={this.handleChange}
+                handleClearSearchText={this.handleClearSearchText}
                 handleSelectChange={this.handleSelectChange}/>
         )
     }
