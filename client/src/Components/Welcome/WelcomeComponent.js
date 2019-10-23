@@ -64,8 +64,8 @@ function WelcomeComponent(props){
                         alt=""/>
                     </div>
                     <p className="description">
-                        Desc: {data[i].description.slice(0,24)}
-                        {data[i].description.length >= 24 ?"...": ""}
+                        {data[i].description.slice(0,32)}
+                        {data[i].description.length >= 32 ?"...": ""}
                     </p>
                 </div>
             );
