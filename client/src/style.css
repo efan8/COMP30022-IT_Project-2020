@@ -15,34 +15,6 @@
     width: 700px;
 }
 
-
-.textbox{
-    height: 30px;
-    text-align: left;
-    width: 20%;
-    display: block;
-    margin: 0 auto;
-    justify-content: center;
-    align-content: center;
-}
-
-.descriptionbox{
-    height: 80px;
-    text-align: top;
-    align-items: top;
-    width: 20%;
-    justify-content: top;
-    align-content: top;
-}
-
-.heading{
-    text-align: left;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .basicButton{
     margin: 2px
 }
@@ -83,7 +55,7 @@
     top: 0;
     width: 100%;
 }
-/* Jibbys edited stylings*/
+/* Styling CSS */
 
 .title{
     margin-top: 4rem;
@@ -233,6 +205,27 @@
     text-decoration: none;
     margin: 0;
     color: #FFD195;
+    }
+  .logout:hover {
+      color: red;
+  }
+
+/* For Centering things */
+.centerButton {
+    display: block;
+    margin: 0 auto;
+    padding: 5px 15px;
+}
+
+.centerText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centerDate{
+    display: inline-block;
+    margin: 0 auto;
 }
 
 /* For Welcome Page */
@@ -293,13 +286,41 @@
 }
 
 .center {
+    text-align:center;
+}
+
+/* For Add/Edit Item */
+.heading{
+    font-size: 20px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.textbox{
+    height: 30px;
+    text-align: left;
+    width: 20%;
+    display: block;
+    margin: 0 auto;
+    justify-content: center;
+    align-content: center;
+}
+
+.descriptionbox{
+    height: 80px;
+    text-align: left;
+    width: 20%;
+    display: block;
+    margin: 0 auto;
+    justify-content: center;
+    align-content: center;
+}
+
+/* For Welcome Page */
 .load {
-    width: 300;
-    height: 400;
+    width: auto;
+    height: 600px;
 }
 
 .gridDisplay {
@@ -311,7 +332,9 @@
 
 .thumbnail {
     position: relative;
-    width: 200px;
+    display: block;
+    margin: 0 auto;
+    width: minmax(280px, 1fr);
     height: 200px;
     overflow: hidden;
   }
@@ -333,6 +356,9 @@
     display: inline-block;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    align-content: center;
+    
 }
 
 .toText{
@@ -340,7 +366,10 @@
     text-align-last: center;
     font-size: 30px;
     text-decoration: none;
-    color: black !important;
+    color: black;
+}
+.toText:hover{
+    color: red;
 }
 
 /* For Signup and Signin */
