@@ -1,4 +1,4 @@
-/* What is shown to the user when they want to add an item */
+ /* What is shown to the user when they want to add an item */
 
 import React from 'react';
 import '../../style.css';
@@ -51,10 +51,9 @@ function AddItemComponent(props) {
     console.log(itemComponents)
 
     return (
-        <div>
+        <div className="solid-page-container">
             <form className="center" onSubmit={e => { e.preventDefault(); }}>
-            
-                
+
                 <h3 className="heading">Item Name:</h3>
 
                 <input
@@ -65,7 +64,7 @@ function AddItemComponent(props) {
                     placeholder="Type item name here"
                     className="textbox"/>
                 <br></br>
-                <input 
+                <input
                     className="textbox"
                     type="file"
                     name="selectedFile"
@@ -99,23 +98,22 @@ function AddItemComponent(props) {
                     </button>
 
                 <h3 className="centerText">Location:</h3>
-                <input  
-                    className="textbox" 
-                    placeholder="Type in location here" 
-                    name="locationString" 
-                    value={props.state.locationString} 
+                <input
+                    className="textbox"
+                    placeholder="Type in location here"
+                    name="locationString"
+                    value={props.state.locationString}
                     onChange={props.handleChange}/>
-                
-                {itemComponents ? <select 
-                                    className="textbox" 
-                                    name="choice" 
+
+                {itemComponents ? <select
+                                    className="textbox"
+                                    name="choice"
                                     onChange=
                                         {props.handleChange}>{itemComponents}
                                     </select>: <div></div>
                 }
-
-                <button  
-                    className="centerButton" 
+                <button
+                    className="centerButton"
                     onClick={props.locationSubmit}>Find location</button>
                 <h3 className="centerText">Origin Date:</h3>
 
@@ -125,9 +123,9 @@ function AddItemComponent(props) {
 
                 <br></br>
                 <br></br>
-                <button 
-                    className="centerButton" 
-                    onClick={props.submit} 
+                <button
+                    className="centerButton"
+                    onClick={props.submit}
                     disabled={!props.isEnabled}>Submit</button>
             </form>
         </div>
