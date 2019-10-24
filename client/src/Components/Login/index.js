@@ -24,22 +24,34 @@ class Login extends React.Component {
         let value = event.target.value;
         this.setState({[name]: value});
     }
-    
+
     // Updates state as soon as anything is typed into the input boxes
     handleSubmit(event) {
+        let btn = document.getElementById("login-form-btn");
+        let spinner = document.getElementById("login-btn-spinner");
+
         if (this.state.email === "" || this.state.password === "") {
             this.setState ({output : [<p>Please enter an email and password</p>]});
         } else {
+            spinner.style.display = "inline-block";
+            btn.value = '';
+            btn.disabled = true;
+
             login(this.state.email, this.state.password).then(res => {
+                spinner.style.display = "none";
+                btn.value = "Sign in";
+                btn.disabled = false;
+
                 console.log("Logged in!");
                 window.location = "/Welcome";
             }).catch(error => {
+                spinner.style.display = "none";
+                btn.value = "Sign in";
+                btn.disabled = false;
                 console.log(error);
             });
         }
         event.preventDefault();
-
-
     }
 
     render() {
