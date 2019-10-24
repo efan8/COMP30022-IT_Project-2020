@@ -174,7 +174,7 @@ class AddItem extends React.Component {
                 window.location = "/LandingPage";
             }
         });
-        const isEnabled = this.state.name.length > 0 && this.state.description.length > 0 && !this.state.submitting;
+        const isEnabled = this.state.name.length > 0 && this.state.files && this.state.description.length > 0 && !this.state.submitting;
         return(
             <div>
                 <h1 className="title">Add Item</h1>
