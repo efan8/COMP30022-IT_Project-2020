@@ -844,6 +844,7 @@ For Signup and Signin */
         margin-left: 0px;
     }
 
+    input[type=text],
     input[type=email],
     input[type=password] {
         margin-left: 0px;
@@ -865,7 +866,7 @@ For Signup and Signin */
     label {
         margin-left: 18px;
     }
-
+    input[type=text],
     input[type=email],
     input[type=password] {
         margin-left: 18px;
@@ -887,6 +888,7 @@ input {
     font-family: 'Aspira';
     font-size: 20px;
 }
+input[type=text],
 input[type=email],
 input[type=password] {
     margin-top: 12px;
