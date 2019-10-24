@@ -406,6 +406,13 @@
     opacity: 0.75;
 }
 
+.button-image {
+    fill: #FFD195;
+    top: 4px;
+    position: relative;
+    margin-right: 8px;
+}
+
 .load {
     text-align: center;
     margin: auto;
@@ -715,29 +722,35 @@
 #containerL {
     position: fixed;
     width: 340px;
-    height: 282px;
-    top: 35%;
-    left: 50%;
-    margin-top: -140px;
-    margin-left: -170px;
+    height: 310px;
+    margin-top: 100px;
+    margin-left: calc(50% - 218px);
 	background: #fff;
     border-radius: 3px;
-    border: 1px solid black;
-    box-shadow: 0 5px 30px 20px #FFD195;
+    -webkit-box-shadow: 0 5px 30px 20px #FFD195;
+            box-shadow: 0 5px 30px 20px #FFD195;
+    background: rgba(255,255,255, .95);
+    border-radius: 12px;
+    padding: 40px;
+    -webkit-box-shadow: 0px 2px 3px rgba(0,0,0,.2);
+    box-shadow: 0px 2px 3px rgba(0,0,0,.2);
 }
 
 #containerS {
     position: fixed;
-    width: 340px;
-    height: 555px;
-    top: 30%;
-    left: 50%;
-    margin-top: -140px;
-    margin-left: -170px;
-	background: #fff;
-    border-radius: 3px;
-    border: 1px solid black;
-    box-shadow: 0 5px 30px 20px #FFD195;
+   width: 340px;
+   height: 570px;
+   margin-top: 100px;
+   margin-left: calc(50% - 218px);
+   background: #fff;
+   border-radius: 3px;
+   -webkit-box-shadow: 0 5px 30px 20px #FFD195;
+           box-shadow: 0 5px 30px 20px #FFD195;
+   background: rgba(255,255,255, .95);
+   border-radius: 12px;
+   padding: 40px;
+   -webkit-box-shadow: 0px 2px 3px rgba(0,0,0,.2);
+   box-shadow: 0px 2px 3px rgba(0,0,0,.2);
 }
 
 form {
@@ -748,7 +761,8 @@ label {
     display: inline-block;
     margin-left: 18px;
     font-family: 'Aspira';
-    font-size: 25px;
+    font-size: 20px;
+    margin-top: 10px;
 }
 input {
     font-family: 'Aspira';
@@ -762,21 +776,25 @@ input[type=password] {
     margin-left: 18px;
     width: 290px;
     height: 35px;
+    border-radius: 17.5px;
+    border-style: none;
+    box-shadow: 0px 0.75px 2px rgba(0,0,0,.2);
+    background-color: #fff;
 }
 #lower {
-    background: #41354D;
     width: 100%;
     height: 60px;
     margin-top: 20px;
 }
 input[type=submit] {
-    float: right;
-    margin-right: 20px;
-    margin-top: 10px;
-    width: 100px;
-    height: 40px;
+    margin-left: calc(50% - 125px);
+    margin-top: 5px;
+    width: 250px;
+    height: 58px;
     background-color: #ffc42e;
-    border-color: #41354d;
+    border-radius: 29px;
+    border-style: none;
+    box-shadow: 0px 1px 2.5px rgba(0,0,0,.2);
 }
 input[type=submit]:hover{
     opacity:0.7
@@ -801,7 +819,7 @@ input[type=submit]:hover{
 
 .landButton {
     background:linear-gradient(to bottom, #6b3d99 5%, #41354d 100%);
-	border-radius:10px;
+	border-radius:37px;
 	cursor:pointer;
 	color:#ffc42e;
     font-family: 'Aspira';
@@ -812,6 +830,10 @@ input[type=submit]:hover{
     margin-left: 0;
     margin-top: 18px;
     opacity: 0.8;
+    height: 74px;
+    width: 280px;
+    border-style: none;
+    box-shadow: 0px 1px 2.5px rgba(0,0,0,.2);
 }
 .landButton:hover {
 	background:linear-gradient(to bottom, #41354d 5%, #6b3d99 100%);
@@ -820,7 +842,7 @@ input[type=submit]:hover{
 
 .landing-background{
     width: 100%;
-    background-image:url(/static/media/windows.9ea26fe3.jpeg);
+    background-image:url(Resources/windows.jpeg);
     background-repeat:no-repeat;
     background-size: 100% 110%;
     background-position:left 0px top 0px;

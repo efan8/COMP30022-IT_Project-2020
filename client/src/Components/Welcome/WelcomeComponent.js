@@ -62,8 +62,8 @@ function WelcomeComponent(props){
                             alt="" className="smallImage"/>
                     </div>
                     <p className="grid-text">
-                    {data[i].description.length > 400 ? 
-                        data[i].description.slice(0,400)+ ".." 
+                    {data[i].description.length > 400 ?
+                        data[i].description.slice(0,400)+ ".."
                         : data[i].description}</p>
                 </NavLink>
 
@@ -89,7 +89,7 @@ function WelcomeComponent(props){
                     <img className="searchbar-icon-image" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMzIiIGhlaWdodD0iMzIiCnZpZXdCb3g9IjAgMCAzMiAzMiIKc3R5bGU9IiBmaWxsOiMwMDAwMDA7Ij48cGF0aCBkPSJNIDcuMjE4NzUgNS43ODEyNSBMIDUuNzgxMjUgNy4yMTg3NSBMIDE0LjU2MjUgMTYgTCA1Ljc4MTI1IDI0Ljc4MTI1IEwgNy4yMTg3NSAyNi4yMTg3NSBMIDE2IDE3LjQzNzUgTCAyNC43ODEyNSAyNi4yMTg3NSBMIDI2LjIxODc1IDI0Ljc4MTI1IEwgMTcuNDM3NSAxNiBMIDI2LjIxODc1IDcuMjE4NzUgTCAyNC43ODEyNSA1Ljc4MTI1IEwgMTYgMTQuNTYyNSBaIj48L3BhdGg+PC9zdmc+"></img>
                 </div>
             </div>
-            <p class="sort-selector-section"> Sort by:
+            <p className="sort-selector-section"> Sort by:
             <div className="sort-selector-container">
             <select className="sort-selector" onChange={props.handleSelectChange} name="sort">
                 <option value="default">--------------</option>

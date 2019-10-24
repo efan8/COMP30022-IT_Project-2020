@@ -4,11 +4,12 @@ import React from 'react';
 
 function Login(props) {
     return(
+        <div className="landing-background">
         <div id="containerL">
             <form onSubmit={props.handleSubmit}>
                 {props.state.output}
                 <label for="email">Email: </label>
-                <input 
+                <input
                     type="email"
                     id="email"
                     name="email"
@@ -25,6 +26,7 @@ function Login(props) {
                 <input type="submit" value="Sign in"/>
                 </div>
             </form>
+        </div>
         </div>
     );
 };
