@@ -54,7 +54,7 @@ function AddItemComponent(props) {
         <div className="solid-page-container">
         <form className="center" onSubmit={e => { e.preventDefault(); }}>
 
-                <h3 className="heading">Item Name:</h3>
+                <h3 className="heading">Item Name:*</h3>
 
                 <input
                     name="name"
@@ -70,10 +70,10 @@ function AddItemComponent(props) {
                     name="selectedFile"
                     onChange={props.handleImageUpload}
                     accept="image/*"
-                    placeholder={props.state.imageURLs ? "No replacement image selected" : "No selected image"}
                     />
+                {props.state.files && props.state.files.length > 0 ?  false:<h5>*You must upload an image</h5>}
 
-                <h3 className="centerText">Description:</h3>
+                <h3 className="centerText">Description:*</h3>
                 <textarea
                     placeholder="Simple Description of  object and stuff"
                     className="descriptionbox"
