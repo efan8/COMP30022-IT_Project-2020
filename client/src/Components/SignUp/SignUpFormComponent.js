@@ -4,9 +4,10 @@ import React from 'react';
 
 function SignUpForm(props) {
     return(
+        <div className="landing-background">
         <div id="containerS">
         <form onSubmit={props.handleSubmit}>
-                
+
                 <label for="firstName">First Name: </label>
                 <input
                     type="email"
@@ -57,6 +58,7 @@ function SignUpForm(props) {
                 </div>
             </form>
             </div>
+        </div>
     );
 };
 
