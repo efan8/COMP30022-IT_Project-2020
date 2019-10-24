@@ -49,8 +49,7 @@ function WelcomeComponent(props){
             | data[i].description.toLowerCase().includes(search)
             | tags.includes(search)) {
             items.push(
-                <div id="containerGrid">
-                <NavLink className= "item-grid-link" to={{
+                <NavLink id="containerGrid" to={{
                     pathname:"/ViewItem",
                     aboutProps:{
                         id:`${data[i].id}`
@@ -62,9 +61,11 @@ function WelcomeComponent(props){
                             src={ data[i].imageURLs ? data[i].imageURLs[0] : ""}
                             alt="" className="smallImage"/>
                     </div>
-                    <p className="grid-text">{data[i].description.length > 25 ? data[i].description.slice(0,25)+ ".." : data[i].description}</p>
+                    <p className="grid-text">
+                    {data[i].description.length > 400 ? 
+                        data[i].description.slice(0,400)+ ".." 
+                        : data[i].description}</p>
                 </NavLink>
-                </div>
 
             );
         }
