@@ -44,7 +44,13 @@
 }
 
 .basicButton{
-    margin: 2px
+    margin: 2px;
+    line-height: 26px;
+    font-size: 13px;
+    background-color: #FFD195;
+    border-style: none;
+    border-radius: 13px;
+    box-shadow: 0px 0.5px 0.5px rgba(0,0,0,.2);
 }
 
 .thumbnailImage{
@@ -247,13 +253,16 @@ For Centering things */
     display: block;
     margin: 15px auto;
     padding: 5px 15px;
-    font-size: 15px;
 }
 
 .centerText {
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    margin-top: 20px;
 }
 
 .centerDate{
@@ -439,6 +448,30 @@ For Add/Edit Item */
     align-items: center;
 }
 
+.submit-button {
+    width: 250px;
+    height: 58px;
+    background-color: #ffc42e;
+    border-radius: 29px;
+    border-style: none;
+    box-shadow: 0px 1px 2.5px rgba(0,0,0,.2);
+    opacity: 1;
+    font-size: 18px;
+    margin: 15px auto;
+}
+
+.submit-button:disabled {
+    opacity: 0.6;
+}
+
+.purple-button {
+    font-size: 15px;
+    background-color: #41354D;
+    color: #FFD195;
+    height: 38px;
+    border-radius: 12px;
+}
+
 @media screen and (max-width: 474px) {
     /* Mobile */
 
@@ -469,7 +502,13 @@ For Add/Edit Item */
     margin: 0 auto;
     justify-content: center;
     align-content: center;
-    min-width: 412px;
+    border-radius: 5px;
+    border-width: 0.5px;
+    padding: 5px;
+}
+
+.grey-background {
+    background-color: rgba(240, 238, 235, .4);
 }
 
 .descriptionbox{
@@ -480,6 +519,9 @@ For Add/Edit Item */
     justify-content: center;
     align-content: center;
     border-width: 0.5px;
+    border-radius: 8px;
+    padding: 5px;
+    font-family: "Aspira";
 }
 
     @media screen and (max-width: 474px) {
@@ -865,6 +907,7 @@ Button with loading behaviour */
   height: 58px;
   width: 100%;
   position: relative;
+  margin-bottom: 38px;
 }
 
 /*------------------------------------------------------------------
@@ -874,18 +917,26 @@ Button with loading behaviour */
      width: 100%;
      text-align: center;
      position: absolute;
-     top: 25px;
      display: none;
  }
 
+ .login-btn-spinner {
+     top: 25px;
+ }
+
+ .add-item-btn-spinner {
+     top: 35px;
+     left: 0;
+ }
+
  @media screen and (max-width: 440px) {
-     .spinner {
+     .login-btn-spinner {
          left: calc(50% - 120px);
      }
  }
 
  @media screen and (min-width: 440px) {
-     .spinner {
+     .login-btn-spinner {
          left: calc(50% - 170px);
      }
  }

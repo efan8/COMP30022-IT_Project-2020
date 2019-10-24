@@ -56,7 +56,7 @@ function SignUpForm(props) {
                 <div id="lower">
                     <div className="wrap-form-btn">
                         <input id="signup-form-btn" type="submit" value="Sign up"/>
-                        <div id="signup-btn-spinner" className={"spinner spinner-light"}>
+                        <div id="signup-btn-spinner" className={"spinner login-btn-spinner"}>
                             <div className="bounce1"></div>
                             <div className="bounce2"></div>
                             <div className="bounce3"></div>

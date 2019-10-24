@@ -61,8 +61,8 @@ function AddItemComponent(props) {
                     type="textbox"
                     value={props.state.name}
                     onChange={props.handleChange}
-                    placeholder="Type item name here"
-                    className="textbox"/>
+                    placeholder="Enter name of artifact..."
+                    className={"textbox grey-background"}/>
                 <br></br>
                 <input
                     className="textbox"
@@ -75,8 +75,8 @@ function AddItemComponent(props) {
 
                 <h3 className="centerText">Description:*</h3>
                 <textarea
-                    placeholder="Simple Description of  object and stuff"
-                    className="descriptionbox"
+                    placeholder="Enter a description of the artifact..."
+                    className={"descriptionbox grey-background"}
                     name="description"
                     value={props.state.description}
                     onChange={props.handleChange}
@@ -85,6 +85,7 @@ function AddItemComponent(props) {
                 <h3 className="centerText">Tags:</h3>
                 <p className="centerText">{tagComponents}</p>
                 <input
+                    className="grey-background"
                     placeholder="Enter tag here"
                     name="currentTypedTag"
                     value={props.state.currentTypedTag}
@@ -92,6 +93,7 @@ function AddItemComponent(props) {
                     onKeyDown={props.keyDown}
                     />
                 <button
+                    className="purple-button"
                     onClick={props.tagSubmit}
                     type="button">
                     Add tag
@@ -99,8 +101,8 @@ function AddItemComponent(props) {
 
                 <h3 className="centerText">Location:</h3>
                 <input
-                    className="textbox"
-                    placeholder="Type in location here"
+                    className={"textbox grey-background"}
+                    placeholder="Enter origin location of artifact..."
                     name="locationString"
                     value={props.state.locationString}
                     onChange={props.handleChange}/>
@@ -113,7 +115,7 @@ function AddItemComponent(props) {
                                     </select>: <div></div>
                 }
                 <button
-                    className="centerButton"
+                    className={"centerButton purple-button"}
                     onClick={props.locationSubmit}>Find location</button>
                 <h3 className="centerText">Origin Date:</h3>
 
@@ -123,10 +125,16 @@ function AddItemComponent(props) {
 
                 <br></br>
                 <br></br>
-                <button
-                    className="centerButton"
-                    onClick={props.submit}
-                    disabled={!props.isEnabled}>Submit</button>
+                <div className="wrap-form-btn">
+                    <button id="add-item-submit-btn" className="submit-button" onClick={props.submit}
+                        disabled={!props.isEnabled}>Done</button>
+                    <div id="add-item-btn-spinner" className={"spinner add-item-btn-spinner"}>
+                        <div className="bounce1"></div>
+                        <div className="bounce2"></div>
+                        <div className="bounce3"></div>
+                    </div>
+                </div>
+
             </form>
         </div>
 
