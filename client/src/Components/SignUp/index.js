@@ -47,6 +47,10 @@ class SignUp extends React.Component {
         }
         else {
             console.log("Input valid, signing up now...");
+
+            let btn = document.getElementById("signup-form-btn");
+            let spinner = document.getElementById("signup-btn-spinner");
+
             // Sign up this user via backend
             var user = {
                 "firstName": this.state.firstName,
@@ -54,6 +58,10 @@ class SignUp extends React.Component {
                 "email": this.state.email,
                 "password": this.state.passwordOne
             };
+            spinner.style.display = "inline-block";
+            btn.value = '';
+            btn.disabled = true;
+
             signup(user).then(res => {
                 var new_user_json = res.data;
                 console.log(new_user_json);
@@ -63,8 +71,14 @@ class SignUp extends React.Component {
                 return login(user.email, user.password);
             }).then(res => {
                 console.log("Signed up and signed in! Navigating to welcome page now...");
+                spinner.style.display = "none";
+                btn.value = "Sign up";
+                btn.disabled = false;
                 window.location = "/Welcome";
             }).catch(function(error) {
+                spinner.style.display = "none";
+                btn.value = "Sign up";
+                btn.disabled = false;
                 console.log(error);
             });
         }

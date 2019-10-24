@@ -118,6 +118,14 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
+        let btn = document.getElementById("add-item-submit-btn");
+        let spinner = document.getElementById("add-item-btn-spinner");
+        console.log("submitting");
+
+        spinner.style.display = "inline-block";
+        btn.innerText = '';
+        btn.disabled = true;
+
         this.state.submitting = true;
         if(this.state.originLocation.lat === null){
             this.state.originLocation = default_location;
@@ -126,7 +134,7 @@ class AddItem extends React.Component {
 
         let body = JSON.stringify(this.state);
         let unix = this.state.originDate.getTime();
-        this.setState({
+        /*this.setState({
             "dateAdded": unix
         }, function() {
             var item = this.state;
@@ -148,11 +156,18 @@ class AddItem extends React.Component {
             }).then(res => {
                 console.log(res);
                 console.log("Updated artifact entry with image_urls");
+
+                spinner.style.display = "none";
+                btn.innerText = "Done";
+                btn.disabled = false;
                 window.location = "/Welcome";
             }).catch(error => {
+                spinner.style.display = "none";
+                btn.innerText = "Done";
+                btn.disabled = false;
                 console.log(error);
             });
-        });
+        });*/
 
     };
 
@@ -174,7 +189,7 @@ class AddItem extends React.Component {
                 window.location = "/LandingPage";
             }
         });
-        const isEnabled = this.state.name.length > 0 && this.state.files && this.state.description.length > 0 && !this.state.submitting;
+        const isEnabled = this.state.name.length > 0 && this.state.files && this.state.files.length > 0 && this.state.description.length > 0 && !this.state.submitting;
         return(
             <div>
                 <h1 className="title">Add Item</h1>

@@ -4,10 +4,11 @@ import React from 'react';
 
 function SignUpForm(props) {
     return(
+        <div className="landing-background">
         <div id="containerS">
         <form onSubmit={props.handleSubmit}>
-                
-                <label for="firstName">First Name: </label>
+
+                <label>First Name: </label>
                 <input
                     type="email"
                     id="firstName"
@@ -16,7 +17,7 @@ function SignUpForm(props) {
                     onChange={props.handleChange}
                 />
 
-                <label for="lastName">Last Name: </label>
+                <label>Last Name: </label>
                 <input
                     type="email"
                     id="lastName"
@@ -25,7 +26,7 @@ function SignUpForm(props) {
                     onChange={props.handleChange}
                 />
 
-                <label for="email">Email: </label>
+                <label>Email: </label>
                 <input
                     type="email"
                     id="email"
@@ -34,7 +35,7 @@ function SignUpForm(props) {
                     onChange={props.handleChange}
                 />
 
-                <label for="passwordOne">Password: </label>
+                <label>Password: </label>
                 <input
                     type="password"
                     id="passwordOne"
@@ -43,7 +44,7 @@ function SignUpForm(props) {
                     onChange={props.handleChange}
                 />
 
-                <label for="passwordTwo">Re-enter Password: </label>
+                <label>Re-enter Password: </label>
                 <input
                     type="password"
                     id="passwordTwo"
@@ -53,10 +54,18 @@ function SignUpForm(props) {
                 />
 
                 <div id="lower">
-                <input type="submit" value="Sign up"/>
+                    <div className="wrap-form-btn">
+                        <input id="signup-form-btn" type="submit" value="Sign up"/>
+                        <div id="signup-btn-spinner" className={"spinner login-btn-spinner"}>
+                            <div className="bounce1"></div>
+                            <div className="bounce2"></div>
+                            <div className="bounce3"></div>
+                        </div>
+                    </div>
                 </div>
             </form>
             </div>
+        </div>
     );
 };
 
