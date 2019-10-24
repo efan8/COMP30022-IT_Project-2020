@@ -95,7 +95,12 @@ class EditItem extends React.Component {
     keyPress(e){
         if(e.keyCode === 13 && e.target.value.length > 0){
             console.log('value', e.target.value);
-            this.state.tags[e.target.value.toString()] = true
+            let val = e.target.value.toString();
+            let tag = new Object()
+            tag[val] = true;
+
+            this.state.tags ? this.state.tags[val] = true : 
+                this.setState({"tags": tag})
             console.log(this.state)
             this.setState(
                 {"currentTypedTag": ""}
@@ -106,10 +111,12 @@ class EditItem extends React.Component {
     // Handles add tag button like keyPress function above
     onTagSubmit() {
         if(this.state.currentTypedTag.length > 0){
-            let tag = this.state.currentTypedTag.toString();
-            console.log(tag)
-            this.state.tags[tag] = true
-            console.log(this.state)
+            let val = this.state.currentTypedTag.toString();
+            let tag = new Object()
+            tag[val] = true;
+
+            this.state.tags ? this.state.tags[val] = true : 
+                this.setState({"tags": tag})
             this.setState(
                 {"currentTypedTag": ""}
             )
