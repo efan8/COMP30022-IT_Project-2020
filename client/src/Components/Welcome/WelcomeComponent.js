@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import load from '../../Resources/load.gif';
+import placeholderImg from "../../Resources/box.png";
 
 function WelcomeComponent(props){
 
@@ -40,37 +41,50 @@ function WelcomeComponent(props){
 
     //Creates an array of all items needing to be displayed and puts them
     //into a list of items
-    let items = [];
-    for(let i = 0; i<data.length; i++) {
-        let tags = [];
-        for(let k in data[i].tags) tags.push(k.toLowerCase());
-        tags = tags.join();
-        if (search === "" | data[i].name.toLowerCase().includes(search)
-            | data[i].description.toLowerCase().includes(search)
-            | tags.includes(search)) {
-            items.push(
-                <NavLink id="containerGrid" to={{
-                    pathname:"/ViewItem",
-                    aboutProps:{
-                        id:`${data[i].id}`
-                    }
-                }}>
-                    <span className= "toText">{data[i].name}</span>
-                    <div className = "thumbnail">
-                        <img
-                            src={ data[i].imageURLs ? data[i].imageURLs[0] : ""}
-                            alt="" className="smallImage"/>
-                    </div>
-                    <p className="grid-text">
-                    {data[i].description.length > 400 ?
-                        data[i].description.slice(0,400)+ ".."
-                        : data[i].description}</p>
-                </NavLink>
+    var items = [];
+    var placeholder = [];
 
-            );
+    if (data.length > 0) {
+        for(let i = 0; i<data.length; i++) {
+            let tags = [];
+            for(let k in data[i].tags) tags.push(k.toLowerCase());
+            tags = tags.join();
+            if (search === "" | data[i].name.toLowerCase().includes(search)
+                | data[i].description.toLowerCase().includes(search)
+                | tags.includes(search)) {
+                items.push(
+                    <NavLink id="containerGrid" to={{
+                        pathname:"/ViewItem",
+                        aboutProps:{
+                            id:`${data[i].id}`
+                        }
+                    }}>
+                        <span className= "toText">{data[i].name}</span>
+                        <div className = "thumbnail">
+                            <img
+                                src={ data[i].imageURLs ? data[i].imageURLs[0] : ""}
+                                alt="" className="smallImage"/>
+                        </div>
+                        <p className="grid-text">
+                        {data[i].description.length > 400 ?
+                            data[i].description.slice(0,400)+ ".."
+                            : data[i].description}</p>
+                    </NavLink>
+
+                );
+            }
         }
     }
 
+    else {
+        // No items
+        placeholder.push(
+            <div id="items-grid-placeholder">
+                <img className="placeholder-img" src={placeholderImg}></img>
+                <h1 className="placeholder-text">No artifacts added yet...</h1>
+            </div>
+        );
+    }
 
     return(
         <div className="clear-page-container" onClick={props.closeNavMenu}>
@@ -99,6 +113,7 @@ function WelcomeComponent(props){
             </div>
             </p>
             <div id="center">
+                <React.Fragment>{placeholder}</React.Fragment>
             <grid className = "gridDisplay">
                 <React.Fragment>{items}</React.Fragment>
             </grid>

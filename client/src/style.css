@@ -182,6 +182,17 @@ For Navigation bar */
       }
 }
 
+.main-nav-links span {
+    text-decoration: none;
+    color: #FFD195;
+    cursor: pointer;
+}
+
+.main-nav-links span:hover,
+.main-nav-links span:active {
+    color: #DE7E44;
+}
+
   #navbar-icon-open {
       fill: #FFD195;
   }
@@ -282,6 +293,21 @@ For Welcome Page */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     grid-auto-rows: minmax(100px, auto);
     grid-gap: 20px;
+}
+
+.placeholder-text {
+    color: rgba(0,0,0,.25);
+    text-align: center;
+    margin-top: 68px;
+    font-size: 26px;
+}
+
+.placeholder-img {
+    opacity: .35;
+    width: 280px;
+    left: calc(50% - 140px);
+    position: relative;
+    top: 50px;
 }
 
 .thumbnail {

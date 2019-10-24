@@ -1,13 +1,14 @@
 /* Basic navbar to access all pages */
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { logout } from '../Auth/auth';
+import { logout, check_login_status } from '../Auth/auth';
 
 class NavigationBar extends React.Component {
 
     constructor() {
         super();
         this.state ={
+            isSignedIn: false,
             name: ""
         };
         this.toggleMenu = this.toggleMenu.bind(this);
@@ -41,10 +42,39 @@ class NavigationBar extends React.Component {
         closeIcon.classList.toggle('active');
         closeIcon.classList.toggle('inactive');
 
-        logout();
+        logout().then(() => {
+            this.setState({ isSignedIn: false });
+            window.location = "/LandingPage";
+        });
     }
 
     render() {
+        check_login_status().then(is_logged_in => {
+            if(is_logged_in) {
+                this.setState({ isSignedIn: true });
+            }
+        });
+
+        var visible_tabs = [];
+        if (this.state.isSignedIn == true) {
+            visible_tabs.push(
+                <ul>
+                    <li><NavLink onClick={this.toggleMenu} to="/Welcome">Home</NavLink></li>
+                    <li><NavLink onClick={this.toggleMenu} to="/AddItem">Add Artifact</NavLink></li>
+                    <li>
+                        <span className="logout" onClick={this.toggleMenuThenLogout}>Logout</span>
+                    </li>
+                </ul>
+            );
+        }
+        else {
+            visible_tabs.push(
+                <ul>
+                    <li><NavLink onClick={this.toggleMenu} to="/LandingPage">Home</NavLink></li>
+                </ul>
+            );
+        }
+
         return(
             <header className="mainNavigation">
                 <nav className="mainNavigationItems">
@@ -60,21 +90,12 @@ class NavigationBar extends React.Component {
                         </svg>
                     </span>
                     <span className="main-nav-links" id="main-nav-links">
-                    <ul>
-                        <li><NavLink onClick={this.toggleMenu} to="/LandingPage">Home</NavLink></li>
-                        <li><NavLink onClick={this.toggleMenu} to="/Welcome">Welcome</NavLink></li>
-                        <li><NavLink onClick={this.toggleMenu} to="/AddItem">Add Item</NavLink></li>
-                        <li>
-                            <NavLink className="logout" to="/LandingPage"
-                                onClick={this.toggleMenuThenLogout}>Logout
-                            </NavLink>
-                        </li>
-                    </ul>
+                    <React.Fragment>{visible_tabs}</React.Fragment>
 
                     </span>
                 </nav>
             </header>
-        )
+        );
     }
 /*     render() {
         return(
