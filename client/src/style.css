@@ -456,6 +456,20 @@ For View Item */
     margin-right: 8px;
 }
 
+.tagBox{
+    background-color: #DE7E44;
+    border: 0.5px solid black;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    text-decoration: none;
+    color: #FFD195;
+    padding: 5px 5px;
+    line-height: 30px;
+}
+.tagBox:hover{
+    opacity: 0.75;
+}
 .load {
     text-align: center;
     margin: auto;
