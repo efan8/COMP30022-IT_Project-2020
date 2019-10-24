@@ -52,7 +52,7 @@ function AddItemComponent(props) {
 
     return (
         <div className="solid-page-container">
-            <form className="center" onSubmit={e => { e.preventDefault(); }}>
+        <form className="center" onSubmit={e => { e.preventDefault(); }}>
 
                 <h3 className="heading">Item Name:</h3>
 
@@ -68,9 +68,9 @@ function AddItemComponent(props) {
                     className="textbox"
                     type="file"
                     name="selectedFile"
-                    multiple
                     onChange={props.handleImageUpload}
                     accept="image/*"
+                    placeholder={props.state.imageURLs ? "No replacement image selected" : "No selected image"}
                     />
 
                 <h3 className="centerText">Description:</h3>

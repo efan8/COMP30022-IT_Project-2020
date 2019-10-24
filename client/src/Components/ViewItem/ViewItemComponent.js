@@ -38,11 +38,11 @@ function ViewItemComponent(props){
 
 
     return(
-        <div className="solid-page-container">
+        <div className="solid-page-container-with-margin">
             <span className="item-image-container">
                 <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="item-image"/>
             </span>
-            <h1 className="title">{props.state.item.name}</h1>
+            <h1 className="view-item-title">{props.state.item.name}</h1>
             <br></br>
             <NavLink className="editItem" to={{
                 pathname:"/EditItem",
