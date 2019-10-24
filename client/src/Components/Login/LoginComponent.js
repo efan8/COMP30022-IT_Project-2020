@@ -23,7 +23,14 @@ function Login(props) {
                     onChange={props.handleChange}
                 />
                 <div id="lower">
-                <input type="submit" value="Sign in"/>
+                    <div className="wrap-form-btn">
+                        <input id="login-form-btn" type="submit" value="Sign in"/>
+                        <div id="login-btn-spinner" className={"spinner spinner-light"}>
+                            <div className="bounce1"></div>
+                            <div className="bounce2"></div>
+                            <div className="bounce3"></div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
