@@ -16,6 +16,7 @@ class EditItem extends React.Component {
         this.onTagSubmit = this.onTagSubmit.bind(this);
         this.keyPress = this.keyPress.bind(this);
         this.getDataList = this.getDataList.bind(this);
+        this.getLocation = this.getLocation.bind(this);
         this.deleteTag = this.deleteTag.bind(this);
 
         this.state.imageModified = false;
@@ -23,6 +24,7 @@ class EditItem extends React.Component {
         this.state.selectedFile = null;
         this.state.itemLoaded = false;
         this.state.submitting = false;
+        this.state.files = ["1"];
     }
 
     // date picker needs its onChange since it doesn't send an event like everything else
@@ -42,8 +44,10 @@ class EditItem extends React.Component {
             this.setState({
                "originDate": new Date(this.state.originDate)
             })
+            this.getLocation();
             console.log(this.state)
             this.state.itemLoaded = true;
+            
         });
     }
 
@@ -184,10 +188,23 @@ class EditItem extends React.Component {
         )
     }
 
+    async getLocation(){
+        console.log(this.state.originLocation)
+        const {lat, long} = this.state.originLocation
+        await fetch(`https://us1.locationiq.com/v1/reverse.php?key=5bbb3f798e3174&lat=${Number(lat)}&lon=${Number(long)}&format=json`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+                "locationString" : data.display_name
+            })
+        })
+    }
+
     render() {
         const isEnabled = this.state.itemLoaded && !this.state.submitting && this.state.name.length > 0 && this.state.description.length > 0;
-        console.log(isEnabled)
-        console.log(this.state.itemLoaded)
+        if(this.state.files.length == 0){
+            this.state.files = ["1"];
+        }  
         return(
             <div>
                 <h1 className="title">Edit Item</h1>
