@@ -126,6 +126,7 @@ class AddItem extends React.Component {
 
         let body = JSON.stringify(this.state);
         let unix = this.state.originDate.getTime();
+
         this.setState({
             "dateAdded": unix
         }, function() {

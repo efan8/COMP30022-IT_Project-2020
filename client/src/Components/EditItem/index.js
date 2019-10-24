@@ -44,6 +44,7 @@ class EditItem extends React.Component {
             })
             console.log(this.state)
             this.state.itemLoaded = true;
+
         });
     }
 
@@ -91,7 +92,16 @@ class EditItem extends React.Component {
     keyPress(e){
         if(e.keyCode === 13 && e.target.value.length > 0){
             console.log('value', e.target.value);
+
             this.state.tags[e.target.value.toString()] = true
+
+            /*let val = e.target.value.toString();
+            let tag = new Object()
+            tag[val] = true;
+
+            this.state.tags ? this.state.tags[val] = true :
+                this.setState({"tags": tag})*/
+
             console.log(this.state)
             this.setState(
                 {"currentTypedTag": ""}
@@ -106,6 +116,14 @@ class EditItem extends React.Component {
             console.log(tag)
             this.state.tags[tag] = true
             console.log(this.state)
+
+            /*let val = this.state.currentTypedTag.toString();
+            let tag = new Object()
+            tag[val] = true;
+
+            this.state.tags ? this.state.tags[val] = true :
+                this.setState({"tags": tag})*/
+
             this.setState(
                 {"currentTypedTag": ""}
             )
@@ -131,6 +149,14 @@ class EditItem extends React.Component {
             console.log("CANT DO IT")
         }
         else{
+            let btn = document.getElementById("add-item-submit-btn");
+            let spinner = document.getElementById("add-item-btn-spinner");
+            console.log("submitting");
+
+            spinner.style.display = "inline-block";
+            btn.innerText = '';
+            btn.disabled = true;
+
             this.state.submitting = true;
             let body = JSON.stringify(this.state);
             let unix = this.state.originDate.getTime();
@@ -158,16 +184,28 @@ class EditItem extends React.Component {
                     }).then(res => {
                         console.log(res);
                         console.log("Updated artifact entry with image_urls");
+                        spinner.style.display = "none";
+                        btn.innerText = "Done";
+                        btn.disabled = false;
                         window.location = "/Welcome";
                     }).catch(error => {
                         console.log(error);
+                        spinner.style.display = "none";
+                        btn.innerText = "Done";
+                        btn.disabled = false;
                     });
                 }
                 else {
+                    spinner.style.display = "none";
+                    btn.innerText = "Done";
+                    btn.disabled = false;
                     window.location = "/Welcome";
                 }
             }).catch(error => {
                 console.log(error);
+                spinner.style.display = "none";
+                btn.innerText = "Done";
+                btn.disabled = false;
             });
         }
     }
@@ -188,6 +226,9 @@ class EditItem extends React.Component {
         const isEnabled = this.state.itemLoaded && !this.state.submitting && this.state.name.length > 0 && this.state.description.length > 0;
         console.log(isEnabled)
         console.log(this.state.itemLoaded)
+        /*if(this.state.files.length == 0){
+            this.state.files = ["1"];
+        }*/
         return(
             <div>
                 <h1 className="title">Edit Item</h1>
