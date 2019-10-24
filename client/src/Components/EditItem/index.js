@@ -186,8 +186,6 @@ class EditItem extends React.Component {
 
     render() {
         const isEnabled = this.state.itemLoaded && !this.state.submitting && this.state.name.length > 0 && this.state.description.length > 0;
-        console.log(isEnabled)
-        console.log(this.state.itemLoaded)
         return(
             <div>
                 <h1 className="title">Edit Item</h1>
