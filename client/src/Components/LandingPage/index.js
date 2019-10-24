@@ -14,7 +14,7 @@ class LandingPage extends React.Component {
         this.logChange = this.logChange.bind(this);
         this.signChange = this.signChange.bind(this);
     };
-    
+
     //To change page using buttons
     logChange() {
         window.location = "/Login";
@@ -30,16 +30,20 @@ class LandingPage extends React.Component {
             };
         });
         return(
+            <div className="landing-background">
             <div id="containerLand">
-                <button 
-                    className="landButton" 
+                <h1 className="landing-title">Welcome!</h1>
+                <br></br>
+                <button
+                    className="landButton"
                     onClick={this.logChange}
                 >Sign in</button>
                 <br></br>
-                <button 
-                className="landButton" 
+                <button
+                className="landButton"
                     onClick={this.signChange}
                 >Sign up</button>
+            </div>
             </div>
         );
     };

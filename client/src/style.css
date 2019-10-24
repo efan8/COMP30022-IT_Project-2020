@@ -780,20 +780,23 @@ input[type=submit]:hover{
 
 /* For Landing Page */
 #containerLand {
-    position: fixed;
+    position: absolute;
     width: 340px;
-    height: 200px;
+    height: 300px;
     top: 30%;
-    left: 50%;
-    margin-top: -140px;
-    margin-left: -170px;
-	background: #FFD195;
-    border-radius: 3px;
-    border: 5px double black;
+    left: calc(50vw - 210px);
+    margin-top: -50px;
+    margin-left: 0px;
+	background: rgba(255,255,255, .95);
+    border-radius: 12px;
+    padding: 40px;
+    -webkit-box-shadow: 0px 2px 3px rgba(0,0,0,.2);
+            box-shadow: 0px 2px 3px rgba(0,0,0,.2);
+    text-align: center;
 }
 
 .landButton {
-	background:linear-gradient(to bottom, #6b3d99 5%, #41354d 100%);
+    background:linear-gradient(to bottom, #6b3d99 5%, #41354d 100%);
 	border-radius:10px;
 	cursor:pointer;
 	color:#ffc42e;
@@ -802,12 +805,25 @@ input[type=submit]:hover{
 	font-weight:bold;
 	padding:20px 60px;
     text-decoration:none;
-    margin-left: 65px;
+    margin-left: 0;
     margin-top: 18px;
+    opacity: 0.8;
 }
 .landButton:hover {
 	background:linear-gradient(to bottom, #41354d 5%, #6b3d99 100%);
 	background-color:#41354d;
+}
+
+.landing-background{
+    width: 100%;
+    background-image:url(/static/media/windows.9ea26fe3.jpeg);
+    background-repeat:no-repeat;
+    background-size: 100% 110%;
+    background-position:left 0px top 0px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    overflow: hidden;
 }
 
 /*
