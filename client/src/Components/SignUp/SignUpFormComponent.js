@@ -10,7 +10,7 @@ function SignUpForm(props) {
 
                 <label>First Name: </label>
                 <input
-                    type="email"
+                    type="text"
                     id="firstName"
                     name="firstName"
                     value={props.data.firstName}
@@ -19,7 +19,7 @@ function SignUpForm(props) {
 
                 <label>Last Name: </label>
                 <input
-                    type="email"
+                    type="text"
                     id="lastName"
                     name="lastName"
                     value={props.data.lastName}
