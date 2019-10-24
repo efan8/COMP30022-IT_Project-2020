@@ -13,6 +13,38 @@
 .map{
     height: 400px;
     width: 700px;
+    position: absolute!important;
+    left: 50%;
+    margin-left: -350px!important; /*negative half of width*/
+}
+
+
+.textbox{
+    height: 30px;
+    text-align: left;
+    width: 20%;
+    display: block;
+    margin: 0 auto;
+    justify-content: center;
+    align-content: center;
+}
+
+.descriptionbox{
+    height: 80px;
+    text-align: top;
+    align-items: top;
+    width: 20%;
+    justify-content: top;
+    align-content: top;
+    resize: none;
+}
+
+.heading{
+    text-align: left;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .basicButton{

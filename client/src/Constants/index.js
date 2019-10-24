@@ -21,6 +21,10 @@ export const blank_item = {
     "results": {},
     "selectedFile": null
 };
+export const default_location = {
+    "lat": -37.814,
+    "long": 144.96332
+}
 export const blank_collection = {
     "id": "",
     "name": "",

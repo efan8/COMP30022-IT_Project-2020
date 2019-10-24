@@ -61,7 +61,7 @@ function WelcomeComponent(props){
                         src={ data[i].imageURLs ? data[i].imageURLs[0] : ""}
                         alt="" className="smallImage"/>
                     </div>
-                    <p className="para">Desc: {data[i].description.slice(0,25)}..</p>
+                    <p className="para">{data[i].description.length > 25 ? data[i].description.slice(0,25)+ ".." : data[i].description}</p>
                 </div>
             );
         }

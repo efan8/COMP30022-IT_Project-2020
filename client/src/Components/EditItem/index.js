@@ -21,6 +21,8 @@ class EditItem extends React.Component {
         this.state.imageModified = false;
         this.state.results = {};
         this.state.selectedFile = null;
+        this.state.itemLoaded = false;
+        this.state.submitting = false;
     }
 
     // date picker needs its onChange since it doesn't send an event like everything else
@@ -40,7 +42,8 @@ class EditItem extends React.Component {
             this.setState({
                "originDate": new Date(this.state.originDate)
             })
-            console.log(this.state) 
+            console.log(this.state)
+            this.state.itemLoaded = true; 
         });
     }
 
@@ -128,6 +131,7 @@ class EditItem extends React.Component {
             console.log("CANT DO IT")
         }
         else{
+            this.state.submitting = true;
             let body = JSON.stringify(this.state);
             let unix = this.state.originDate.getTime();
             this.setState({
@@ -181,6 +185,9 @@ class EditItem extends React.Component {
     }
 
     render() {
+        const isEnabled = this.state.itemLoaded && !this.state.submitting && this.state.name.length > 0 && this.state.description.length > 0;
+        console.log(isEnabled)
+        console.log(this.state.itemLoaded)
         return(
             <div>
                 <h1 className="title">Edit Item</h1>
@@ -194,6 +201,7 @@ class EditItem extends React.Component {
                     locationSubmit={this.getDataList}
                     deleteTag={this.deleteTag}
                     dateChange={this.dateChange}
+                    isEnabled={isEnabled}
                 />
             </div>
         )

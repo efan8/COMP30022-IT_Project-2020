@@ -4,7 +4,7 @@
 
 import React from 'react';
 import '../../style.css';
-import { blank_item } from '../../Constants/index';
+import { blank_item, default_location } from '../../Constants/index';
 import { check_login_status } from '../Auth/auth';
 import { maxPossibleFiles } from '../../Constants/validation';
 
@@ -19,6 +19,7 @@ class AddItem extends React.Component {
         super();
 
         this.state = blank_item;
+        this.state.submitting = false;
         this.dateChange = this.dateChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
@@ -117,40 +118,42 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
+        this.state.submitting = true;
         if(this.state.originLocation.lat === null){
-            console.log("CANT DO IT")
+            this.state.originLocation = default_location;
+            console.log(this.state.originLocation);
         }
-        else{
-            let body = JSON.stringify(this.state);
-            let unix = this.state.originDate.getTime();
-            this.setState({
-                "dateAdded": unix
-            }, function() {
-                var item = this.state;
+        
+        let body = JSON.stringify(this.state);
+        let unix = this.state.originDate.getTime();
+        this.setState({
+            "dateAdded": unix
+        }, function() {
+            var item = this.state;
 
-                console.log(body);
-                console.log(this.state);
+            console.log(body);
+            console.log(this.state);
 
-                put('artifacts', this.state).then(res => {
-                    var artifact = res.data.data;
-                    var item_id = artifact.id;
-                    console.log("Created database entry for artifact of ID: " + item_id);
-                    item.id = item_id;
-                    item.ownerID = artifact.ownerID;
-                    return upload_images(this.state.files, item_id);
-                }).then(image_urls => {
-                    console.log("Uploaded images for this artifact");
-                    item.imageURLs = image_urls;
-                    return put('artifacts', item);
-                }).then(res => {
-                    console.log(res);
-                    console.log("Updated artifact entry with image_urls");
-                    window.location = "/Welcome";
-                }).catch(error => {
-                    console.log(error);
-                });
+            put('artifacts', this.state).then(res => {
+                var artifact = res.data.data;
+                var item_id = artifact.id;
+                console.log("Created database entry for artifact of ID: " + item_id);
+                item.id = item_id;
+                item.ownerID = artifact.ownerID;
+                return upload_images(this.state.files, item_id);
+            }).then(image_urls => {
+                console.log("Uploaded images for this artifact");
+                item.imageURLs = image_urls;
+                return put('artifacts', item);
+            }).then(res => {
+                console.log(res);
+                console.log("Updated artifact entry with image_urls");
+                window.location = "/Welcome";
+            }).catch(error => {
+                console.log(error);
             });
-        }
+        });
+        
     };
 
     // Get the locations that match the input string.
@@ -171,6 +174,7 @@ class AddItem extends React.Component {
                 window.location = "/LandingPage";
             }
         });
+        const isEnabled = this.state.name.length > 0 && this.state.files && this.state.description.length > 0 && !this.state.submitting;
         return(
             <div>
                 <h1 className="title">Add Item</h1>
@@ -184,6 +188,7 @@ class AddItem extends React.Component {
                     locationSubmit={this.getDataList}
                     deleteTag={this.deleteTag}
                     dateChange={this.dateChange}
+                    isEnabled={isEnabled}
                 />
             </div>
 

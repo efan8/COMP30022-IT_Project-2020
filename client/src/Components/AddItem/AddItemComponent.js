@@ -53,6 +53,7 @@ function AddItemComponent(props) {
     return (
         <div>
             <form className="center" onSubmit={e => { e.preventDefault(); }}>
+            
                 
                 <h3 className="heading">Item Name:</h3>
 
@@ -74,7 +75,7 @@ function AddItemComponent(props) {
                     />
 
                 <h3 className="centerText">Description:</h3>
-                <input
+                <textarea
                     placeholder="Simple Description of  object and stuff"
                     className="descriptionbox"
                     name="description"
@@ -85,7 +86,6 @@ function AddItemComponent(props) {
                 <h3 className="centerText">Tags:</h3>
                 <p className="centerText">{tagComponents}</p>
                 <input
-                    className="textbox"
                     placeholder="Enter tag here"
                     name="currentTypedTag"
                     value={props.state.currentTypedTag}
@@ -93,7 +93,6 @@ function AddItemComponent(props) {
                     onKeyDown={props.keyDown}
                     />
                 <button
-                    className="centerButton"
                     onClick={props.tagSubmit}
                     type="button">
                     Add tag
@@ -114,6 +113,7 @@ function AddItemComponent(props) {
                                         {props.handleChange}>{itemComponents}
                                     </select>: <div></div>
                 }
+
                 <button  
                     className="centerButton" 
                     onClick={props.locationSubmit}>Find location</button>
@@ -123,12 +123,12 @@ function AddItemComponent(props) {
                 onChange={props.dateChange}/>
 
 
-
                 <br></br>
                 <br></br>
                 <button 
-                    classname="centerButton" 
-                    onClick={props.submit}>Submit</button>
+                    className="centerButton" 
+                    onClick={props.submit} 
+                    disabled={!props.isEnabled}>Submit</button>
             </form>
         </div>
 
