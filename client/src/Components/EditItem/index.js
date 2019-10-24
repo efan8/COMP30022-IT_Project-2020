@@ -43,7 +43,7 @@ class EditItem extends React.Component {
                "originDate": new Date(this.state.originDate)
             })
             console.log(this.state)
-            this.state.itemLoaded = true; 
+            this.state.itemLoaded = true;
         });
     }
 
@@ -191,7 +191,7 @@ class EditItem extends React.Component {
         return(
             <div>
                 <h1 className="title">Edit Item</h1>
-                <AddItemComponent 
+                <AddItemComponent
                     handleChange={this.handleChange}
                     handleImageUpload={this.handleImageUpload}
                     state={this.state}
@@ -202,7 +202,7 @@ class EditItem extends React.Component {
                     deleteTag={this.deleteTag}
                     dateChange={this.dateChange}
                     isEnabled={isEnabled}
-                />
+                >Edit Item </AddItemComponent>
             </div>
         )
     }

@@ -38,9 +38,11 @@ function ViewItemComponent(props){
 
 
     return(
-        <div className="center">
-            <h1 className="title">{props.state.item.name}</h1>
-            <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="viewImg"/>
+        <div className="solid-page-container-with-margin">
+            <span className="item-image-container">
+                <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="item-image"/>
+            </span>
+            <h1 className="view-item-title">{props.state.item.name}</h1>
             <br></br>
             <NavLink className="editItem" to={{
                 pathname:"/EditItem",
@@ -50,7 +52,7 @@ function ViewItemComponent(props){
             }} >Edit item</NavLink>
 
             <h3>Description:</h3>
-            <p>{props.state.item.description}</p>
+            <p className="view-item-text-container">{props.state.item.description}</p>
 
 
             <h3>Tags:</h3>
@@ -58,10 +60,10 @@ function ViewItemComponent(props){
 
 
             <h3>Origin Date:</h3>
-            <p>{dateObj.toString()}</p>
+            <p className="view-item-text-container">{dateObj.toString()}</p>
 
             <h3>Location:</h3>
-
+            <div className="mapSpace"></div>
         </div>
     );
 };

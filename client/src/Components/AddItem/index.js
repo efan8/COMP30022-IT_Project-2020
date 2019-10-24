@@ -123,7 +123,7 @@ class AddItem extends React.Component {
             this.state.originLocation = default_location;
             console.log(this.state.originLocation);
         }
-        
+
         let body = JSON.stringify(this.state);
         let unix = this.state.originDate.getTime();
         this.setState({
@@ -153,7 +153,7 @@ class AddItem extends React.Component {
                 console.log(error);
             });
         });
-        
+
     };
 
     // Get the locations that match the input string.
