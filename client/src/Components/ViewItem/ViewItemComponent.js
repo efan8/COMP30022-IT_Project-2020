@@ -20,7 +20,7 @@ function ViewItemComponent(props){
     }
     console.log(keys)
     // Generates the tag buttons from the list of tags
-    const tagComponents = keys.map(key => <div><NavLink to={{
+    const tagComponents = keys.map(key => <div><NavLink className="tagBox" to={{
         pathname:"/ViewTag",
         aboutProps:{
             viewTag : key
