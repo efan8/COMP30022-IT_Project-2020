@@ -1,4 +1,5 @@
-/* Initial page users will see that will take them to login or signup */
+/* The page users will see when they first access the website, from here they
+    can navigate to either signup or signin */
 
 import React from 'react';
 import '../../style.css';
@@ -17,7 +18,7 @@ class LandingPage extends React.Component {
         this.signChange = this.signChange.bind(this);
     };
 
-    //To change page using buttons
+    //OnClick functions to navigate user to signin or signup
     logChange() {
         window.location = "/Login";
     };
@@ -26,7 +27,10 @@ class LandingPage extends React.Component {
     };
 
     render() {
+        //Checks whether a user is logged in via cookies
         check_login_status().then(is_logged_in => {
+
+            //If they are logged in already it sends them to welcome page
             if(is_logged_in) {
                 window.location = "/Welcome";
             }
@@ -34,6 +38,8 @@ class LandingPage extends React.Component {
                 this.setState({ loading: false });
             }
         });
+
+        //If page hasnt loaded yet, loading gif is displayed
         if (this.state.loading == true) {
             return(
                 <div className = "center" >
@@ -47,11 +53,15 @@ class LandingPage extends React.Component {
                 <div id="containerLand">
                     <h1 className="landing-title">Welcome!</h1>
                     <br></br>
+
+                    {/* Button that takes user to signin */}
                     <button
                         className="landButton"
                         onClick={this.logChange}
                     >Sign in</button>
                     <br></br>
+
+                    {/* Button that takes user to signup */}
                     <button
                     className="landButton"
                         onClick={this.signChange}

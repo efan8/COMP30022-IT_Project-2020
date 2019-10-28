@@ -1,4 +1,4 @@
-/* A welcome page for the user after logging in where all their items are
+/* A Welcome page for the user after logging in where all their artifacts are
    displayed */
 
 import React from 'react';
@@ -24,6 +24,7 @@ class Welcome extends React.Component{
         this.closeNavMenu = this.closeNavMenu.bind(this);
     }
 
+    //Gets all the users artifacts
     componentDidMount() {
         this.setState({loading: true})
         get("artifacts")
@@ -80,13 +81,17 @@ class Welcome extends React.Component{
         }
     }
 
+    //Updates state for sorting based on selected sort
     handleSelectChange(event) {
         this.setState(
             {selectedOption: event.target[event.target.selectedIndex].value});
     }
 
-
+    //Visual aspect of Welcome
     render() {
+
+        //If user isnt logged in and tries to access page it sends them to 
+        //landing page
         check_login_status().then(is_logged_in => {
             if(!is_logged_in) {
                 window.location = "/LandingPage";
