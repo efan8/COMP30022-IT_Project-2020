@@ -1,7 +1,7 @@
+/* The main App that handles the pathways of the webapp*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-//npm install --save react-router-dom
 import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
 
 import LandingPage from './Components/LandingPage';
@@ -18,32 +18,29 @@ import EditItem from './Components/EditItem';
 import Test from './Components/Test';
 import ViewTag from './Components/ViewTag';
 
-
- 
-
 class App extends React.Component {
     render() {
         return(
-      <BrowserRouter>
-        <div>
-          <Navigation />
-            <Switch>
-             <Route path="/" component={LandingPage} exact/>
-             <Route path="/LandingPage" component={LandingPage}/>
-             <Route path="/Welcome" component={Welcome}/>
-             <Route path="/AddItem" component={AddItem}/>
-             <Route path="/ViewItem" component={ViewItem}/>
-             <Route path="/AddCollection" component={AddCollection}/>
-             <Route path="/SignUp" component={SignUp}/>
-             <Route path="/Login" component={Login}/>
-             <Route path="/ItemBlockTest" component={ItemBlock}/>
-             <Route path="/EditItem" component={EditItem}/>
-             <Route path="/Test" component={Test}/>
-             <Route path="/ViewTag" component={ViewTag}/>
-            <Route component={Error}/>
-           </Switch>
-        </div> 
-      </BrowserRouter>
+            <BrowserRouter>
+                <div>
+                    <Navigation />
+                        <Switch>
+                            <Route path="/" component={LandingPage} exact/>
+                            <Route path="/LandingPage" component={LandingPage}/>
+                            <Route path="/Welcome" component={Welcome}/>
+                            <Route path="/AddItem" component={AddItem}/>
+                            <Route path="/ViewItem" component={ViewItem}/>
+                            <Route path="/AddCollection" component={AddCollection}/>
+                            <Route path="/SignUp" component={SignUp}/>
+                            <Route path="/Login" component={Login}/>
+                            <Route path="/ItemBlockTest" component={ItemBlock}/>
+                            <Route path="/EditItem" component={EditItem}/>
+                            <Route path="/Test" component={Test}/>
+                            <Route path="/ViewTag" component={ViewTag}/>
+                            <Route component={Error}/>
+                        </Switch>
+                </div> 
+            </BrowserRouter>
         )
     }
 }

@@ -13,6 +13,13 @@ Running Both Frontend and Backend:
 1. Navigate to IT_Project folder
 2. run npm start
 
+npm install --save react-router-dom
 npm install react-date-picker
 npm install formidable
 npm install browser-image-compression
+
+
+    "concurrently": "^4.1.2",
+    "cookie-parser": "^1.4.4",
+    "firebase-admin": "^8.6.1",
+    "react-navigation": "^4.0.10"
