@@ -48,6 +48,7 @@ class SignUp extends React.Component {
         else {
             console.log("Input valid, signing up now...");
 
+            // Login button and its loading spinner indicator
             let btn = document.getElementById("signup-form-btn");
             let spinner = document.getElementById("signup-btn-spinner");
 

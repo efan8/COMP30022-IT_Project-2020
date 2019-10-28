@@ -1,3 +1,9 @@
+/*
+http.js
+
+Contains wrapper functions to call the backend, through an axios singleton
+*/
+
 import axios from 'axios';
 
 const transport = axios.create({

@@ -1,3 +1,9 @@
+/*
+image.js
+
+Contains wrapper functions to manipulate images and send then to the backend
+*/
+
 import { get, post } from "../HTTP/http";
 import FormData from 'form-data';
 import imageCompression from 'browser-image-compression';
@@ -6,6 +12,8 @@ const UPLOAD_IMAGE = "upload_image";
 const MAX_IMAGE_SIZE = 0.2;   // MB
 const MAX_IMAGE_WIDTH = 1920;
 
+// Function that compresses a given image file down to a maximum size
+// of MAX_IMAGE_SIZE, before uploading it to the backend server
 export function upload_image(file, item_id, image_urls) {
     return new Promise(function(resolve, reject) {
         var data = new FormData();
@@ -47,6 +55,8 @@ export function upload_image(file, item_id, image_urls) {
     });
 }
 
+// Function that returns an asynchronous chain of calls, each uploading an image
+// contained in 'files', ending when the last image is uploaded
 export function upload_images(files, item_id) {
     var promise_chain = Promise.resolve();
     for (let file of files) {

@@ -143,6 +143,7 @@ class EditItem extends React.Component {
             console.log("CANT DO IT")
         }
         else{
+            // Login button and its loading spinner indicator
             let btn = document.getElementById("add-item-submit-btn");
             let spinner = document.getElementById("add-item-btn-spinner");
             console.log("submitting");

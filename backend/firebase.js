@@ -25,27 +25,6 @@ var COLLECTIONS_PERMISSIONS = "/collections-permissions";
 var USERS = "/users";
 var OWNERS_COLLECTIONS = "/owners-collections";
 
-var test_artifact = {
-    "name": "IMG123.jpg",
-    "description": "Family portrait in front of the Louvre (photobombing pigeon in the background)",
-    "ownerID": "abc123",
-    "originDate": 1532084700,
-    "originLocation": {
-        "lat": 48.860809,
-        "long": 2.336722
-    },
-    "knownLocation": {
-        "lat": -82.468636,
-        "long": -87.998860
-    },
-    "collectionID": 2019,
-    "tags": {
-        "photo": true,
-        "Paris": true,
-        "family": true
-    }
-};
-
 /*
 Realtime Database - Base level functions
 */
@@ -54,8 +33,7 @@ function create(path, data) {
     var root_ref = database.ref(path);
     var item_ref = root_ref.push();
     var item_id = item_ref.key;
-    console.log(item_id);
-
+    
     return new Promise(function(resolve, reject) {
         item_ref.set(data, function(error) {
             if (error) {
@@ -110,6 +88,8 @@ function add_user_to_database(user) {
 Firebase Authentication - Base level functions
 */
 
+// Function to create user entry in Firebase Authentication, asynchronously
+// returning the user ID of the new user
 function create_user(user, password) {
     return new Promise(function(resolve, reject) {
         admin.auth().createUser({
@@ -117,12 +97,9 @@ function create_user(user, password) {
             password: password,
             displayName: user.firstName + " " + user.lastName
         }).then(function(userRecord) {
-            // See the UserRecord reference doc for the contents of userRecord.
             console.log('Successfully created new user:', userRecord.uid);
             resolve(userRecord.uid);
         }).catch(function(error) {
-            // Need to handle error specifically
-            //
             console.log('Error creating new user:', error);
             reject(error);
         });
@@ -133,6 +110,8 @@ function create_user(user, password) {
 Firebase Storage - Base level functions
 */
 
+// Function will return a Promise to upload a file at the given filepath to the
+// Firebase Storage bucket
 function create_upload_promise(filepath, filename, filetype, user_id, item_id) {
     return new Promise(function(resolve, reject) {
         let unique_filepath = user_id + "/" + item_id + "/" + filename;
@@ -160,12 +139,6 @@ function create_upload_promise(filepath, filename, filetype, user_id, item_id) {
 
 // Function will asynchronously return an array containing the filepath (ie. URL) of each uploaded image
 function upload_image(filepath, filename, filetype, user_id, item_id) {
-    /*let chain = Promise.resolve();
-    // Upload images
-    for (let filepath of filepaths) {
-        chain = chain.then(uploaded_filepaths => create_upload_promise(filepath, filename, user_id, item_id));
-    }
-    return chain;*/
     return create_upload_promise(filepath, filename, filetype, user_id, item_id);
 }
 
@@ -174,6 +147,8 @@ function upload_image(filepath, filename, filetype, user_id, item_id) {
 Public functions
 */
 
+// Function to add new artifact to the database
+// Returns the JSON of the new entry
 function add_new_artifact(json) {
     var artifact = Artifact.new(json);
     return new Promise(function(resolve, reject) {
@@ -184,6 +159,8 @@ function add_new_artifact(json) {
     });
 }
 
+// Function to update the entry for an artifact in the database
+// Returns the JSON of the updated entry
 function update_artifact(json) {
     var artifact = Artifact.updated(json);
     return new Promise(function(resolve, reject) {
@@ -198,6 +175,8 @@ function update_artifact(json) {
     });
 }
 
+// Function to fetch an array containing all artifacts in the database
+// (each in JSON form)
 function fetch_all_artifacts() {
     return new Promise(function(resolve, reject) {
         fetch(ARTIFACTS).then(artifacts_snapshot => {
@@ -210,6 +189,8 @@ function fetch_all_artifacts() {
     });
 }
 
+// Function to fetch the entry for an artifact in the database
+// Returns the JSON of the entry
 function fetch_artifact(id) {
     return new Promise(function(resolve, reject) {
         fetch(ARTIFACTS + "/" + id).then(snapshot_val => {
@@ -219,6 +200,9 @@ function fetch_artifact(id) {
     });
 }
 
+// Creates a user entry in Firebase Authentication, then upon success,
+// creates an entry for the user in the Realtime database, then finally
+// returns the JSON entry for the user
 function signup_new_user(json) {
     return new Promise(function(resolve, reject) {
         var user = User.create(json);
@@ -234,17 +218,14 @@ function signup_new_user(json) {
     });
 }
 
+// Creates a cookie for the user, given a provided idToken
 function create_session_cookie(idToken) {
     return new Promise(function(resolve, reject) {
         // Set session expiration to 14 days.
         const expiresIn = 60 * 60 * 24 * 14 * 1000;
         // Create the session cookie. This will also verify the ID token in the process.
-        // The session cookie will have the same claims as the ID token.
-        // To only allow session cookie setting on recent sign-in, auth_time in ID token
-        // can be checked to ensure user was recently signed in before creating a session cookie.
         admin.auth().createSessionCookie(idToken, {expiresIn}).then((sessionCookie) => {
             // Set cookie policy for session cookie.
-            console.log("Session cookie: " + sessionCookie);
             const options = {maxAge: expiresIn, httpOnly: false, secure: false };
             const data = {
                 cookie: sessionCookie,
@@ -259,11 +240,11 @@ function create_session_cookie(idToken) {
 }
 
 // Function to verify the session cookie of the HTTP request is valid
+// Asynchronously returns the id of the user if their cookie is valid
 function verify_session_cookie(req) {
     return new Promise(function(resolve, reject) {
         var sessionCookie = req.cookies ? (req.cookies.session || '') : '';
-        // Verify the session cookie. In this case an additional check is added to detect
-        // if the user's Firebase session was revoked, user deleted/disabled, etc.
+        // Verify the session cookie
         admin.auth().verifySessionCookie(
             sessionCookie, true /** checkRevoked */)
             .then((decodedClaims) => {

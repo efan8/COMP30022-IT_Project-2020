@@ -601,6 +601,7 @@ For Add/Edit Item */
             line-height : 20px;
             max-width: 100%;
             overflow-wrap: anywhere;
+            text-decoration: none;
         }
     }
 
@@ -642,6 +643,7 @@ For Add/Edit Item */
               line-height : 20px;
               max-width: calc(100% - 200px);
               overflow-wrap: anywhere;
+              text-decoration: none;
           }
     }
 

@@ -1,5 +1,5 @@
 /* Add Item form to allow user to input a new item. Currently users can
-   input a name, description, tags, collection, location and origin date. 
+   input a name, description, tags, collection, location and origin date.
    The data is then sent to the backend */
 
 import React from 'react';
@@ -116,6 +116,7 @@ class AddItem extends React.Component {
 
     // Final form submit button which sends infomation to backend
     onSubmit() {
+        // Login button and its loading spinner indicator
         let btn = document.getElementById("add-item-submit-btn");
         let spinner = document.getElementById("add-item-btn-spinner");
         console.log("submitting");

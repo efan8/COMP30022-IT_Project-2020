@@ -26,6 +26,7 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
+        // Login button and its loading spinner indicator
         let btn = document.getElementById("login-form-btn");
         let spinner = document.getElementById("login-btn-spinner");
 

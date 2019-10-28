@@ -1,3 +1,11 @@
+/*
+auth.js
+
+Contains wrapper functions to call the backend (specifically to do
+authentication operations with Firebase), through the functions
+provided by auth.js
+*/
+
 import { get, put, post, clear_cookies } from "../HTTP/http";
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -63,6 +71,8 @@ export function logout() {
     });
 }
 
+// Asynchronous function returning a boolean flag as to whether the user is
+// still logged in (based on whether their browser cookie is still valid)
 export function check_login_status() {
     return new Promise(function(resolve, reject) {
         get(LOGIN_STATUS).then(res => {
