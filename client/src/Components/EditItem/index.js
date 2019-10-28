@@ -1,3 +1,5 @@
+/* Handles the logic for Editing an already established item */
+
 import React from 'react';
 import AddItemComponent from '../AddItem/AddItemComponent';
 import { maxPossibleFiles } from '../../Constants/validation'
@@ -8,7 +10,15 @@ class EditItem extends React.Component {
 
     constructor(props){
         super(props);
+
         this.state = {};
+        this.state.imageModified = false;
+        this.state.results = {};
+        this.state.selectedFile = null;
+        this.state.itemLoaded = false;
+        this.state.submitting = false;
+        this.state.files = ["1"];
+
         this.dateChange = this.dateChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
@@ -18,13 +28,6 @@ class EditItem extends React.Component {
         this.getDataList = this.getDataList.bind(this);
         this.getLocation = this.getLocation.bind(this);
         this.deleteTag = this.deleteTag.bind(this);
-
-        this.state.imageModified = false;
-        this.state.results = {};
-        this.state.selectedFile = null;
-        this.state.itemLoaded = false;
-        this.state.submitting = false;
-        this.state.files = ["1"];
     }
 
     // date picker needs its onChange since it doesn't send an event like everything else
@@ -35,6 +38,7 @@ class EditItem extends React.Component {
         console.log(this.state)
     }
 
+    // Grab the data of the already established artifact from the database
     componentDidMount() {
         let itemId = this.props.location.aboutProps?
             this.props.location.aboutProps.id : "";
@@ -53,11 +57,8 @@ class EditItem extends React.Component {
 
     // Handles updates to form values
     handleChange(event){
-        console.log(event)
         const {name, value, files} = event.target;
         if(name === "choice"){
-            console.log("location" + value)
-            console.log(this.state.results[value - 1])
             this.setState(
                 {"originLocation": {
                     "lat": this.state.results[value - 1].lat,
@@ -80,10 +81,10 @@ class EditItem extends React.Component {
                 {[name]: value}
             );
         }
-
         console.log(this.state)
     };
 
+    // Validate image uploads
     handleImageUpload(e) {
         this.setState({imageModified: true});
         if(maxPossibleFiles(e)){
@@ -149,19 +150,18 @@ class EditItem extends React.Component {
             spinner.style.display = "inline-block";
             btn.innerText = '';
             btn.disabled = true;
-
             this.state.submitting = true;
-            let body = JSON.stringify(this.state);
+
+            // Convert to unix time
             let unix = this.state.originDate.getTime();
             this.setState({
                 "originDate": unix
             })
-            var item = this.state;
 
-            console.log(body);
-            console.log(this.state);
-            put(`artifacts`,
-                this.state)
+            // Send the item information to the database
+            var item = this.state;
+            put(`artifacts`, this.state)
+            // Create database entry
             .then(res => {
                 var artifact = res.data.data;
                 var item_id = artifact.id;
@@ -169,6 +169,8 @@ class EditItem extends React.Component {
                 item.id = item_id;
                 console.log(res);
                 console.log(res.data);
+
+                // Upload image to database if its changed
                 if (this.state.imageModified) {
                     upload_images(this.state.files, item_id).then(image_urls => {
                         console.log("Uploaded images for this artifact");
@@ -215,6 +217,7 @@ class EditItem extends React.Component {
         )
     }
 
+    // Grabs the location string so user know what loaction was previously entered.
     async getLocation(){
         console.log(this.state.originLocation)
         const {lat, long} = this.state.originLocation
@@ -227,11 +230,15 @@ class EditItem extends React.Component {
         })
     }
 
+    // Creates the visual aspect of Edit Item
     render() {
+        // Checks to see if the required infomation has been inputted.
         const isEnabled = this.state.itemLoaded && !this.state.submitting && this.state.name.length > 0 && this.state.description.length > 0;
         if(this.state.files.length == 0){
             this.state.files = ["1"];
         }
+
+        // Passes information to the AddItemComponent
         return(
             <div>
                 <h1 className="title">Edit Item</h1>
@@ -246,7 +253,7 @@ class EditItem extends React.Component {
                     deleteTag={this.deleteTag}
                     dateChange={this.dateChange}
                     isEnabled={isEnabled}
-                >Edit Item </AddItemComponent>
+                />
             </div>
         )
     }

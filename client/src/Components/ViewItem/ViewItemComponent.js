@@ -1,9 +1,11 @@
+/* Displays all the information about the item when the user clicks on the
+   item in the Welcome page or completes the add item form.*/
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import load from '../../load.gif';
 
 function ViewItemComponent(props){
-
     if (!props.state.item) return (
         <div className = "center" >
             <img className = "load" src={load} alt="loading..." />
@@ -19,7 +21,7 @@ function ViewItemComponent(props){
         })
     }
     console.log(keys)
-    // Generates the tag buttons from the list of tags
+    // Generates the tag buttons from the list of tags and allows you to navigate to the tag view
     const tagComponents = keys.map(key => <div><NavLink className="tagBox" to={{
         pathname:"/ViewTag",
         aboutProps:{
@@ -27,23 +29,21 @@ function ViewItemComponent(props){
         }
     }} >{key}</NavLink>
     <br></br></div>)
-
-
-    const {originLocation} = props.state.item;
-    const {lat, long} = originLocation ? originLocation : "";
-    console.log(lat, long);
-
-
+    // Take the date and change it to a string
     let dateObj = new Date(props.state.item.originDate);
-
 
     return(
         <div className="solid-page-container-with-margin">
+            {/* Display the image if there is one*/}
             <span className="item-image-container">
                 <img src={props.state.item.imageURLs ? props.state.item.imageURLs[0] : ""} alt="" className="item-image"/>
             </span>
+
+            {/* Display the image name */}
             <h1 className="view-item-title">{props.state.item.name}</h1>
             <br></br>
+
+            {/* The edit item button that will take you to edit item */}
             <NavLink className="editItem" to={{
                 pathname:"/EditItem",
                 aboutProps:{
@@ -55,16 +55,19 @@ function ViewItemComponent(props){
                 </svg>
                 <span>Edit item</span>
             </NavLink>
+
             <br></br>
             <br></br>
+
+            {/* Display the description */}
             <h3>Description:</h3>
             <p className="view-item-text-container">{props.state.item.description}</p>
 
-
+            {/* Shows the tags and navigates to tag view if clicked */}
             <h3>Tags:</h3>
             {tagComponents}
 
-
+            {/* Shows the date as a string */}
             <h3>Origin Date:</h3>
             <p className="view-item-text-container">{dateObj.toString()}</p>
 
