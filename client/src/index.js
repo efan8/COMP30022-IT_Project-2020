@@ -15,7 +15,6 @@ import Login from './Components/Login';
 import Error from './Components/Error';
 import Navigation from './Components/NavigationBar';
 import EditItem from './Components/EditItem';
-import Test from './Components/Test';
 import ViewTag from './Components/ViewTag';
 
 class App extends React.Component {
@@ -35,7 +34,6 @@ class App extends React.Component {
                             <Route path="/Login" component={Login}/>
                             <Route path="/ItemBlockTest" component={ItemBlock}/>
                             <Route path="/EditItem" component={EditItem}/>
-                            <Route path="/Test" component={Test}/>
                             <Route path="/ViewTag" component={ViewTag}/>
                             <Route component={Error}/>
                         </Switch>
