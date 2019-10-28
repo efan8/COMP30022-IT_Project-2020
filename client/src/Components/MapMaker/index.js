@@ -1,3 +1,5 @@
+/* Uses ol (open layers) to display a map so the user can visually see a location*/
+
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -11,27 +13,24 @@ import Point from 'ol/geom/Point';
 import React from 'react';
 import '../../style.css';
 
-
+// Makes the map
 function MapMaker(props) {
     console.log(props);
-
     let conversion = [0,0];
 
+    // Converts Lat and long to the format ol maps needs
     if(props.location){
-        console.log("HELLO " + props.location)
-        console.log(props.location)
         const longlat = [Number(props.location.long), Number(props.location.lat)]
         conversion = fromLonLat(longlat)
         console.log(conversion)
 
     };
 
+    // Creates a circle and point
     let circle = new Circle(conversion, 300000);
     let point = new Point(conversion);
     let pointFeature = new Feature(point);
     let circleFeature = new Feature(circle);
-
-
 
     // Source and vector layer
     let vectorSource = new Vector({
@@ -40,10 +39,11 @@ function MapMaker(props) {
     });
 
     console.log(vectorSource);
-
     let vectorLayer = new VectorLayer({
         source: vectorSource
     })
+
+    // The maps values
     new Map({
         target: "map",
         layers: [
@@ -60,12 +60,10 @@ function MapMaker(props) {
         })
     });
 
-
+    // The map component returned by the function
     return(
         <div id="map" className="map"></div>
     );
-
-
 }
 
 export default MapMaker;
