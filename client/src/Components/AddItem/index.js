@@ -1,6 +1,6 @@
 /* Add Item form to allow user to input a new item. Currently users can
-   input a name, description, tags, collection, location (in coordindates)
-   and origin date. Majority of this data is sent to backend correctly */
+   input a name, description, tags, collection, location and origin date. 
+   The data is then sent to the backend */
 
 import React from 'react';
 import '../../style.css';
@@ -12,7 +12,6 @@ import AddItemComponent from './AddItemComponent';
 import { put } from '../HTTP/http';
 import { upload_images } from '../Image/image';
 
-
 class AddItem extends React.Component {
 
     constructor() {
@@ -20,6 +19,7 @@ class AddItem extends React.Component {
 
         this.state = blank_item;
         this.state.submitting = false;
+
         this.dateChange = this.dateChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
@@ -30,7 +30,6 @@ class AddItem extends React.Component {
         this.deleteTag = this.deleteTag.bind(this);
 
     };
-
 
     // date picker needs its onChange since it doesn't send an event like everything else
     dateChange(date){
@@ -68,10 +67,10 @@ class AddItem extends React.Component {
                 {[name]: value}
             );
         }
-
         console.log(this.state)
     };
 
+    // Validate image uploads
     handleImageUpload(e) {
         if(maxPossibleFiles(e)){
             this.setState({ files: e.target.files });
@@ -101,7 +100,6 @@ class AddItem extends React.Component {
                 {"currentTypedTag": ""}
             )
         }
-
     }
 
     // "Deletes" tag when the tag is clicked. Just sets it to false
@@ -126,6 +124,7 @@ class AddItem extends React.Component {
         btn.innerText = '';
         btn.disabled = true;
 
+        // Set to default location if none is entered
         this.state.submitting = true;
         if(this.state.originLocation.lat === null){
             this.state.originLocation = default_location;
@@ -143,6 +142,7 @@ class AddItem extends React.Component {
             console.log(body);
             console.log(this.state);
 
+            // Uploads artifact (item) to the database by first making an entry
             put('artifacts', this.state).then(res => {
                 var artifact = res.data.data;
                 var item_id = artifact.id;
@@ -150,7 +150,9 @@ class AddItem extends React.Component {
                 item.id = item_id;
                 item.ownerID = artifact.ownerID;
                 return upload_images(this.state.files, item_id);
-            }).then(image_urls => {
+            })
+            // Uploads the image of the artifact then navigates to the welcome page
+            .then(image_urls => {
                 console.log("Uploaded images for this artifact");
                 item.imageURLs = image_urls;
                 return put('artifacts', item);
@@ -184,13 +186,18 @@ class AddItem extends React.Component {
         )
     }
 
+    // Creates the visual aspect of Add Item
     render() {
         check_login_status().then(is_logged_in => {
             if(!is_logged_in) {
                 window.location = "/LandingPage";
             }
         });
+
+        // Used to see if the input requirements are met. If so submit button is enabled.
         const isEnabled = this.state.name.length > 0 && this.state.files && this.state.files.length > 0 && this.state.description.length > 0 && !this.state.submitting;
+
+        // Passes information to the AddItemComponent
         return(
             <div>
                 <h1 className="title">Add Item</h1>
@@ -207,9 +214,7 @@ class AddItem extends React.Component {
                     isEnabled={isEnabled}
                 />
             </div>
-
         );
-
     };
 };
 
