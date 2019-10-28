@@ -9,6 +9,8 @@ function Login(props) {
             <form onSubmit={props.handleSubmit}>
                 {props.state.output}
                 <label for="email">Email: </label>
+
+                {/* Input box for email */}
                 <input
                     type="email"
                     id="email"
@@ -16,12 +18,16 @@ function Login(props) {
                     onChange={props.handleChange}
                 />
                 <label for="password">Password: </label>
+
+                {/* Input box for the password */}
                 <input
                     type="password"
                     id="password"
                     name="password"
                     onChange={props.handleChange}
                 />
+
+                {/* Lower section for the button */}
                 <div id="lower">
                     <div className="wrap-form-btn">
                         <input id="login-form-btn" type="submit" value="Sign in"/>

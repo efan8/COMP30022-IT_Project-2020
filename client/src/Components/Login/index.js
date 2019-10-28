@@ -53,6 +53,7 @@ class Login extends React.Component {
         event.preventDefault();
     }
 
+    //Creates the visual aspect of Login
     render() {
         return(
             <LoginComponent

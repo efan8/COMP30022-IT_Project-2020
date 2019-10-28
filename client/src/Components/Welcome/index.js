@@ -87,7 +87,7 @@ class Welcome extends React.Component{
             {selectedOption: event.target[event.target.selectedIndex].value});
     }
 
-
+    //Visual aspect of Welcome
     render() {
 
         //If user isnt logged in and tries to access page it sends them to 

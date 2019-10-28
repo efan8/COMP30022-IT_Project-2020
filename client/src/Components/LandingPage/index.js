@@ -53,11 +53,15 @@ class LandingPage extends React.Component {
                 <div id="containerLand">
                     <h1 className="landing-title">Welcome!</h1>
                     <br></br>
+
+                    {/* Button that takes user to signin */}
                     <button
                         className="landButton"
                         onClick={this.logChange}
                     >Sign in</button>
                     <br></br>
+
+                    {/* Button that takes user to signup */}
                     <button
                     className="landButton"
                         onClick={this.signChange}

@@ -50,6 +50,7 @@ class ViewTag extends React.Component {
             { selectedOption: event.target[event.target.selectedIndex].value });
     }
 
+    //Visual aspect of ViewTag
     render() {
         return (
             <ViewTagComponent
