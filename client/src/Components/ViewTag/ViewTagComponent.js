@@ -1,39 +1,41 @@
+/* What is shown to the user when they access ViewTag */
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import load from '../../Resources/load.gif';
 
-function ViewTagComponent(props){
+function ViewTagComponent(props) {
 
-    
+    //Displaying a loading screen if page not yet loaded
     if (!props.state.item.data) return (
-        <div className = "center" >
-            <img className = "load" src={load} alt="loading..." />
+        <div className="center" >
+            <img className="load" src={load} alt="loading..." />
         </div>
     )
-    
-    //To capitalise a string
-    function capitalise(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
 
+    //Making information in props easier to access with shortened names
     let data = props.state.item.data;
     let search = props.state.search;
     let tag = props.state.tag.toLowerCase();
 
-    //Sorting of items
+    //Sorting of items dependent on selected sort
     function sortData(sortType) {
-        switch(sortType) {
+        switch (sortType) {
             case "default":
                 window.location = "/Welcome";
                 break;
+
+            //Sorts alphabetically A-Z
             case "nameDesc":
-                data.sort(function(a, b) {
+                data.sort(function (a, b) {
                     var orderBool = a.name.toLowerCase() > b.name.toLowerCase();
                     return orderBool ? 1 : -1;
                 });
                 break;
+
+            //Sorts alphabetically Z-A
             case "nameAsc":
-                data.sort(function(a, b) {
+                data.sort(function (a, b) {
                     var orderBool = a.name.toLowerCase() < b.name.toLowerCase();
                     return orderBool ? 1 : -1;
                 });
@@ -42,14 +44,16 @@ function ViewTagComponent(props){
                 break;
         }
     }
+
+    //Runs the sort function on the data based on selected sort
     sortData(props.state.selectedOption);
 
     //Creates an array of all items needing to be displayed and puts them
     //into a list of items
     let items = [];
-    for(let i = 0; i<data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         let tags = [];
-        for(let k in data[i].tags) tags.push(k.toLowerCase());
+        for (let k in data[i].tags) tags.push(k.toLowerCase());
         tags = tags.join();
         if (tags.includes(tag)) {
             if (search === "" | data[i].name.toLowerCase().includes(search)
@@ -57,21 +61,22 @@ function ViewTagComponent(props){
                 | tags.includes(search)) {
                 items.push(
                     <NavLink id="containerGrid" to={{
-                        pathname:"/ViewItem",
-                        aboutProps:{
-                            id:`${data[i].id}`
+                        pathname: "/ViewItem",
+                        aboutProps: {
+                            id: `${data[i].id}`
                         }
                     }}>
-                        <span className= "toText">{data[i].name}</span>
-                        <div className = "thumbnail">
+                        <span className="toText">{data[i].name}</span>
+                        <div className="thumbnail">
                             <img
-                                src={ data[i].imageURLs ? data[i].imageURLs[0] : ""}
-                                alt="" className="smallImage"/>
+                                src={data[i].imageURLs ? 
+                                        data[i].imageURLs[0] : ""}
+                                alt="" className="smallImage" />
                         </div>
                         <p className="grid-text">
-                        {data[i].description.length > 400 ? 
-                            data[i].description.slice(0,400)+ ".." 
-                            : data[i].description}</p>
+                            {data[i].description.length > 400 ?
+                                data[i].description.slice(0, 400) + ".."
+                                : data[i].description}</p>
                     </NavLink>
 
                 );
@@ -80,7 +85,7 @@ function ViewTagComponent(props){
     }
 
 
-    return(
+    return (
         <div className="clear-page-container" onClick={props.closeNavMenu}>
             <div className="search-box">
                 <div className="search-icon">
@@ -99,17 +104,17 @@ function ViewTagComponent(props){
             </div>
             <p class="sort-selector-section"> Sort by:
             <div className="sort-selector-container">
-            <select className="sort-selector" onChange={props.handleSelectChange} name="sort">
-                <option value="default">--------------</option>
-                <option value="nameDesc">Name A-Z</option>
-                <option value="nameAsc">Name Z-A</option>
-            </select>
-            </div>
+                    <select className="sort-selector" onChange={props.handleSelectChange} name="sort">
+                        <option value="default">--------------</option>
+                        <option value="nameDesc">Name A-Z</option>
+                        <option value="nameAsc">Name Z-A</option>
+                    </select>
+                </div>
             </p>
             <div id="center">
-            <grid className = "gridDisplay">
-                <React.Fragment>{items}</React.Fragment>
-            </grid>
+                <grid className="gridDisplay">
+                    <React.Fragment>{items}</React.Fragment>
+                </grid>
             </div>
         </div>
     );

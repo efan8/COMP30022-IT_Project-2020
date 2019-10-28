@@ -1,34 +1,41 @@
+/* What is shown to the user when they access the Welcome Page */
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import load from '../../Resources/load.gif';
 import placeholderImg from "../../Resources/box.png";
 
-function WelcomeComponent(props){
+function WelcomeComponent(props) {
 
-
+    //If items not loaded it displays a loading page
     if (!props.state.item.data) return (
-        <div className = "center" >
-            <img className = "load" src={load} alt="loading..." />
+        <div className="center" >
+            <img className="load" src={load} alt="loading..." />
         </div>
     )
 
+    //Shorthand for information stored in props
     let data = props.state.item.data;
     let search = props.state.search;
 
     //Sorting of items
     function sortData(sortType) {
-        switch(sortType) {
+        switch (sortType) {
             case "default":
                 window.location = "/Welcome";
                 break;
+
+            //Sorts alphabetically A-Z
             case "nameDesc":
-                data.sort(function(a, b) {
+                data.sort(function (a, b) {
                     var orderBool = a.name.toLowerCase() > b.name.toLowerCase();
                     return orderBool ? 1 : -1;
                 });
                 break;
+
+            //Sorts alphabetically Z-A
             case "nameAsc":
-                data.sort(function(a, b) {
+                data.sort(function (a, b) {
                     var orderBool = a.name.toLowerCase() < b.name.toLowerCase();
                     return orderBool ? 1 : -1;
                 });
@@ -37,6 +44,8 @@ function WelcomeComponent(props){
                 break;
         }
     }
+
+    //Runs the sort function on the data based on selected sort
     sortData(props.state.selectedOption);
 
     //Creates an array of all items needing to be displayed and puts them
@@ -45,30 +54,30 @@ function WelcomeComponent(props){
     var placeholder = [];
 
     if (data.length > 0) {
-        for(let i = 0; i<data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let tags = [];
-            for(let k in data[i].tags) tags.push(k.toLowerCase());
+            for (let k in data[i].tags) tags.push(k.toLowerCase());
             tags = tags.join();
             if (search === "" | data[i].name.toLowerCase().includes(search)
                 | data[i].description.toLowerCase().includes(search)
                 | tags.includes(search)) {
                 items.push(
                     <NavLink id="containerGrid" to={{
-                        pathname:"/ViewItem",
-                        aboutProps:{
-                            id:`${data[i].id}`
+                        pathname: "/ViewItem",
+                        aboutProps: {
+                            id: `${data[i].id}`
                         }
                     }}>
-                        <span className= "toText">{data[i].name}</span>
-                        <div className = "thumbnail">
+                        <span className="toText">{data[i].name}</span>
+                        <div className="thumbnail">
                             <img
-                                src={ data[i].imageURLs ? data[i].imageURLs[0] : ""}
-                                alt="" className="smallImage"/>
+                                src={data[i].imageURLs ? data[i].imageURLs[0] : ""}
+                                alt="" className="smallImage" />
                         </div>
                         <p className="grid-text">
-                        {data[i].description.length > 400 ?
-                            data[i].description.slice(0,400)+ ".."
-                            : data[i].description}</p>
+                            {data[i].description.length > 400 ?
+                                data[i].description.slice(0, 400) + ".."
+                                : data[i].description}</p>
                     </NavLink>
 
                 );
@@ -77,7 +86,7 @@ function WelcomeComponent(props){
     }
 
     else {
-        // No items
+        //What is displayed if user has no items
         placeholder.push(
             <div id="items-grid-placeholder">
                 <img className="placeholder-img" src={placeholderImg}></img>
@@ -86,7 +95,7 @@ function WelcomeComponent(props){
         );
     }
 
-    return(
+    return (
         <div className="clear-page-container" onClick={props.closeNavMenu}>
             <div className="search-box">
                 <div className="search-icon">
@@ -105,18 +114,18 @@ function WelcomeComponent(props){
             </div>
             <p className="sort-selector-section"> Sort by:
             <div className="sort-selector-container">
-            <select className="sort-selector" onChange={props.handleSelectChange} name="sort">
-                <option value="default">--------------</option>
-                <option value="nameDesc">Name A-Z</option>
-                <option value="nameAsc">Name Z-A</option>
-            </select>
-            </div>
+                    <select className="sort-selector" onChange={props.handleSelectChange} name="sort">
+                        <option value="default">--------------</option>
+                        <option value="nameDesc">Name A-Z</option>
+                        <option value="nameAsc">Name Z-A</option>
+                    </select>
+                </div>
             </p>
             <div id="center">
                 <React.Fragment>{placeholder}</React.Fragment>
-            <grid className = "gridDisplay">
-                <React.Fragment>{items}</React.Fragment>
-            </grid>
+                <grid className="gridDisplay">
+                    <React.Fragment>{items}</React.Fragment>
+                </grid>
             </div>
         </div>
     );

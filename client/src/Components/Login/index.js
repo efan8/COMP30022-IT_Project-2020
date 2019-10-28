@@ -18,14 +18,13 @@ class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
-
+    //Changes email and password in state as user types in their details
     handleChange(event) {
         let name = event.target.name;
         let value = event.target.value;
         this.setState({[name]: value});
     }
 
-    // Updates state as soon as anything is typed into the input boxes
     handleSubmit(event) {
         let btn = document.getElementById("login-form-btn");
         let spinner = document.getElementById("login-btn-spinner");
