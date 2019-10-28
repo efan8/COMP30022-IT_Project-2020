@@ -5,8 +5,8 @@ Currently using:
     localhost:3001/api
 As the expected location for all http requests
 
-Each http request is verified using cookies to restrict
-access to the database
+Each http request is verified using cookies and any response by the backend 
+will filter results to prevent access to unauthorized items 
 */
 
 const express = require('express');
@@ -22,8 +22,8 @@ const Firebase = require('./firebase.js');
 var cors = require('cors');
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
+    origin: 'http://localhost:3000',
+    credentials: true
 }));
 
 app.use(body_parser.urlencoded({ extended: false }));
@@ -40,11 +40,12 @@ The endpoints for artifacts requests -  GET/artifacts, PUT/artifacts
 // put method - creating or editing item in database depending on if 
 // there is an id in the item
 router.put('/artifacts', (req,res) => {
-    Firebase.verify_session_cookie(req).then(verified_user_id => {
+    Firebase.verify_session_cookie(req)
+    .then(verified_user_id => {
         if (verified_user_id) {
             // Input an artifact - using firebase.js
             const {id, name, description, ownerID } = req.body;
-            console.log("Received a PUT request");
+
             if(!name || !description) {
                 console.log('invalid input received');
                 res.json({
@@ -57,17 +58,19 @@ router.put('/artifacts', (req,res) => {
                 // update ownerID for this item - to be stored in database
                 req.body.ownerID = verified_user_id;
                 Firebase.add_new_artifact(req.body)
-                        .then(updated_artifact_json => {
-                            res.json({
-                            success: true,
-                            data: updated_artifact_json});
+                .then(updated_artifact_json => {
+                    res.json({
+                    success: true,
+                    data: updated_artifact_json});
                 });
             }
             else {
                 var permission = false;
                 console.log("editing");
-                Firebase.fetch_artifact(id).then(artifact_json => {
+                Firebase.fetch_artifact(id)
+                .then(artifact_json => {
                 // check that ownerID of item matches the user from cookie
+                // if so then update item
                     const {ownerID = "N/A" } = artifact_json;             
                     if(verified_user_id === ownerID) {
                         permission = true;
@@ -87,9 +90,7 @@ router.put('/artifacts', (req,res) => {
                             data: "Access Denied"
                         });
                     }
-                });
-                
-
+                });            
             }
         }
         else {
@@ -102,16 +103,17 @@ router.put('/artifacts', (req,res) => {
 
 // the get method for viewing items in the database
 router.get('/artifacts', (req, res) => {
-    Firebase.verify_session_cookie(req).then(verified_user_id => {
+    Firebase.verify_session_cookie(req)
+    .then(verified_user_id => {
         if (verified_user_id) {
             console.log("Valid cookie from:" + verified_user_id);
             const item_id = req.query.item_id;
             if(!item_id) {
                 console.log("Getting everything for this user: "
                                 + verified_user_id);
-                
                 // GET all items for this user
-                Firebase.fetch_all_artifacts().then( artifacts_json => {
+                Firebase.fetch_all_artifacts()
+                .then( artifacts_json => {
                     const payload = artifacts_json
                     .filter(artifact => artifact.ownerID === verified_user_id);
                         res.json({
@@ -120,12 +122,14 @@ router.get('/artifacts', (req, res) => {
                 });
             }
             else {
-                Firebase.fetch_artifact(item_id).then(artifact_json => {
+                // fetch this item from the database and send it to the
+                // frontend if the logged in user is the item owner
+                Firebase.fetch_artifact(item_id)
+                .then(artifact_json => {
                     console.log('Getting: ' + item_id);
                     const {ownerID = "" } = artifact_json;
                     var payload = "Access Denied";
                     var result = false;
-                    console.log(ownerID)
                     if(verified_user_id === ownerID) {
                         payload = artifact_json;
                         result = true;
@@ -162,7 +166,8 @@ router.put('/signup', (req,res) => {
         });
     }
     else {
-        Firebase.signup_new_user(req.body).then(user_json => {
+        Firebase.signup_new_user(req.body)
+        .then(user_json => {
             console.log('Created user: ' + user_json.id);
             res.json({
                 success: true,
@@ -177,8 +182,8 @@ router.post('/login', (req,res) => {
     // Get the ID token passed and the CSRF token.
     const idToken = req.body.idToken.toString();
 
-    Firebase.create_session_cookie(idToken).then(data => {
-        console.log("setting cookie: " + data.cookie);
+    Firebase.create_session_cookie(idToken)
+    .then(data => {
         res.cookie('session', data.cookie, data.options);
         res.status(200).end();
     }).catch(error => {
@@ -188,7 +193,8 @@ router.post('/login', (req,res) => {
 
 // get method for the frontend to check the current status of the user
 router.get('/login_status', (req,res) => {
-    Firebase.verify_session_cookie(req).then(verified_user_id => {
+    Firebase.verify_session_cookie(req)
+    .then(verified_user_id => {
         if (verified_user_id) {
             res.status(200).send("User is logged in");
         }
@@ -203,7 +209,8 @@ The endpoints for image upload
 */
 
 router.post('/upload_image', (req,res) => {
-    Firebase.verify_session_cookie(req).then(verified_user_id => {
+    Firebase.verify_session_cookie(req)
+    .then(verified_user_id => {
         if (verified_user_id) {
             new formidable.IncomingForm().parse(req, (err, fields, files) => {
                 if (err) {
@@ -218,7 +225,8 @@ router.post('/upload_image', (req,res) => {
                                                     verified_user_id, item_id)
                 .then(url => {
                     res.status(200).send(url);
-                }).catch(error => {
+                })
+                .catch(error => {
                     res.status(400).send("Internal error");
                 });
             });
@@ -245,5 +253,3 @@ app.use(function (req, res, next) {
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
-
-
