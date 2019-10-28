@@ -19,14 +19,13 @@ class ViewItem extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
     };
 
-
-    // will put a fetch comand in to get data from api
-    // Currently using a local json file.
+    // Loads the items infomation from the data base
     componentDidMount() {
-        let itemId = this.props.location.aboutProps?
+        let itemId = this.props.location.aboutProps ?
             this.props.location.aboutProps.id : "";
         console.log("Item ID: " + itemId);
         this.setState({loading: true});
+
         get(`artifacts?item_id=${itemId}`)
         .then(res => {
             this.setState({
@@ -38,8 +37,8 @@ class ViewItem extends React.Component {
         console.log(this.state.item ? this.state.item.id : "no");
     }
 
+    // Sends the infomation to create a map and also the visual aspect of view item.
     render() {
-        // update map
         if(this.state.item.originLocation){
             this.map = <MapMaker location={this.state.item.originLocation}/>
         }
