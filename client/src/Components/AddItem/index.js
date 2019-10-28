@@ -131,6 +131,7 @@ class AddItem extends React.Component {
             console.log(this.state.originLocation);
         }
 
+        // Convert time to unix
         let body = JSON.stringify(this.state);
         let unix = this.state.originDate.getTime();
 
